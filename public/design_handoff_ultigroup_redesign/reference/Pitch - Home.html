@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ULTI GROUP — Palletten op maat, geleverd op afroep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="pitch.css" />
+  <style>
+    /* ── HERO ── */
+    .hero {
+      padding: 0 var(--pad-x);
+      padding-top: calc(var(--nav-h) + 56px);
+      padding-bottom: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 64px;
+      align-items: stretch;
+      min-height: calc(100vh - var(--nav-h) - 56px);
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-bottom: 80px;
+      gap: 32px;
+      position: relative;
+    }
+    .hero-title { letter-spacing: -0.04em; }
+    .hero-title .row { display: block; }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .hero-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      padding-top: 32px;
+      margin-top: 8px;
+      border-top: 1px solid var(--line);
+      max-width: 600px;
+    }
+    .hero-meta-item .lbl {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .hero-meta-item .val {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .hero-photo {
+      position: relative;
+      align-self: stretch;
+      overflow: hidden;
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-photo-tag {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      background: var(--paper);
+      padding: 14px 18px 16px;
+      max-width: 240px;
+      border-left: 3px solid var(--blue);
+    }
+    .hero-photo-tag .lbl {
+      font-family: var(--body);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      font-weight: 600;
+    }
+    .hero-photo-tag .val {
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 4px;
+      line-height: 1.2;
+    }
+
+    .hero-mark {
+      position: absolute;
+      top: 24px;
+      left: 0;
+      font-family: var(--body);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      font-weight: 600;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .hero-mark::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--line-2);
+    }
+
+    /* ── STATS BAND ── */
+    .stats-band {
+      background: var(--ink);
+      color: var(--paper);
+      padding: clamp(56px, 8vw, 96px) var(--pad-x);
+    }
+    .stats-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .stat {
+      padding: 0 40px;
+      border-left: 1px solid rgba(255,255,255,0.12);
+    }
+    .stat:first-child { padding-left: 0; border-left: none; }
+    .stat-num {
+      font-family: var(--display);
+      font-size: clamp(48px, 6vw, 88px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--paper);
+    }
+    .stat-num .unit {
+      color: rgba(255,255,255,0.4);
+      font-weight: 600;
+    }
+    .stat-label {
+      font-family: var(--body);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      font-weight: 600;
+      margin-top: 24px;
+    }
+    .stat-body {
+      font-size: 15px;
+      color: rgba(255,255,255,0.8);
+      margin-top: 10px;
+      line-height: 1.5;
+      max-width: 28ch;
+    }
+
+    /* ── FULL-WIDTH PHOTO ── */
+    .full-photo {
+      position: relative;
+      height: 64vh;
+      min-height: 480px;
+      overflow: hidden;
+    }
+    .full-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .full-photo-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 50%, rgba(31,35,40,0.6) 100%);
+    }
+    .full-photo-caption {
+      position: absolute;
+      bottom: 48px;
+      left: var(--pad-x);
+      right: var(--pad-x);
+      max-width: var(--max);
+      margin: 0 auto;
+      color: var(--paper);
+    }
+    .full-photo-caption .eyebrow { color: rgba(255,255,255,0.85); }
+    .full-photo-caption .eyebrow::before { background: rgba(255,255,255,0.85); }
+    .full-photo-caption h2 {
+      font-family: var(--display);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-top: 16px;
+      max-width: 24ch;
+      line-height: 1.05;
+    }
+
+    /* ── HOE HET WERKT ── */
+    .hoe-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .hoe-intro h2 { margin: 18px 0 24px; max-width: 16ch; }
+    .hoe-photo {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .hoe-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .hoe-steps {
+      margin-top: 48px;
+    }
+    .hoe-step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 24px;
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+      align-items: start;
+    }
+    .hoe-step:last-child { border-bottom: 1px solid var(--line); }
+    .hoe-step-num {
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: 0.04em;
+    }
+    .hoe-step-title {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .hoe-step-body {
+      font-size: 15px;
+      color: var(--ink-2);
+      line-height: 1.6;
+      max-width: 44ch;
+    }
+
+    /* ── PRODUCTIE OP MAAT ── */
+    .prod-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .prod-left { }
+    .prod-left h2 { margin: 18px 0 20px; }
+    .prod-bullets {
+      list-style: none;
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .prod-bullet {
+      padding: 24px 0;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .prod-bullet:last-child { border-bottom: 1px solid var(--line); }
+    .prod-bullet-icon {
+      width: 24px; height: 24px;
+      color: var(--blue);
+      margin-top: 2px;
+    }
+    .prod-bullet h3 {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .prod-bullet p {
+      font-size: 14px;
+      color: var(--ink-2);
+      line-height: 1.55;
+    }
+
+    .prod-photo {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      background: var(--paper-2);
+    }
+    .prod-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .prod-photo-tag {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      background: var(--blue);
+      color: var(--paper);
+      padding: 12px 16px;
+      font-family: var(--body);
+    }
+    .prod-photo-tag .lbl {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      font-weight: 600;
+    }
+    .prod-photo-tag .val {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* ── STOCK & LEVERING ── */
+    .stock-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .stock-photo {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .stock-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── CTA DONKER ── */
+    .cta-dark {
+      background: var(--ink);
+      color: var(--paper);
+      padding: clamp(80px, 10vw, 140px) var(--pad-x);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 64px;
+      align-items: end;
+    }
+    .cta-dark h2 {
+      font-family: var(--display);
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      max-width: 18ch;
+    }
+    .cta-dark p { margin-top: 24px; color: rgba(255,255,255,0.7); }
+    .cta-right {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    /* ── KLANTEN STRIP ── */
+    .klanten {
+      background: var(--paper-2);
+      padding: 32px var(--pad-x);
+      border-top: 1px solid var(--line);
+    }
+    .klanten-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .klanten-text strong {
+      font-family: var(--display);
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 15px;
+    }
+    .klanten-text span {
+      color: var(--ink-3);
+      font-size: 14px;
+      margin-left: 6px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; min-height: auto; }
+      .hero-photo { aspect-ratio: 4/3; }
+      .hero-left { padding-bottom: 48px; }
+      .stats-grid { grid-template-columns: 1fr; gap: 40px; }
+      .stat { padding-left: 0; border-left: none; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 32px; }
+      .stat:first-child { border-top: none; padding-top: 0; }
+      .hoe-grid, .prod-grid, .stock-grid, .cta-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero-meta { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PITCH BANNER -->
+  <div class="pitch-banner">
+    <span class="dot"></span>
+    REDESIGN PITCH · v1.0
+    <span class="links">
+      <a href="Pitch - Home.html" class="active">Home</a>
+      <a href="Pitch - UltiApp.html">UltiApp</a>
+      <a href="Pitch - Over ons.html">Over ons</a>
+    </span>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="Pitch - Home.html" class="logo">
+        <span class="logo-mono">ug</span>
+        <span class="logo-text">ulti group.</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="Pitch - Home.html" class="active">Home</a></li>
+        <li><a href="Pitch - UltiApp.html">Klantenportaal</a></li>
+        <li><a href="Pitch - Over ons.html">Over ons</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <a href="#offerte" class="btn btn-primary">Offerte aanvragen</a>
+      <a href="Pitch - UltiApp.html" class="btn btn-outline">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+        Klanten login
+      </a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-mark">ULTI GROUP · KORTRIJK · BE</div>
+          <h1 class="hero-title h-hero reveal">
+            <span class="row ink">Palletten op maat,</span>
+            <span class="row blue">geleverd op afroep.</span>
+          </h1>
+          <p class="lead reveal reveal-d1">
+            ULTI GROUP produceert houten palletten op uw exacte specificaties, beheert uw voorraad en levert exact wanneer u het nodig heeft.
+          </p>
+          <div class="hero-actions reveal reveal-d2">
+            <a href="#offerte" class="btn btn-primary btn-lg">Offerte aanvragen →</a>
+            <a href="Pitch - UltiApp.html" class="btn btn-outline btn-lg">Bekijk klantenportaal</a>
+          </div>
+          <div class="hero-meta reveal reveal-d3">
+            <div class="hero-meta-item">
+              <div class="lbl">Productie</div>
+              <div class="val">100% op maat</div>
+            </div>
+            <div class="hero-meta-item">
+              <div class="lbl">Levertijd</div>
+              <div class="val">&lt; 24 uur</div>
+            </div>
+            <div class="hero-meta-item">
+              <div class="lbl">Locatie</div>
+              <div class="val">België</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-photo reveal reveal-d1">
+          <img src="assets/p1.jpg" alt="ULTI GROUP — palletten worden geladen in vrachtwagen" />
+          <div class="hero-photo-tag">
+            <div class="lbl">In productie</div>
+            <div class="val">Belgische maakindustrie sinds 2022</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS BAND -->
+    <section class="stats-band">
+      <div class="stats-grid">
+        <div class="stat reveal">
+          <div class="stat-num">&lt;<span class="unit">24</span>u</div>
+          <div class="stat-label">Levertijd</div>
+          <p class="stat-body">Vanaf afroep tot levering op uw kade — vanuit uw eigen beheerde voorraad.</p>
+        </div>
+        <div class="stat reveal reveal-d1">
+          <div class="stat-num">Live</div>
+          <div class="stat-label">Stockupdates</div>
+          <p class="stat-body">Realtime inzicht in uw beschikbare voorraad — 24/7 via het klantenportaal.</p>
+        </div>
+        <div class="stat reveal reveal-d2">
+          <div class="stat-num">BE</div>
+          <div class="stat-label">Belgische voorraad</div>
+          <p class="stat-body">Productie, opslag en opvolging volledig in eigen beheer. Geen tussenpartijen.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FULL-WIDTH PHOTO -->
+    <section class="full-photo">
+      <img src="assets/p2.jpg" alt="ULTI GROUP — grote stapels palletten klaar voor verzending" />
+      <div class="full-photo-overlay"></div>
+      <div class="full-photo-caption">
+        <div class="eyebrow">Klaar voor verzending</div>
+        <h2 class="reveal">Elk pallet — gemaakt voor uw productieproces, niet voor een catalogus.</h2>
+      </div>
+    </section>
+
+    <!-- HOE HET WERKT -->
+    <section class="section paper-2">
+      <div class="hoe-grid">
+        <div class="hoe-intro">
+          <div class="eyebrow reveal">Hoe het werkt</div>
+          <h2 class="h-section reveal reveal-d1">Van productie tot levering — zonder dat u eraan hoeft te denken.</h2>
+          <p class="lead reveal reveal-d2">Vier stappen, één partner. ULTI beheert het volledige proces — van de eerste maatopname tot de definitieve levering.</p>
+          <div class="hoe-steps">
+            <div class="hoe-step reveal">
+              <div class="hoe-step-num">01</div>
+              <div>
+                <div class="hoe-step-title">Productie</div>
+                <p class="hoe-step-body">Uw palletten worden op maat geproduceerd op basis van uw exacte specificaties.</p>
+              </div>
+            </div>
+            <div class="hoe-step reveal reveal-d1">
+              <div class="hoe-step-num">02</div>
+              <div>
+                <div class="hoe-step-title">Stock</div>
+                <p class="hoe-step-body">Uw voorraad wordt beheerd en beschikbaar gehouden in onze magazijnen.</p>
+              </div>
+            </div>
+            <div class="hoe-step reveal reveal-d2">
+              <div class="hoe-step-num">03</div>
+              <div>
+                <div class="hoe-step-title">Afroep</div>
+                <p class="hoe-step-body">U roept af wanneer nodig — via UltiApp of telefonisch. Geen complexe procedures.</p>
+              </div>
+            </div>
+            <div class="hoe-step reveal reveal-d3">
+              <div class="hoe-step-num">04</div>
+              <div>
+                <div class="hoe-step-title">Levering</div>
+                <p class="hoe-step-body">Wij leveren snel vanuit uw beschikbare voorraad — exact op het gewenste moment.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hoe-photo reveal reveal-d1">
+          <img src="assets/p3.jpg" alt="ULTI GROUP — palletten in open vrachtwagen" />
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTIE OP MAAT -->
+    <section class="section">
+      <div class="prod-grid">
+        <div class="prod-left">
+          <div class="eyebrow reveal">Op maat geproduceerd</div>
+          <h2 class="h-section reveal reveal-d1">Palletten voor elke afmeting.</h2>
+          <p class="lead reveal reveal-d2">Elk pallet wordt geproduceerd op basis van uw exacte specificaties — lengte, breedte, hoogte, belasting en materiaal. Geen compromissen, geen standaardmaten.</p>
+          <ul class="prod-bullets">
+            <li class="prod-bullet reveal">
+              <svg class="prod-bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 12h18M12 3v18M5 5l14 14M19 5L5 19" stroke-dasharray="2 3"/>
+                <rect x="6" y="6" width="12" height="12" stroke-dasharray="0"/>
+              </svg>
+              <div>
+                <h3>Exacte maatvoering</h3>
+                <p>Elke mm telt. Wij produceren op basis van uw technische tekening.</p>
+              </div>
+            </li>
+            <li class="prod-bullet reveal reveal-d1">
+              <svg class="prod-bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 21V9l9-6 9 6v12"/>
+                <path d="M3 21h18M9 21V12h6v9"/>
+              </svg>
+              <div>
+                <h3>Softwood & hardwood</h3>
+                <p>Keuze uit verschillende houtsoorten, afgestemd op uw toepassing.</p>
+              </div>
+            </li>
+            <li class="prod-bullet reveal reveal-d2">
+              <svg class="prod-bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+              <div>
+                <h3>Kwaliteitscontrole</h3>
+                <p>Nagels verzonken, inslagpunten gecontroleerd, valproef conform norm.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="prod-photo reveal reveal-d1">
+          <img src="assets/pallet1.jpg" alt="ULTI GROUP — pallet voorbeeld 1500x3000 softwood" />
+          <div class="prod-photo-tag">
+            <div class="lbl">Voorbeeld</div>
+            <div class="val">1500 × 3000 mm — Softwood</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STOCK & LEVERING -->
+    <section class="section paper-2">
+      <div class="stock-grid">
+        <div class="stock-photo reveal">
+          <img src="assets/p4.jpg" alt="ULTI GROUP — brede palletstock met heftruck" />
+        </div>
+        <div>
+          <div class="eyebrow reveal">Uw stock, onze verantwoordelijkheid</div>
+          <h2 class="h-section reveal reveal-d1">Altijd voorraad. Direct leverbaar.</h2>
+          <p class="lead reveal reveal-d2">Wij beheren uw palletvoorraad van A tot Z. U roept af wanneer u het nodig heeft — wij leveren binnen 24 uur vanuit uw beschikbare stock.</p>
+          <ul class="prod-bullets">
+            <li class="prod-bullet reveal">
+              <svg class="prod-bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 8v4l3 2"/>
+              </svg>
+              <div>
+                <h3>Stockbreuk vermijden</h3>
+                <p>Wij bewaken uw minimumstock en grijpen in vóór u tekortkomt.</p>
+              </div>
+            </li>
+            <li class="prod-bullet reveal reveal-d1">
+              <svg class="prod-bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="5" y="3" width="14" height="18" rx="2"/>
+                <path d="M9 7h6M9 11h6M9 15h3"/>
+              </svg>
+              <div>
+                <h3>Afroep via UltiApp</h3>
+                <p>In drie stappen geplaatst. Live overzicht van uw beschikbaar saldo.</p>
+              </div>
+            </li>
+            <li class="prod-bullet reveal reveal-d2">
+              <svg class="prod-bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 7h13l5 5v5h-3"/>
+                <circle cx="8" cy="18" r="2"/>
+                <circle cx="17" cy="18" r="2"/>
+                <path d="M3 7v11h3M11 18h3"/>
+              </svg>
+              <div>
+                <h3>Levering binnen 24u</h3>
+                <p>Vanuit uw eigen beheerde voorraad — exact op het gewenste moment.</p>
+              </div>
+            </li>
+          </ul>
+          <div style="margin-top: 36px;">
+            <a href="#offerte" class="btn btn-primary btn-lg">Offerte aanvragen →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA DONKER -->
+    <section class="cta-dark">
+      <div class="cta-grid">
+        <div>
+          <div class="eyebrow" style="color: rgba(255,255,255,0.85);">Klaar om samen te werken?</div>
+          <h2 class="reveal">Klaar om uw stockbeheer uit handen te geven?</h2>
+          <p class="reveal reveal-d1">Vraag vrijblijvend een offerte aan. Wij bekijken samen welke palletten u nodig heeft en hoe wij uw stock het best kunnen beheren.</p>
+        </div>
+        <div class="cta-right reveal reveal-d2">
+          <a href="#offerte" class="btn btn-light btn-lg">Offerte aanvragen →</a>
+          <a href="#contact" class="btn btn-outline-light btn-lg">Neem contact op</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- KLANTEN STRIP -->
+    <section class="klanten">
+      <div class="klanten-inner">
+        <div class="klanten-text">
+          <strong>Bent u een bestaande klant?</strong>
+          <span>Log in op UltiApp om uw stock, leveringen en afroepen op te volgen.</span>
+        </div>
+        <a href="Pitch - UltiApp.html" class="btn btn-primary">Naar UltiApp →</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="logo-mono">ug</span>
+          <span class="logo-text">ulti group.</span>
+        </div>
+        <p>Belgische maakindustrie. Palletten op maat, voorraadbeheer op afroep. Sinds 2022.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Diensten</h4>
+        <ul>
+          <li><a href="#">Palletten op maat</a></li>
+          <li><a href="#">Voorraadbeheer</a></li>
+          <li><a href="Pitch - UltiApp.html">UltiApp</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Bedrijf</h4>
+        <ul>
+          <li><a href="Pitch - Over ons.html">Over ons</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#offerte">Offerte aanvragen</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@ultigroup.be">info@ultigroup.be</a></li>
+          <li><a href="tel:+32492456685">+32 492 45 66 85</a></li>
+          <li>Kortrijk, België</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ULTI GROUP BV · BE 0795.537.976</span>
+      <span>Ontworpen voor Belgische maakindustrie</span>
+    </div>
+  </footer>
+
+  <script src="pitch-reveal.js"></script>
+</body>
+</html>

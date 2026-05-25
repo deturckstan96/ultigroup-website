@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Over ons — ULTI GROUP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Crimson+Pro:ital,wght@1,400;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="pitch.css" />
+  <style>
+    :root { --serif: 'Crimson Pro', Georgia, serif; }
+
+    /* ── PAGE HERO / VERHAAL ── */
+    .verhaal {
+      padding: calc(var(--nav-h) + 56px) var(--pad-x) clamp(60px, 8vw, 100px);
+    }
+    .verhaal-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .verhaal-left h1 { margin: 18px 0 32px; max-width: 14ch; }
+    .verhaal-paras p {
+      font-size: 16px;
+      color: var(--ink-2);
+      line-height: 1.75;
+      margin-bottom: 18px;
+      max-width: 56ch;
+    }
+    .verhaal-paras p:last-child { margin-bottom: 0; }
+    .verhaal-quote {
+      margin-top: 36px;
+      padding: 24px 28px;
+      border-left: 3px solid var(--blue);
+      background: var(--blue-50);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.35;
+      max-width: 36ch;
+      letter-spacing: -0.005em;
+    }
+
+    .verhaal-photo {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .verhaal-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .verhaal-photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 30%, rgba(31,35,40,0.7) 100%);
+    }
+    .verhaal-stats {
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      color: var(--paper);
+    }
+    .verhaal-stat .num {
+      font-family: var(--display);
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .verhaal-stat .lbl {
+      font-family: var(--body);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    /* ── HOE WIJ WERKEN ── */
+    .aanpak-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .aanpak-cards {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .aanpak-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .aanpak-card:hover { border-color: var(--blue); transform: translateY(-3px); }
+    .aanpak-card-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      color: var(--blue);
+      font-weight: 600;
+    }
+    .aanpak-card-title {
+      font-family: var(--display);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .aanpak-card-body {
+      font-size: 14px;
+      color: var(--ink-2);
+      line-height: 1.6;
+    }
+
+    /* ── TIJDLIJN ── */
+    .timeline-wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .timeline {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 5%;
+      right: 5%;
+      height: 1px;
+      background: var(--line);
+    }
+    .tl-step {
+      position: relative;
+      padding-top: 40px;
+    }
+    .tl-step::before {
+      content: '';
+      position: absolute;
+      top: 13px;
+      left: 0;
+      width: 11px; height: 11px;
+      border-radius: 50%;
+      background: var(--paper);
+      border: 2px solid var(--line-2);
+    }
+    .tl-step.done::before { background: var(--blue); border-color: var(--blue); }
+    .tl-step.current::before {
+      background: var(--blue);
+      border-color: var(--blue);
+      box-shadow: 0 0 0 6px var(--blue-50);
+    }
+    .tl-year {
+      font-family: var(--display);
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .tl-step.current .tl-year { color: var(--blue); }
+    .tl-title {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 600;
+      margin-top: 10px;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+    .tl-body {
+      font-size: 13px;
+      color: var(--ink-2);
+      line-height: 1.55;
+      margin-top: 8px;
+    }
+    .tl-tag {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .tl-step.done .tl-tag { color: var(--ok); background: #E0F4E9; }
+    .tl-step.current .tl-tag { color: var(--blue); background: var(--blue-50); }
+
+    /* ── STAN & LORE ── */
+    .duo-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .duo-portraits {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding-bottom: 60px;
+    }
+    .portrait {
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      background: var(--ink);
+      position: relative;
+    }
+    .portrait img { width: 100%; height: 100%; object-fit: cover; }
+    .portrait.lore { margin-top: 60px; }
+    .portrait-placeholder {
+      width: 100%; height: 100%;
+      background:
+        repeating-linear-gradient(45deg, #2A2F36 0 1px, transparent 1px 14px),
+        #1F2328;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--paper);
+      padding: 32px;
+      text-align: center;
+      gap: 14px;
+    }
+    .portrait-initials {
+      font-family: var(--display);
+      font-size: 72px;
+      font-weight: 800;
+      color: var(--paper);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .portrait-meta {
+      font-family: var(--body);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      font-weight: 600;
+    }
+    .portrait-meta strong { display: block; font-size: 12px; color: var(--paper); margin-top: 4px; letter-spacing: 0.04em; }
+    .portrait-name {
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      padding: 16px 18px 0;
+      font-family: var(--body);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink);
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+    }
+    .portrait-name strong {
+      font-family: var(--display);
+      font-size: 13px;
+      letter-spacing: -0.01em;
+      text-transform: none;
+      color: var(--ink);
+    }
+
+    .duo-content { padding-top: 8px; }
+    .duo-content h2 { margin: 18px 0 28px; max-width: 18ch; }
+    .duo-paras p {
+      font-size: 16px;
+      color: var(--ink-2);
+      line-height: 1.75;
+      margin-bottom: 18px;
+      max-width: 56ch;
+    }
+    .duo-paras p:last-child { margin-bottom: 0; }
+    .duo-quote {
+      margin-top: 36px;
+      padding: 28px 32px;
+      border-left: 4px solid var(--blue);
+      background: var(--paper);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 26px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.3;
+      max-width: 38ch;
+      letter-spacing: -0.005em;
+    }
+
+    /* ── WAAROM ── */
+    .waarom-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .waarom-list {
+      list-style: none;
+      margin-top: 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+    .waarom-item {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+    .waarom-item:nth-child(odd) { padding-right: 24px; }
+    .waarom-item:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--line); }
+    .waarom-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--blue);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+    .waarom-title {
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .quote-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 36px;
+      margin-top: 20px;
+    }
+    .quote-box-text {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.35;
+      margin-bottom: 28px;
+      letter-spacing: -0.005em;
+    }
+    .quote-box-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+    .quote-box-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--paper);
+      overflow: hidden;
+    }
+    .quote-box-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .quote-box-name {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .quote-box-role {
+      font-size: 12px;
+      color: var(--ink-3);
+      margin-top: 2px;
+    }
+
+    @media (max-width: 980px) {
+      .verhaal-grid, .duo-grid, .waarom-grid { grid-template-columns: 1fr; gap: 48px; }
+      .aanpak-cards { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .timeline::before { display: none; }
+      .duo-portraits { padding-bottom: 0; }
+      .portrait.lore { margin-top: 0; }
+      .waarom-list { grid-template-columns: 1fr; }
+      .waarom-item:nth-child(even) { padding-left: 0; border-left: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PITCH BANNER -->
+  <div class="pitch-banner">
+    <span class="dot"></span>
+    REDESIGN PITCH · v1.0
+    <span class="links">
+      <a href="Pitch - Home.html">Home</a>
+      <a href="Pitch - UltiApp.html">UltiApp</a>
+      <a href="Pitch - Over ons.html" class="active">Over ons</a>
+    </span>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="Pitch - Home.html" class="logo">
+        <span class="logo-mono">ug</span>
+        <span class="logo-text">ulti group.</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="Pitch - Home.html">Home</a></li>
+        <li><a href="Pitch - UltiApp.html">Klantenportaal</a></li>
+        <li><a href="Pitch - Over ons.html" class="active">Over ons</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <a href="#offerte" class="btn btn-primary">Offerte aanvragen</a>
+      <a href="#login" class="btn btn-outline">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+        Klanten login
+      </a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- VERHAAL -->
+    <section class="verhaal">
+      <div class="verhaal-grid">
+        <div class="verhaal-left">
+          <div class="eyebrow reveal">Ons verhaal</div>
+          <h1 class="h-section reveal reveal-d1">Gestart vanuit een overtuiging.</h1>
+          <div class="verhaal-paras reveal reveal-d2">
+            <p>ULTI GROUP werd opgericht door broer en zus <strong>Stan en Lore Deturck</strong> vanuit de overtuiging dat houten verpakkingen niet standaard hoeven te zijn.</p>
+            <p>Waar veel spelers focussen op standaardafmetingen en grote volumes, kiest ULTI voor flexibiliteit, maatwerk en een snelle samenwerking.</p>
+            <p>Vandaag bouwen we verder aan een Belgische onderneming die industriële klanten helpt met op maat gemaakte pallets, voorraadbeheer en betrouwbare leveringen.</p>
+          </div>
+          <div class="verhaal-quote reveal reveal-d3">"Op maat gemaakt. Snel geleverd. Klaar voor productie."</div>
+        </div>
+        <div class="verhaal-photo reveal reveal-d1">
+          <img src="assets/p2.jpg" alt="ULTI GROUP — palletten productie" />
+          <div class="verhaal-photo-overlay"></div>
+          <div class="verhaal-stats">
+            <div class="verhaal-stat">
+              <div class="num">2022</div>
+              <div class="lbl">Opgericht</div>
+            </div>
+            <div class="verhaal-stat">
+              <div class="num">Flex</div>
+              <div class="lbl">Maatwerk</div>
+            </div>
+            <div class="verhaal-stat">
+              <div class="num">B2B</div>
+              <div class="lbl">Industrieel</div>
+            </div>
+            <div class="verhaal-stat">
+              <div class="num">BE</div>
+              <div class="lbl">Belgisch</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOE WIJ WERKEN -->
+    <section class="section paper-2">
+      <div class="aanpak-grid">
+        <div class="eyebrow reveal">Onze aanpak</div>
+        <h2 class="h-section reveal reveal-d1" style="margin: 18px 0 20px; max-width: 16ch;">Hoe wij werken.</h2>
+        <p class="lead reveal reveal-d2">Drie principes die elke samenwerking met ULTI bepalen.</p>
+
+        <div class="aanpak-cards">
+          <div class="aanpak-card reveal">
+            <div class="aanpak-card-num">01 · PRODUCTIE</div>
+            <div class="aanpak-card-title">Op maat gemaakt</div>
+            <p class="aanpak-card-body">Geen standaardoplossingen. Elk pallet wordt geproduceerd op de exacte specificaties van uw project — afmeting, houtsoort en behandeling.</p>
+          </div>
+          <div class="aanpak-card reveal reveal-d1">
+            <div class="aanpak-card-num">02 · LEVERING</div>
+            <div class="aanpak-card-title">Snelle levering</div>
+            <p class="aanpak-card-body">Korte communicatielijnen en efficiënte productie zorgen ervoor dat uw pallets klaarstaan wanneer u ze nodig heeft.</p>
+          </div>
+          <div class="aanpak-card reveal reveal-d2">
+            <div class="aanpak-card-num">03 · SERVICE</div>
+            <div class="aanpak-card-title">Voorraad als service</div>
+            <p class="aanpak-card-body">Klanten krijgen via ons portaal realtime inzicht in hun stock, leveringen en afroepen — volledig transparant.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIJDLIJN -->
+    <section class="section">
+      <div class="timeline-wrap">
+        <div class="eyebrow reveal">Onze groei</div>
+        <h2 class="h-section reveal reveal-d1" style="margin: 18px 0 20px; max-width: 18ch;">Waar ULTI vandaan komt — en waar we naartoe groeien.</h2>
+
+        <div class="timeline">
+          <div class="tl-step done reveal">
+            <div class="tl-year">2022</div>
+            <div class="tl-title">ULTI GROUP opgericht</div>
+            <p class="tl-body">Start van een Belgische onderneming met focus op houten oplossingen op maat.</p>
+            <span class="tl-tag">✓ Voltooid</span>
+          </div>
+          <div class="tl-step done reveal reveal-d1">
+            <div class="tl-year">2023</div>
+            <div class="tl-title">Eerste industriële klanten</div>
+            <p class="tl-body">Uitbouw van de eerste samenwerkingen met productiebedrijven.</p>
+            <span class="tl-tag">✓ Voltooid</span>
+          </div>
+          <div class="tl-step done reveal reveal-d2">
+            <div class="tl-year">2024</div>
+            <div class="tl-title">Focus op maatwerk</div>
+            <p class="tl-body">Verdere specialisatie in niet-standaard pallets en industriële toepassingen.</p>
+            <span class="tl-tag">✓ Voltooid</span>
+          </div>
+          <div class="tl-step current reveal reveal-d3">
+            <div class="tl-year">2026</div>
+            <div class="tl-title">Lancering klantenportaal</div>
+            <p class="tl-body">Realtime inzicht in stock, leveringen, afroepen en rapportering.</p>
+            <span class="tl-tag">● Huidig</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAN & LORE -->
+    <section class="section paper-2">
+      <div class="duo-grid">
+        <div class="duo-portraits reveal">
+          <div class="portrait stan" style="background: var(--paper);">
+            <img src="assets/Stan.jpg" alt="Stan Deturck — Co-founder ULTI GROUP" />
+            <div class="portrait-name" style="background: var(--paper); padding: 16px 18px;">
+              <strong>Stan Deturck</strong>
+              <span>Co-founder</span>
+            </div>
+          </div>
+          <div class="portrait lore">
+            <div class="portrait-placeholder">
+              <div class="portrait-initials">LD</div>
+              <div class="portrait-meta">
+                <span>Co-founder</span>
+                <strong>Lore Deturck</strong>
+              </div>
+              <div style="font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 0.14em; margin-top: 12px;">PORTRET VOLGT</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="duo-content">
+          <div class="eyebrow reveal">Het team</div>
+          <h2 class="h-section reveal reveal-d1">Wat Stan en Lore belangrijk vinden.</h2>
+          <div class="duo-paras reveal reveal-d2">
+            <p>Voor veel industriële klanten was het bestellen van pallets jarenlang een traag en ondoorzichtig proces. Minimumafnames, standaardmaten die net niet pasten, weinig communicatie. Stan en Lore wilden dat anders.</p>
+            <p>Ze geloven allebei in de kracht van directe samenwerking. Geen tussenpersonen, geen onduidelijkheid. Als een klant een vraag heeft, krijgt hij dezelfde dag een antwoord. Als een levering anders loopt dan gepland, is er meteen contact.</p>
+            <p>Wat hen het meest drijft: dat een klant nooit hoeft te twijfelen. Niet over de kwaliteit van het product, niet over de levertijd, niet over wat er in stock staat. Transparantie is voor hen geen extra service — het is de standaard.</p>
+            <p>ULTI GROUP bouwen ze bewust klein en sterk. Niet zo groot dat de persoonlijke aanpak verloren gaat, maar groot genoeg om elke klant echt te ontzorgen.</p>
+          </div>
+          <div class="duo-quote reveal reveal-d3">"Elke klant verdient een pallet dat exact past — niet een compromis dat het net doet."</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WAAROM -->
+    <section class="section">
+      <div class="waarom-grid">
+        <div>
+          <div class="eyebrow reveal">Voordelen</div>
+          <h2 class="h-section reveal reveal-d1" style="margin: 18px 0 20px; max-width: 16ch;">Waarom samenwerken met ULTI.</h2>
+          <p class="lead reveal reveal-d2">Zes principes die elke klant terugvindt in de dagelijkse samenwerking.</p>
+
+          <ul class="waarom-list reveal reveal-d3">
+            <li class="waarom-item">
+              <span class="waarom-num">01</span>
+              <span class="waarom-title">Flexibele productie — geen minimumafname</span>
+            </li>
+            <li class="waarom-item">
+              <span class="waarom-num">02</span>
+              <span class="waarom-title">Op maat gemaakte oplossingen per klant</span>
+            </li>
+            <li class="waarom-item">
+              <span class="waarom-num">03</span>
+              <span class="waarom-title">Snelle opvolging en korte communicatielijnen</span>
+            </li>
+            <li class="waarom-item">
+              <span class="waarom-num">04</span>
+              <span class="waarom-title">Industriële focus en vakkennis</span>
+            </li>
+            <li class="waarom-item">
+              <span class="waarom-num">05</span>
+              <span class="waarom-title">Voorraadbeheer als geïntegreerde service</span>
+            </li>
+            <li class="waarom-item">
+              <span class="waarom-num">06</span>
+              <span class="waarom-title">100% Belgische productie</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="reveal reveal-d1">
+          <div class="eyebrow" style="margin-bottom: 20px;">In één zin</div>
+          <div class="quote-box">
+            <p class="quote-box-text">"We werken enkel met industriële klanten die nood hebben aan betrouwbaarheid, snelheid en maatwerk. Geen massaproductie — wél kwaliteit op maat."</p>
+            <div class="quote-box-author">
+              <div class="quote-box-avatar"><img src="assets/Stan.jpg" alt="Stan Deturck" /></div>
+              <div>
+                <div class="quote-box-name">Stan Deturck</div>
+                <div class="quote-box-role">Business Development · ULTI GROUP</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA DONKER -->
+    <section class="cta-dark" style="background: var(--ink); color: var(--paper); padding: clamp(80px, 10vw, 140px) var(--pad-x);">
+      <div style="max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: end;">
+        <div>
+          <div class="eyebrow" style="color: rgba(255,255,255,0.85);">Samenwerken</div>
+          <h2 class="reveal" style="font-family: var(--display); font-size: clamp(36px, 5vw, 72px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; max-width: 18ch; margin-top: 20px;">Klaar om samen te werken?</h2>
+          <p class="reveal reveal-d1" style="margin-top: 24px; color: rgba(255,255,255,0.7); max-width: 56ch;">Ontdek hoe ULTI uw verpakkingsproces eenvoudiger kan maken.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <a href="#offerte" class="btn btn-light btn-lg">Vraag offerte aan →</a>
+          <a href="#contact" class="btn btn-outline-light btn-lg">Contacteer ons</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="logo-mono">ug</span>
+          <span class="logo-text">ulti group.</span>
+        </div>
+        <p>Belgische maakindustrie. Palletten op maat, voorraadbeheer op afroep. Sinds 2022.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Diensten</h4>
+        <ul>
+          <li><a href="#">Palletten op maat</a></li>
+          <li><a href="#">Voorraadbeheer</a></li>
+          <li><a href="Pitch - UltiApp.html">UltiApp</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Bedrijf</h4>
+        <ul>
+          <li><a href="Pitch - Over ons.html">Over ons</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#offerte">Offerte aanvragen</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@ultigroup.be">info@ultigroup.be</a></li>
+          <li><a href="tel:+32492456685">+32 492 45 66 85</a></li>
+          <li>Kortrijk, België</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ULTI GROUP BV · BE 0795.537.976</span>
+      <span>Ontworpen voor Belgische maakindustrie</span>
+    </div>
+  </footer>
+
+  <script src="pitch-reveal.js"></script>
+</body>
+</html>

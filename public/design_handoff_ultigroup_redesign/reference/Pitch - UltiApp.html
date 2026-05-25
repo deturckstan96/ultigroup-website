@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UltiApp — Klantenportaal | ULTI GROUP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="pitch.css" />
+  <style>
+    :root { --mono: 'JetBrains Mono', monospace; }
+
+    /* ── HERO ── */
+    .ua-hero {
+      padding: calc(var(--nav-h) + 56px) var(--pad-x) 80px;
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+    }
+    .ua-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--paper-3) 1px, transparent 1px),
+        linear-gradient(90deg, var(--paper-3) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 40%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 40%, transparent 80%);
+      opacity: 0.5;
+    }
+    .ua-hero-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 56px;
+      align-items: center;
+      position: relative;
+    }
+    .ua-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--blue-50);
+      color: var(--blue);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .ua-badge .dot {
+      width: 6px; height: 6px; background: var(--blue);
+      border-radius: 50%;
+      animation: pulse 2.4s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+    .ua-title {
+      font-family: var(--display);
+      font-size: clamp(56px, 9vw, 140px);
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+    }
+    .ua-title .app { color: var(--blue); }
+    .ua-subtitle {
+      font-family: var(--display);
+      font-size: clamp(22px, 2.2vw, 28px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-top: 24px;
+      color: var(--ink);
+      line-height: 1.2;
+      max-width: 22ch;
+    }
+    .ua-lead { margin-top: 20px; max-width: 48ch; }
+    .ua-actions { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+
+    /* ── DASHBOARD MOCKUP ── */
+    .dash {
+      background: var(--paper);
+      border-radius: 12px;
+      box-shadow: 0 30px 80px -20px rgba(31,35,40,0.18), 0 8px 20px -8px rgba(31,35,40,0.1);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      font-family: var(--body);
+      position: relative;
+    }
+    .dash::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      z-index: 30;
+      pointer-events: none;
+    }
+    .dash[data-scene="1"]::before { content: '01 · Voorraad'; }
+    .dash[data-scene="2"]::before { content: '02 · Waarschuwing'; background: var(--warn); }
+    .dash[data-scene="3"]::before { content: '03 · Afroep plaatsen'; background: var(--blue); }
+    .dash[data-scene="4"]::before { content: '04 · Bevestigd'; background: var(--ok); }
+
+    /* ── ANIMATION KPI ── */
+    .kpi-val { transition: color 0.4s; }
+    .kpi-val.pop {
+      animation: kpi-pop 0.5s ease;
+    }
+    @keyframes kpi-pop {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.12); color: var(--blue); }
+      100% { transform: scale(1); }
+    }
+
+    /* ── STOCK ROW ANIMATIONS ── */
+    .dash-row-bar > div { transition: width 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.4s; }
+    .dash-row-stock { transition: color 0.4s; }
+    .row-flash {
+      animation: row-flash 0.6s ease;
+    }
+    @keyframes row-flash {
+      0%, 100% { background: transparent; }
+      50% { background: #FFF1EF; }
+    }
+
+    /* ── PILLS ── */
+    .dash-pill {
+      transform: translateY(8px);
+      opacity: 0;
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .dash-pill.shown { transform: none; opacity: 1; }
+    .dash-pill.new {
+      box-shadow: 0 0 0 2px var(--ok);
+    }
+
+    /* ── DEMO OVERLAY LAYER ── */
+    .demo-cursor {
+      position: absolute;
+      top: 0; left: 0;
+      width: 22px; height: 22px;
+      z-index: 20;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+    }
+    .demo-cursor.shown { opacity: 1; }
+    .demo-cursor.clicking { animation: cursor-click 0.4s ease; }
+    @keyframes cursor-click {
+      0%, 100% { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25)); }
+      40% { filter: drop-shadow(0 0 0 rgba(0,0,0,0)) brightness(1.3); transform: var(--tx, translate(0,0)) scale(0.85); }
+    }
+
+    .click-ripple {
+      position: absolute;
+      width: 32px; height: 32px;
+      border: 2px solid var(--blue);
+      border-radius: 50%;
+      z-index: 19;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.3);
+      opacity: 0;
+    }
+    .click-ripple.go {
+      animation: ripple 0.6s ease-out;
+    }
+    @keyframes ripple {
+      0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; }
+    }
+
+    .demo-toast {
+      position: absolute;
+      top: 50px;
+      right: 14px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--warn);
+      padding: 12px 14px;
+      font-size: 11px;
+      color: var(--ink);
+      border-radius: 6px;
+      box-shadow: 0 12px 32px -8px rgba(31,35,40,0.2);
+      transform: translateX(120%);
+      opacity: 0;
+      transition: transform 0.5s cubic-bezier(0.2,0.8,0.2,1), opacity 0.3s;
+      z-index: 25;
+      max-width: 240px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .demo-toast.shown { transform: translateX(0); opacity: 1; }
+    .demo-toast.ok { border-left-color: var(--ok); }
+    .demo-toast-icon {
+      flex-shrink: 0;
+      width: 16px; height: 16px;
+      color: var(--warn);
+      margin-top: 1px;
+    }
+    .demo-toast.ok .demo-toast-icon { color: var(--ok); }
+    .demo-toast-title { font-weight: 600; font-size: 11px; }
+    .demo-toast-body { color: var(--ink-3); font-size: 10px; margin-top: 2px; line-height: 1.4; }
+
+    .demo-modal-backdrop {
+      position: absolute;
+      top: 36px;
+      left: 56px;
+      right: 0;
+      bottom: 0;
+      background: rgba(31,35,40,0.4);
+      z-index: 26;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .demo-modal-backdrop.shown { opacity: 1; }
+    .demo-modal {
+      background: var(--paper);
+      border-radius: 10px;
+      padding: 20px;
+      width: 86%;
+      max-width: 320px;
+      box-shadow: 0 16px 40px -8px rgba(0,0,0,0.3);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1), opacity 0.3s;
+    }
+    .demo-modal.shown { transform: none; opacity: 1; }
+    .demo-modal h5 {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 4px;
+    }
+    .demo-modal p { font-size: 11px; color: var(--ink-3); margin-bottom: 16px; }
+    .demo-modal-field {
+      background: var(--paper-2);
+      border-radius: 6px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .demo-modal-field-lbl {
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      font-weight: 600;
+    }
+    .demo-modal-field-val {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .demo-modal-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 11px;
+    }
+    .demo-modal-row span:first-child { color: var(--ink-3); }
+    .demo-modal-row span:last-child { color: var(--ink); font-weight: 500; font-family: var(--mono); font-size: 10px; }
+    .demo-modal-cta {
+      width: 100%;
+      background: var(--blue);
+      color: var(--paper);
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      font-family: var(--body);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 12px;
+      position: relative;
+    }
+
+    /* ── SCENE INDICATOR ── */
+    .demo-scenes {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 30;
+    }
+    .demo-scene-dot {
+      width: 22px;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(31,35,40,0.15);
+      transition: background 0.3s;
+    }
+    .demo-scene-dot.active { background: var(--blue); }
+    .demo-scene-dot.past { background: rgba(31,35,40,0.5); }
+
+    .dash-pause {
+      position: absolute;
+      bottom: 10px;
+      right: 14px;
+      background: rgba(31,35,40,0.8);
+      color: var(--paper);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.25s;
+      z-index: 30;
+      pointer-events: none;
+    }
+    .dash:hover .dash-pause { opacity: 1; }
+    .dash-bar {
+      background: var(--paper-2);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .dash-dots { display: flex; gap: 6px; }
+    .dash-dot {
+      width: 11px; height: 11px;
+      border-radius: 50%;
+    }
+    .dash-dot:nth-child(1) { background: #ED6A5E; }
+    .dash-dot:nth-child(2) { background: #F4BF4F; }
+    .dash-dot:nth-child(3) { background: #62C554; }
+    .dash-url {
+      flex: 1;
+      background: var(--paper);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-3);
+      border: 1px solid var(--line);
+    }
+    .dash-url .secure { color: var(--ok); margin-right: 6px; }
+
+    .dash-body {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      min-height: 460px;
+    }
+    .dash-sidebar {
+      background: var(--ink);
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dash-sb-logo {
+      width: 32px; height: 32px;
+      background: var(--blue);
+      color: var(--paper);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+    .dash-sb-item {
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.45);
+    }
+    .dash-sb-item.active { background: rgba(255,255,255,0.1); color: var(--paper); }
+
+    .dash-main { padding: 22px 24px; background: #FBFCFD; }
+    .dash-h {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .dash-h-title {
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .dash-h-user {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px;
+      color: var(--ink-3);
+    }
+    .dash-h-avatar {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--paper);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .dash-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .kpi {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .kpi-lbl {
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      font-weight: 600;
+    }
+    .kpi-val {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-top: 4px;
+      color: var(--ink);
+    }
+    .kpi-sub { font-size: 10px; color: var(--ink-3); margin-top: 2px; }
+
+    .dash-list {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .dash-list-h {
+      padding: 10px 14px;
+      font-family: var(--body);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      font-weight: 600;
+      background: var(--paper-2);
+      border-bottom: 1px solid var(--line);
+    }
+    .dash-row {
+      padding: 10px 14px;
+      display: grid;
+      grid-template-columns: 1fr 60px;
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .dash-row:last-child { border-bottom: none; }
+    .dash-row-name {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .dash-row-bar {
+      grid-column: 1 / 2;
+      margin-top: 6px;
+      height: 4px;
+      background: var(--paper-3);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .dash-row-bar > div { height: 100%; background: var(--ok); }
+    .dash-row-bar.warn > div { background: var(--warn); }
+    .dash-row-stock {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      text-align: right;
+    }
+    .dash-row-stock.warn { color: var(--warn); }
+
+    .dash-recents { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .dash-pill {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .dash-pill-ref { font-family: var(--mono); font-size: 10px; color: var(--ink-3); }
+    .dash-pill-status {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ok);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .dash-pill-status .d { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); }
+    .dash-pill-status.blue { color: var(--blue); }
+    .dash-pill-status.blue .d { background: var(--blue); }
+
+    /* ── 4-STAPPEN ── */
+    .flow-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .flow-h2 { max-width: 16ch; margin-top: 16px; }
+    .flow-lead { margin-top: 16px; }
+    .flow-steps {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .flow-step {
+      background: var(--paper);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+    }
+    .flow-step-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--blue);
+      font-weight: 600;
+    }
+    .flow-step-title {
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .flow-step-body {
+      font-size: 14px;
+      color: var(--ink-2);
+      line-height: 1.55;
+    }
+
+    /* ── STOCKBREUK SIM ── */
+    .sim-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .sim-mock {
+      background: var(--paper);
+      border-radius: 12px;
+      box-shadow: 0 24px 60px -20px rgba(31,35,40,0.15);
+      border: 1px solid var(--line);
+      padding: 24px;
+    }
+    .sim-mock-h {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .sim-mock-title {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .sim-mock-tag {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--blue);
+      background: var(--blue-50);
+      padding: 4px 10px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sim-mock-tag .d { width: 5px; height: 5px; background: var(--blue); border-radius: 50%; animation: pulse 2s infinite; }
+    .sim-art {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 18px;
+    }
+    .sim-art-info {}
+    .sim-art-code {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .sim-art-meta { font-size: 11px; color: var(--ink-3); margin-top: 2px; }
+    .sim-art-tag {
+      background: #FBEFE2;
+      color: var(--warn);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .sim-stock-num {
+      font-family: var(--display);
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.03em;
+    }
+    .sim-stock-unit { font-size: 16px; color: var(--ink-3); font-weight: 500; margin-left: 6px; }
+
+    .sim-bar-wrap { margin-top: 16px; }
+    .sim-bar {
+      height: 10px;
+      background: var(--paper-3);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .sim-bar > div {
+      height: 100%;
+      background: var(--warn);
+      width: 32%;
+    }
+    .sim-bar-marker {
+      position: absolute;
+      top: -4px; bottom: -4px;
+      width: 2px;
+      background: var(--ink);
+      left: 12.8%;
+    }
+    .sim-bar-marker::after {
+      content: 'Min.';
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      font-family: var(--mono);
+      color: var(--ink-3);
+    }
+    .sim-bar-scale {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--ink-3);
+    }
+
+    .sim-data {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 20px 0;
+    }
+    .sim-data-cell {
+      background: var(--paper-2);
+      border-radius: 6px;
+      padding: 12px;
+    }
+    .sim-data-lbl {
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      font-weight: 600;
+    }
+    .sim-data-val {
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 4px;
+      color: var(--ink);
+    }
+    .sim-data-val.crit { color: var(--crit); }
+
+    .sim-table {
+      background: var(--paper-2);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .sim-table-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      padding: 10px 14px;
+      font-size: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .sim-table-row:last-child { border-bottom: none; }
+    .sim-table-row.h {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      font-weight: 600;
+      background: var(--paper-3);
+    }
+    .sim-table-row .stat-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-weight: 600;
+    }
+    .sim-table-row .stat-pill .d {
+      width: 7px; height: 7px; border-radius: 50%;
+    }
+    .stat-pill.ok { color: var(--ok); }
+    .stat-pill.ok .d { background: var(--ok); }
+    .stat-pill.warn { color: var(--warn); }
+    .stat-pill.warn .d { background: var(--warn); }
+    .stat-pill.crit { color: var(--crit); }
+    .stat-pill.crit .d { background: var(--crit); }
+
+    .sim-cta {
+      width: 100%;
+      background: var(--blue);
+      color: var(--paper);
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-family: var(--body);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .status-cards {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .status-card {
+      padding: 18px 22px;
+      border-left: 3px solid var(--ok);
+      background: var(--paper);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .status-card.warn { border-left-color: var(--warn); background: #FFF8EE; }
+    .status-card.crit { border-left-color: var(--crit); background: #FFF1EF; }
+    .status-card.ok { background: #EFF8F3; }
+    .status-card-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--ok);
+      flex-shrink: 0;
+    }
+    .status-card.warn .status-card-dot { background: var(--warn); }
+    .status-card.crit .status-card-dot { background: var(--crit); }
+    .status-card-title {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--ink);
+    }
+    .status-card-body { font-size: 13px; color: var(--ink-2); margin-top: 2px; }
+
+    /* ── KALENDER ── */
+    .cal-mock {
+      background: var(--paper);
+      border-radius: 12px;
+      box-shadow: 0 24px 60px -20px rgba(31,35,40,0.15);
+      border: 1px solid var(--line);
+      padding: 24px;
+    }
+    .cal-mock-h {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .cal-mock-h h4 {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .cal-mock-h .nav-btn {
+      display: flex; gap: 4px;
+    }
+    .cal-mock-h .nav-btn span {
+      width: 28px; height: 28px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-2);
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+    .cal-day-h {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--ink-3);
+      text-align: center;
+      padding: 6px 0;
+      letter-spacing: 0.08em;
+    }
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--body);
+      font-size: 12px;
+      color: var(--ink-2);
+      border-radius: 6px;
+      position: relative;
+    }
+    .cal-day.dim { color: var(--line-2); }
+    .cal-day.mark { background: var(--blue-50); color: var(--blue); font-weight: 700; }
+    .cal-day.mark::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+    .cal-day.today { border: 1.5px solid var(--ink); font-weight: 700; }
+
+    .cal-list { display: flex; flex-direction: column; gap: 8px; }
+    .cal-row {
+      display: grid;
+      grid-template-columns: 50px 60px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: var(--paper-2);
+      font-size: 12px;
+    }
+    .cal-row-date {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .cal-row-qty {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .cal-row-code {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-2);
+    }
+    .cal-row-status {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .cal-row-status.blue { background: var(--blue-50); color: var(--blue); }
+    .cal-row-status.green { background: #E0F4E9; color: var(--ok); }
+    .cal-row-status.grey { background: var(--paper-3); color: var(--ink-2); }
+    .cal-row-status.dark { background: var(--ink); color: var(--paper); }
+
+    /* ── VERBRUIK ── */
+    .forecast-mock {
+      background: var(--paper);
+      border-radius: 12px;
+      box-shadow: 0 24px 60px -20px rgba(31,35,40,0.15);
+      border: 1px solid var(--line);
+      padding: 24px;
+    }
+    .forecast-mock-h {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .forecast-mock-h h4 { font-family: var(--display); font-size: 17px; font-weight: 700; }
+    .forecast-table {}
+    .forecast-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1.2fr;
+      gap: 12px;
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--line);
+      align-items: center;
+      font-size: 12px;
+    }
+    .forecast-row:last-child { border-bottom: none; }
+    .forecast-row.h {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      font-weight: 600;
+      padding-top: 0;
+    }
+    .forecast-code {
+      font-family: var(--mono);
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .forecast-meta {
+      font-size: 10px;
+      color: var(--ink-3);
+      margin-top: 2px;
+    }
+    .forecast-stock {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .forecast-rate { font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+    .forecast-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .forecast-date.blue { background: var(--blue-50); color: var(--blue); }
+    .forecast-date.warn { background: #FBEFE2; color: var(--warn); }
+    .forecast-date.crit { background: #FFE5E0; color: var(--crit); }
+    .forecast-date .days {
+      font-family: var(--body);
+      font-size: 10px;
+      opacity: 0.7;
+    }
+
+    /* ── MODULES ── */
+    .mod-grid-wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .mod-grid {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .mod-tile {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.2s, transform 0.15s;
+      min-height: 160px;
+      cursor: pointer;
+    }
+    .mod-tile:hover { border-color: var(--blue); transform: translateY(-2px); }
+    .mod-tile.active {
+      background: var(--blue);
+      color: var(--paper);
+      border-color: var(--blue);
+    }
+    .mod-tile.coming {
+      border-style: dashed;
+      background: transparent;
+    }
+    .mod-tile-icon {
+      width: 28px; height: 28px;
+      color: var(--blue);
+    }
+    .mod-tile.active .mod-tile-icon { color: var(--paper); }
+    .mod-tile.coming .mod-tile-icon { color: var(--ink-3); }
+    .mod-tile-title {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-top: auto;
+    }
+    .mod-tile.active .mod-tile-title { color: var(--paper); }
+    .mod-tile.coming .mod-tile-title { color: var(--ink-3); }
+    .mod-tile-body {
+      font-size: 12px;
+      color: var(--ink-3);
+      line-height: 1.5;
+    }
+    .mod-tile.active .mod-tile-body { color: rgba(255,255,255,0.7); }
+
+    @media (max-width: 980px) {
+      .ua-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .flow-steps { grid-template-columns: 1fr; }
+      .sim-grid { grid-template-columns: 1fr; gap: 40px; }
+      .mod-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PITCH BANNER -->
+  <div class="pitch-banner">
+    <span class="dot"></span>
+    REDESIGN PITCH · v1.0
+    <span class="links">
+      <a href="Pitch - Home.html">Home</a>
+      <a href="Pitch - UltiApp.html" class="active">UltiApp</a>
+      <a href="Pitch - Over ons.html">Over ons</a>
+    </span>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="Pitch - Home.html" class="logo">
+        <span class="logo-mono">ug</span>
+        <span class="logo-text">ulti group.</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="Pitch - Home.html">Home</a></li>
+        <li><a href="Pitch - UltiApp.html" class="active">Klantenportaal</a></li>
+        <li><a href="Pitch - Over ons.html">Over ons</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <a href="#offerte" class="btn btn-primary">Offerte aanvragen</a>
+      <a href="#login" class="btn btn-outline">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+        Klanten login
+      </a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="ua-hero">
+      <div class="ua-hero-grid">
+        <div>
+          <div class="ua-badge reveal"><span class="dot"></span> Klantenportaal</div>
+          <h1 class="ua-title reveal reveal-d1">Ulti<span class="app">App</span></h1>
+          <div class="ua-subtitle reveal reveal-d2">Uw voorraad, leveringen en afroepen — op één centrale plaats.</div>
+          <p class="lead ua-lead reveal reveal-d3">UltiApp geeft u realtime inzicht in uw beschikbare stock, laat u afroepen plaatsen en bewaakt automatisch uw minimumvoorraad per artikel.</p>
+          <div class="ua-actions reveal reveal-d3">
+            <a href="#login" class="btn btn-primary btn-lg">Klanten login →</a>
+            <a href="#contact" class="btn btn-outline btn-lg">Vraag een demo</a>
+          </div>
+        </div>
+
+        <!-- DASHBOARD MOCKUP -->
+        <div class="dash reveal reveal-d1" id="demo-dash" data-scene="1">
+          <div class="dash-bar">
+            <div class="dash-dots">
+              <span class="dash-dot"></span>
+              <span class="dash-dot"></span>
+              <span class="dash-dot"></span>
+            </div>
+            <div class="dash-url"><span class="secure">●</span>portaal.ultigroup.be/dashboard</div>
+          </div>
+          <div class="dash-body">
+            <div class="dash-sidebar">
+              <div class="dash-sb-logo">ug</div>
+              <div class="dash-sb-item active"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+              <div class="dash-sb-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+              <div class="dash-sb-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+              <div class="dash-sb-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 17V11M12 17V7M17 17V13"/></svg></div>
+            </div>
+            <div class="dash-main">
+              <div class="dash-h">
+                <div class="dash-h-title">Goedendag, ULTI GROUP BV</div>
+                <div class="dash-h-user">
+                  <span>UG BV</span>
+                  <span class="dash-h-avatar">U</span>
+                </div>
+              </div>
+              <div class="dash-kpis">
+                <div class="kpi">
+                  <div class="kpi-lbl">Stuks in stock</div>
+                  <div class="kpi-val" id="kpi-stock" data-target="1240" data-format="dotted">0</div>
+                  <div class="kpi-sub">verspreid over 7 artikelen</div>
+                </div>
+                <div class="kpi">
+                  <div class="kpi-lbl">Open afroepen</div>
+                  <div class="kpi-val" id="kpi-afroep" data-target="2">0</div>
+                  <div class="kpi-sub">eerst. op 12 jun</div>
+                </div>
+                <div class="kpi">
+                  <div class="kpi-lbl">Laatste levering</div>
+                  <div class="kpi-val">26 apr</div>
+                  <div class="kpi-sub">120 × PAL-2000</div>
+                </div>
+              </div>
+              <div class="dash-list">
+                <div class="dash-list-h">Mijn stock</div>
+                <div class="stock-row" data-row="1" style="padding: 10px 14px; border-bottom: 1px solid var(--line);">
+                  <div style="display:flex; justify-content: space-between; align-items: center;">
+                    <span class="dash-row-name">UGA348 · 1500×3000</span>
+                    <span class="dash-row-stock" data-stock-val data-target="850" data-suffix=" st">0 st</span>
+                  </div>
+                  <div class="dash-row-bar"><div data-bar-fill data-target="78" style="width: 0%"></div></div>
+                </div>
+                <div class="stock-row" data-row="2" style="padding: 10px 14px; border-bottom: 1px solid var(--line);">
+                  <div style="display:flex; justify-content: space-between; align-items: center;">
+                    <span class="dash-row-name">UGA812 · 1000×2000</span>
+                    <span class="dash-row-stock" data-stock-val data-target="420" data-suffix=" st">0 st</span>
+                  </div>
+                  <div class="dash-row-bar"><div data-bar-fill data-target="56" style="width: 0%"></div></div>
+                </div>
+                <div class="stock-row" data-row="3" style="padding: 10px 14px;">
+                  <div style="display:flex; justify-content: space-between; align-items: center;">
+                    <span class="dash-row-name">UGA521 · 1250×2500</span>
+                    <span class="dash-row-stock" id="stock-row3-val" data-target="85" data-suffix=" st">0 st</span>
+                  </div>
+                  <div class="dash-row-bar" id="stock-row3-bar"><div data-bar-fill data-target="22" style="width: 0%"></div></div>
+                </div>
+              </div>
+              <div class="dash-recents" id="recents">
+                <div class="dash-pill" data-pill="1">
+                  <div class="dash-pill-ref">AFR-2026-041</div>
+                  <div class="dash-pill-status blue"><span class="d"></span> Bevestigd</div>
+                </div>
+                <div class="dash-pill" data-pill="2">
+                  <div class="dash-pill-ref">AFR-2026-038</div>
+                  <div class="dash-pill-status"><span class="d"></span> Geleverd</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DEMO OVERLAY ELEMENTS -->
+          <div class="click-ripple" id="demo-ripple"></div>
+          <svg class="demo-cursor" id="demo-cursor" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 2L3 17L7.5 13L10.2 19L13 17.8L10.3 12L16 12L3 2Z" fill="white" stroke="#1F2328" stroke-width="1.4" stroke-linejoin="round"/>
+          </svg>
+
+          <div class="demo-toast" id="demo-toast">
+            <svg class="demo-toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path id="demo-toast-icon-path" d="M12 2 2 20h20L12 2zM12 9v5M12 18v.5"/>
+            </svg>
+            <div>
+              <div class="demo-toast-title" id="demo-toast-title">Stockwaarschuwing</div>
+              <div class="demo-toast-body" id="demo-toast-body">UGA521 · kritiek over 6 dagen</div>
+            </div>
+          </div>
+
+          <div class="demo-modal-backdrop" id="demo-modal-backdrop">
+            <div class="demo-modal" id="demo-modal">
+              <h5>Nieuwe afroep</h5>
+              <p>UGA348 · 1500×3000 — beschikbaar in Waregem</p>
+              <div class="demo-modal-field">
+                <span class="demo-modal-field-lbl">Aantal</span>
+                <span class="demo-modal-field-val"><span id="modal-qty">0</span> stuks</span>
+              </div>
+              <div class="demo-modal-row"><span>Levering</span><span>binnen 24u</span></div>
+              <div class="demo-modal-row"><span>Referentie</span><span>AFR-2026-042</span></div>
+              <div class="demo-modal-row"><span>Adres</span><span>HQ · Kortrijk</span></div>
+              <button class="demo-modal-cta" id="modal-cta">→ Bevestig afroep</button>
+            </div>
+          </div>
+
+          <div class="demo-scenes" id="demo-scenes">
+            <span class="demo-scene-dot active"></span>
+            <span class="demo-scene-dot"></span>
+            <span class="demo-scene-dot"></span>
+            <span class="demo-scene-dot"></span>
+          </div>
+
+          <div class="dash-pause">⏸ Gepauzeerd</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VAN VOORRAAD NAAR LEVERING -->
+    <section class="section paper-2">
+      <div class="flow-grid">
+        <div class="eyebrow reveal">Proces</div>
+        <h2 class="h-section flow-h2 reveal reveal-d1">Van voorraad naar levering</h2>
+        <p class="lead flow-lead reveal reveal-d2">UltiApp verbindt elke stap van het proces — transparant en in realtime.</p>
+        <div class="flow-steps reveal reveal-d2">
+          <div class="flow-step">
+            <div class="flow-step-num">01 · VOORRAAD</div>
+            <div class="flow-step-title">Klaar in onze magazijnen</div>
+            <p class="flow-step-body">Uw palletten staan klaar in onze magazijnen, beheerd in eigen voorraad.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">02 · AFROEP</div>
+            <div class="flow-step-title">U plaatst de afroep</div>
+            <p class="flow-step-body">Via UltiApp — in drie klikken. Of telefonisch — zoals u verkiest.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">03 · LEVERING</div>
+            <div class="flow-step-title">Geleverd op de afgesproken datum</div>
+            <p class="flow-step-body">Binnen 24 uur op de door u opgegeven locatie.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">04 · RAPPORT</div>
+            <div class="flow-step-title">Historiek automatisch beschikbaar</div>
+            <p class="flow-step-body">Alle data verzameld, doorzoekbaar, downloadbaar als rapport.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STOCKBREUK SIMULATIE -->
+    <section class="section">
+      <div class="sim-grid">
+        <!-- MOCK LEFT -->
+        <div class="sim-mock reveal">
+          <div class="sim-mock-h">
+            <div class="sim-mock-title">Voorraadanalyse</div>
+            <div class="sim-mock-tag"><span class="d"></span> Live simulatie</div>
+          </div>
+          <div class="sim-art">
+            <div class="sim-art-info">
+              <div class="sim-art-code">UGA348-1500×3000</div>
+              <div class="sim-art-meta">ISPM15 · Waregem stock</div>
+            </div>
+            <span class="sim-art-tag">Nog 9 dagen</span>
+          </div>
+          <div>
+            <span class="sim-stock-num">1.248</span>
+            <span class="sim-stock-unit">stuks</span>
+          </div>
+          <div class="sim-bar-wrap">
+            <div class="sim-bar">
+              <div></div>
+              <div class="sim-bar-marker"></div>
+            </div>
+            <div class="sim-bar-scale">
+              <span>0</span>
+              <span style="margin-left: 0; padding-left: 11%">500 min.</span>
+              <span>3.900 max</span>
+            </div>
+          </div>
+          <div class="sim-data">
+            <div class="sim-data-cell">
+              <div class="sim-data-lbl">Gem. verbruik</div>
+              <div class="sim-data-val">212 / week</div>
+            </div>
+            <div class="sim-data-cell">
+              <div class="sim-data-lbl">Laatste afroep</div>
+              <div class="sim-data-val">180 stuks</div>
+            </div>
+            <div class="sim-data-cell">
+              <div class="sim-data-lbl">Pred. stockbreuk</div>
+              <div class="sim-data-val crit">18 juni</div>
+            </div>
+          </div>
+          <div class="sim-table">
+            <div class="sim-table-row h">
+              <span>Maand</span>
+              <span>Verwachte stock</span>
+              <span>Status</span>
+            </div>
+            <div class="sim-table-row">
+              <span>Jun 2026</span>
+              <span>1.248 st</span>
+              <span class="stat-pill ok"><span class="d"></span> Gezond</span>
+            </div>
+            <div class="sim-table-row">
+              <span>Jul 2026</span>
+              <span>824 st</span>
+              <span class="stat-pill ok"><span class="d"></span> Goed</span>
+            </div>
+            <div class="sim-table-row">
+              <span>Aug 2026</span>
+              <span>412 st</span>
+              <span class="stat-pill warn"><span class="d"></span> Let op</span>
+            </div>
+            <div class="sim-table-row">
+              <span>Sep 2026</span>
+              <span>0 st</span>
+              <span class="stat-pill crit"><span class="d"></span> Kritiek</span>
+            </div>
+          </div>
+          <button class="sim-cta">→ Afroep plannen</button>
+        </div>
+
+        <!-- TEXT RIGHT -->
+        <div>
+          <div class="eyebrow reveal">Voorspelling &amp; waarschuwing</div>
+          <h2 class="h-section reveal reveal-d1" style="margin: 18px 0 20px; max-width: 14ch;">Voorkom stockbreuken</h2>
+          <p class="lead reveal reveal-d2">UltiApp volgt het historisch verbruik per pallet en geeft tijdig aan wanneer een nieuwe afroep nodig is — zodat u nooit voor verrassingen staat.</p>
+          <div class="status-cards reveal reveal-d3">
+            <div class="status-card ok">
+              <div class="status-card-dot"></div>
+              <div>
+                <div class="status-card-title">Voorraad gezond</div>
+                <div class="status-card-body">Geen actie vereist.</div>
+              </div>
+            </div>
+            <div class="status-card warn">
+              <div class="status-card-dot"></div>
+              <div>
+                <div class="status-card-title">Actie binnenkort nodig</div>
+                <div class="status-card-body">Plan tijdig uw volgende afroep.</div>
+              </div>
+            </div>
+            <div class="status-card crit">
+              <div class="status-card-dot"></div>
+              <div>
+                <div class="status-card-title">Afroep aanbevolen</div>
+                <div class="status-card-body">Stockbreuk dreigt — onderneem actie.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AFROEPKALENDER -->
+    <section class="section paper-2">
+      <div class="sim-grid">
+        <div>
+          <div class="eyebrow reveal">Planning &amp; opvolging</div>
+          <h2 class="h-section reveal reveal-d1" style="margin: 18px 0 20px; max-width: 16ch;">Plan en volg elke afroep op.</h2>
+          <p class="lead reveal reveal-d2">In de afroepkalender ziet u per maand wanneer elke levering gepland staat en welke status die heeft — van ontvangen tot geleverd.</p>
+          <div class="status-cards reveal reveal-d3" style="margin-top: 28px;">
+            <div class="status-card" style="border-left-color: var(--blue); background: var(--blue-50);">
+              <div class="status-card-dot" style="background: var(--blue);"></div>
+              <div>
+                <div class="status-card-title">Afroep ontvangen</div>
+                <div class="status-card-body">ULTI heeft uw afroep bevestigd.</div>
+              </div>
+            </div>
+            <div class="status-card ok">
+              <div class="status-card-dot"></div>
+              <div>
+                <div class="status-card-title">Klaar voor afhaling</div>
+                <div class="status-card-body">Stock staat klaar in het magazijn.</div>
+              </div>
+            </div>
+            <div class="status-card" style="border-left-color: var(--ink-3); background: var(--paper-3);">
+              <div class="status-card-dot" style="background: var(--ink-3);"></div>
+              <div>
+                <div class="status-card-title">Transport ingepland</div>
+                <div class="status-card-body">Chauffeur en tijdslot zijn vastgelegd.</div>
+              </div>
+            </div>
+            <div class="status-card" style="border-left-color: var(--ink); background: #F8F9FA;">
+              <div class="status-card-dot" style="background: var(--ink);"></div>
+              <div>
+                <div class="status-card-title">Geleverd</div>
+                <div class="status-card-body">Afroep volledig afgerond.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cal-mock reveal reveal-d2">
+          <div class="cal-mock-h">
+            <h4>Juni 2026</h4>
+            <div class="nav-btn">
+              <span>‹</span>
+              <span>›</span>
+            </div>
+          </div>
+          <div class="cal-grid">
+            <div class="cal-day-h">MA</div>
+            <div class="cal-day-h">DI</div>
+            <div class="cal-day-h">WO</div>
+            <div class="cal-day-h">DO</div>
+            <div class="cal-day-h">VR</div>
+            <div class="cal-day-h">ZA</div>
+            <div class="cal-day-h">ZO</div>
+            <div class="cal-day dim">30</div>
+            <div class="cal-day dim">31</div>
+            <div class="cal-day">1</div>
+            <div class="cal-day">2</div>
+            <div class="cal-day">3</div>
+            <div class="cal-day">4</div>
+            <div class="cal-day mark">5</div>
+            <div class="cal-day">6</div>
+            <div class="cal-day">7</div>
+            <div class="cal-day">8</div>
+            <div class="cal-day">9</div>
+            <div class="cal-day">10</div>
+            <div class="cal-day">11</div>
+            <div class="cal-day mark">12</div>
+            <div class="cal-day">13</div>
+            <div class="cal-day">14</div>
+            <div class="cal-day">15</div>
+            <div class="cal-day">16</div>
+            <div class="cal-day mark">17</div>
+            <div class="cal-day today">18</div>
+            <div class="cal-day">19</div>
+            <div class="cal-day">20</div>
+            <div class="cal-day">21</div>
+            <div class="cal-day">22</div>
+            <div class="cal-day">23</div>
+            <div class="cal-day">24</div>
+            <div class="cal-day">25</div>
+            <div class="cal-day">26</div>
+            <div class="cal-day mark">27</div>
+            <div class="cal-day">28</div>
+            <div class="cal-day">29</div>
+            <div class="cal-day">30</div>
+          </div>
+          <div class="cal-list">
+            <div class="cal-row">
+              <span class="cal-row-date">5 jun</span>
+              <span class="cal-row-qty">180 st</span>
+              <span class="cal-row-code">UGA348-1500×3000</span>
+              <span class="cal-row-status blue">Afroep ontvangen</span>
+            </div>
+            <div class="cal-row">
+              <span class="cal-row-date">12 jun</span>
+              <span class="cal-row-qty">220 st</span>
+              <span class="cal-row-code">UGA348-1500×3000</span>
+              <span class="cal-row-status green">Klaar</span>
+            </div>
+            <div class="cal-row">
+              <span class="cal-row-date">17 jun</span>
+              <span class="cal-row-qty">140 st</span>
+              <span class="cal-row-code">UGA348-1500×3000</span>
+              <span class="cal-row-status grey">Transport</span>
+            </div>
+            <div class="cal-row">
+              <span class="cal-row-date">27 jun</span>
+              <span class="cal-row-qty">260 st</span>
+              <span class="cal-row-code">UGA348-1500×3000</span>
+              <span class="cal-row-status dark">Geleverd</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VERBRUIK -->
+    <section class="section">
+      <div class="sim-grid">
+        <div class="forecast-mock reveal">
+          <div class="forecast-mock-h">
+            <h4>Verbruiksvoorspelling</h4>
+            <span class="sim-mock-tag"><span class="d"></span> Live data</span>
+          </div>
+          <div class="forecast-table">
+            <div class="forecast-row h">
+              <span>Artikel</span>
+              <span>Stock</span>
+              <span>Verbruik</span>
+              <span>Stockbreuk</span>
+            </div>
+            <div class="forecast-row">
+              <div>
+                <div class="forecast-code">UGA348</div>
+                <div class="forecast-meta">1500×3000</div>
+              </div>
+              <span class="forecast-stock">1.248 st</span>
+              <span class="forecast-rate">212 / wk</span>
+              <span class="forecast-date blue">4 jul 2026 <span class="days">· 41 dagen</span></span>
+            </div>
+            <div class="forecast-row">
+              <div>
+                <div class="forecast-code">UGA812</div>
+                <div class="forecast-meta">1000×2000</div>
+              </div>
+              <span class="forecast-stock">420 st</span>
+              <span class="forecast-rate">98 / wk</span>
+              <span class="forecast-date warn">23 jun 2026 <span class="days">· 30 dagen</span></span>
+            </div>
+            <div class="forecast-row">
+              <div>
+                <div class="forecast-code">UGA521</div>
+                <div class="forecast-meta">1250×2500</div>
+              </div>
+              <span class="forecast-stock">74 st</span>
+              <span class="forecast-rate">85 / wk</span>
+              <span class="forecast-date crit">30 mei 2026 <span class="days">· 6 dagen</span></span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow reveal">Voorspelling</div>
+          <h2 class="h-section reveal reveal-d1" style="margin: 18px 0 20px; max-width: 14ch;">Verbruik voorspellen.</h2>
+          <p class="lead reveal reveal-d2">UltiApp berekent op basis van uw historisch verbruik wanneer uw stock dreigt op te raken — per artikel, per week. Zo weet u op voorhand wanneer een nieuwe afroep nodig is, zonder zelf bij te houden.</p>
+
+          <ul class="prod-bullets reveal reveal-d3" style="list-style: none; margin-top: 36px; display: flex; flex-direction: column;">
+            <li style="padding: 24px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 28px 1fr; gap: 18px; align-items: start;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8" style="margin-top: 2px;"><path d="M3 3v18h18"/><path d="M7 16l4-6 4 3 5-8"/></svg>
+              <div>
+                <h3 style="font-family: var(--display); font-size: 17px; font-weight: 600; margin-bottom: 4px;">Historisch verbruik</h3>
+                <p style="font-size: 14px; color: var(--ink-2); line-height: 1.55;">UltiApp volgt hoeveel palletten u gemiddeld per week verbruikt per artikeltype.</p>
+              </div>
+            </li>
+            <li style="padding: 24px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 28px 1fr; gap: 18px; align-items: start;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8" style="margin-top: 2px;"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <div>
+                <h3 style="font-family: var(--display); font-size: 17px; font-weight: 600; margin-bottom: 4px;">Verwachte stockbreuk</h3>
+                <p style="font-size: 14px; color: var(--ink-2); line-height: 1.55;">Op basis van de huidige voorraad en het verbruiksritme berekenen we de datum waarop u tekortkomt.</p>
+              </div>
+            </li>
+            <li style="padding: 24px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 28px 1fr; gap: 18px; align-items: start;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8" style="margin-top: 2px;"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+              <div>
+                <h3 style="font-family: var(--display); font-size: 17px; font-weight: 600; margin-bottom: 4px;">Tijdig afroep plaatsen</h3>
+                <p style="font-size: 14px; color: var(--ink-2); line-height: 1.55;">U krijgt een signaal vóór het kritiek wordt — zodat levering altijd op tijd is.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULES -->
+    <section class="section paper-2">
+      <div class="mod-grid-wrap">
+        <div class="eyebrow reveal">Eén omgeving</div>
+        <h2 class="h-section reveal reveal-d1" style="margin: 18px 0 20px; max-width: 16ch;">Eén omgeving voor alles.</h2>
+        <p class="lead reveal reveal-d2">Elk onderdeel van uw samenwerking met ULTI is beschikbaar in UltiApp — van voorraad tot rapportering.</p>
+
+        <div class="mod-grid">
+          <div class="mod-tile active reveal">
+            <svg class="mod-tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <div class="mod-tile-title">Dashboard</div>
+            <div class="mod-tile-body">Volledig overzicht — stock, afroepen, leveringen.</div>
+          </div>
+          <div class="mod-tile reveal reveal-d1">
+            <svg class="mod-tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            <div class="mod-tile-title">Mijn stock</div>
+            <div class="mod-tile-body">Realtime voorraad per artikel.</div>
+          </div>
+          <div class="mod-tile reveal reveal-d2">
+            <svg class="mod-tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M3 6h18M3 18h12"/><circle cx="20" cy="18" r="2"/></svg>
+            <div class="mod-tile-title">Afroepen</div>
+            <div class="mod-tile-body">Plaatsen, opvolgen, valideren.</div>
+          </div>
+          <div class="mod-tile reveal reveal-d3">
+            <svg class="mod-tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h13l5 5v5h-3"/><circle cx="8" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M3 7v11h3M11 18h3"/></svg>
+            <div class="mod-tile-title">Leveringen</div>
+            <div class="mod-tile-body">Status van elke transport.</div>
+          </div>
+          <div class="mod-tile reveal">
+            <svg class="mod-tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18M7 14l4-4 4 4 5-7"/></svg>
+            <div class="mod-tile-title">Voorspelling</div>
+            <div class="mod-tile-body">Stockbreuken voorspellen.</div>
+          </div>
+          <div class="mod-tile reveal reveal-d1">
+            <svg class="mod-tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h3"/></svg>
+            <div class="mod-tile-title">Rapport</div>
+            <div class="mod-tile-body">Export, downloads, historiek.</div>
+          </div>
+          <div class="mod-tile reveal reveal-d2">
+            <svg class="mod-tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            <div class="mod-tile-title">Documenten</div>
+            <div class="mod-tile-body">Facturen, leverbonnen, attesten.</div>
+          </div>
+          <div class="mod-tile coming reveal reveal-d3">
+            <svg class="mod-tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+            <div class="mod-tile-title">Meer binnenkort</div>
+            <div class="mod-tile-body">In ontwikkeling op uw vraag.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA DONKER -->
+    <section class="cta-dark" style="background: var(--ink); color: var(--paper); padding: clamp(80px, 10vw, 140px) var(--pad-x);">
+      <div class="cta-grid" style="max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: end;">
+        <div>
+          <div class="eyebrow" style="color: rgba(255,255,255,0.85);">Probeer het zelf</div>
+          <h2 class="reveal" style="font-family: var(--display); font-size: clamp(36px, 5vw, 72px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; max-width: 18ch;">Klaar om uw stock realtime te volgen?</h2>
+          <p class="reveal reveal-d1" style="margin-top: 24px; color: rgba(255,255,255,0.7); max-width: 56ch;">Vraag een persoonlijke demo aan. Wij geven u een rondleiding door UltiApp aan de hand van uw eigen artikelen.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <a href="#contact" class="btn btn-light btn-lg">Vraag een demo →</a>
+          <a href="#login" class="btn btn-outline-light btn-lg">Klanten login</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="logo-mono">ug</span>
+          <span class="logo-text">ulti group.</span>
+        </div>
+        <p>Belgische maakindustrie. Palletten op maat, voorraadbeheer op afroep. Sinds 2022.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Diensten</h4>
+        <ul>
+          <li><a href="#">Palletten op maat</a></li>
+          <li><a href="#">Voorraadbeheer</a></li>
+          <li><a href="Pitch - UltiApp.html">UltiApp</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Bedrijf</h4>
+        <ul>
+          <li><a href="Pitch - Over ons.html">Over ons</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#offerte">Offerte aanvragen</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@ultigroup.be">info@ultigroup.be</a></li>
+          <li><a href="tel:+32492456685">+32 492 45 66 85</a></li>
+          <li>Kortrijk, België</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ULTI GROUP BV · BE 0795.537.976</span>
+      <span>Ontworpen voor Belgische maakindustrie</span>
+    </div>
+  </footer>
+
+  <script src="pitch-reveal.js"></script>
+  <script>
+    // ═══════════════════════════════════════════
+    // ULTIAPP — LIVE DASHBOARD DEMO (4-scene loop)
+    // ═══════════════════════════════════════════
+    (function () {
+      const dash = document.getElementById('demo-dash');
+      if (!dash) return;
+
+      const cursor   = document.getElementById('demo-cursor');
+      const ripple   = document.getElementById('demo-ripple');
+      const toast    = document.getElementById('demo-toast');
+      const toastTitle = document.getElementById('demo-toast-title');
+      const toastBody  = document.getElementById('demo-toast-body');
+      const toastIconPath = document.getElementById('demo-toast-icon-path');
+      const modalBd  = document.getElementById('demo-modal-backdrop');
+      const modal    = document.getElementById('demo-modal');
+      const modalQty = document.getElementById('modal-qty');
+      const modalCta = document.getElementById('modal-cta');
+      const sceneDots = document.querySelectorAll('.demo-scene-dot');
+      const kpiStock = document.getElementById('kpi-stock');
+      const kpiAfroep = document.getElementById('kpi-afroep');
+      const row3val  = document.getElementById('stock-row3-val');
+      const row3bar  = document.getElementById('stock-row3-bar');
+      const row3barFill = row3bar.querySelector('[data-bar-fill]');
+      const recents  = document.getElementById('recents');
+      const stockRows = document.querySelectorAll('.stock-row');
+
+      // ── State control ──
+      let paused = false;
+      let inViewport = false;
+      let tabVisible = !document.hidden;
+      let isRunning = false;
+
+      const ICON_WARN = 'M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17v.5';
+      const ICON_OK   = 'M20 6 9 17l-5-5';
+
+      dash.addEventListener('mouseenter', () => paused = true);
+      dash.addEventListener('mouseleave', () => paused = false);
+      document.addEventListener('visibilitychange', () => tabVisible = !document.hidden);
+
+      const obs = new IntersectionObserver(entries => {
+        inViewport = entries[0].isIntersecting;
+        if (inViewport && !isRunning) startLoop();
+      }, { threshold: 0.2 });
+      obs.observe(dash);
+
+      // ── Utilities ──
+      function wait(ms) {
+        return new Promise(resolve => {
+          let elapsed = 0;
+          const step = 50;
+          const tick = () => {
+            if (!paused && tabVisible && inViewport) elapsed += step;
+            if (elapsed >= ms) resolve();
+            else setTimeout(tick, step);
+          };
+          tick();
+        });
+      }
+
+      function formatDotted(n) {
+        return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+
+      async function countUp(el, from, to, dur) {
+        const start = performance.now();
+        const dotted = el.dataset.format === 'dotted';
+        const suffix = el.dataset.suffix || '';
+        return new Promise(resolve => {
+          const tick = (now) => {
+            if (paused || !tabVisible || !inViewport) {
+              requestAnimationFrame(tick);
+              return;
+            }
+            const t = Math.min(1, (now - start) / dur);
+            const eased = 1 - Math.pow(1 - t, 3);
+            const val = from + (to - from) * eased;
+            el.textContent = (dotted ? formatDotted(val) : Math.round(val)) + suffix;
+            if (t < 1) requestAnimationFrame(tick);
+            else resolve();
+          };
+          requestAnimationFrame(tick);
+        });
+      }
+
+      function setCursor(x, y) {
+        cursor.style.setProperty('--tx', `translate(${x}px, ${y}px)`);
+        cursor.style.transform = `translate(${x}px, ${y}px)`;
+      }
+      function showCursor() { cursor.classList.add('shown'); }
+      function hideCursor() { cursor.classList.remove('shown'); }
+
+      async function rippleAt(x, y) {
+        ripple.style.left = (x + 11) + 'px';
+        ripple.style.top  = (y + 11) + 'px';
+        ripple.classList.remove('go');
+        void ripple.offsetWidth;
+        ripple.classList.add('go');
+        cursor.classList.add('clicking');
+        await wait(400);
+        cursor.classList.remove('clicking');
+      }
+
+      function getRel(el) {
+        const dr = dash.getBoundingClientRect();
+        const er = el.getBoundingClientRect();
+        return {
+          x: er.left - dr.left + er.width / 2 - 11,
+          y: er.top  - dr.top  + er.height / 2 - 11
+        };
+      }
+      async function moveTo(el) {
+        const { x, y } = getRel(el);
+        setCursor(x, y);
+        await wait(750);
+      }
+      async function clickEl(el) {
+        const { x, y } = getRel(el);
+        await rippleAt(x, y);
+      }
+
+      function setScene(n) {
+        dash.setAttribute('data-scene', n);
+        sceneDots.forEach((d, i) => {
+          d.classList.remove('active', 'past');
+          if (i + 1 === n) d.classList.add('active');
+          else if (i + 1 < n) d.classList.add('past');
+        });
+      }
+
+      function setToast(kind, title, body) {
+        toast.classList.toggle('ok', kind === 'ok');
+        toastIconPath.setAttribute('d', kind === 'ok' ? ICON_OK : ICON_WARN);
+        toastTitle.textContent = title;
+        toastBody.textContent  = body;
+      }
+
+      function reset() {
+        // KPI's reset
+        kpiStock.textContent  = '0';
+        kpiAfroep.textContent = '0';
+        // Stock bars reset
+        document.querySelectorAll('[data-bar-fill]').forEach(b => b.style.width = '0%');
+        document.querySelectorAll('[data-stock-val]').forEach(el => el.textContent = '0 st');
+        row3val.textContent = '0 st';
+        row3val.classList.remove('warn');
+        row3bar.classList.remove('warn');
+        row3barFill.style.background = '';
+        row3barFill.style.width = '0%';
+        // Pills reset
+        document.querySelectorAll('.dash-pill').forEach(p => {
+          p.classList.remove('shown', 'new');
+        });
+        // Remove any new pill that was added
+        const extra = recents.querySelector('[data-pill="3"]');
+        if (extra) extra.remove();
+        // Hide overlays
+        toast.classList.remove('shown', 'ok');
+        modalBd.classList.remove('shown');
+        modal.classList.remove('shown');
+        hideCursor();
+      }
+
+      // ═══════════════════════════════════════════
+      // SCENES
+      // ═══════════════════════════════════════════
+
+      async function scene1_dashboard() {
+        setScene(1);
+        await wait(400);
+        // Count KPIs up
+        countUp(kpiStock, 0, 1240, 1400);
+        countUp(kpiAfroep, 0, 2, 800);
+        // Fill stock bars in sequence
+        await wait(200);
+        document.querySelectorAll('[data-bar-fill]').forEach((b, i) => {
+          setTimeout(() => {
+            b.style.width = b.dataset.target + '%';
+          }, i * 220);
+        });
+        // Stock numbers
+        const stockVals = document.querySelectorAll('[data-stock-val]');
+        countUp(stockVals[0], 0, 850, 1100);
+        setTimeout(() => countUp(stockVals[1], 0, 420, 1100), 220);
+        // Row 3 (UGA521 — will become warn in scene 2)
+        setTimeout(() => {
+          row3barFill.style.width = '22%';
+          countUp(row3val, 0, 85, 1100);
+        }, 440);
+        // Show pills
+        await wait(1100);
+        document.querySelectorAll('.dash-pill').forEach((p, i) => {
+          setTimeout(() => p.classList.add('shown'), i * 180);
+        });
+        await wait(1800);
+      }
+
+      async function scene2_warning() {
+        setScene(2);
+        await wait(400);
+        // Row 3 flashes warning
+        row3val.classList.add('warn');
+        row3bar.classList.add('warn');
+        row3barFill.style.background = 'var(--warn)';
+        document.querySelectorAll('.stock-row')[2].classList.add('row-flash');
+        // Show warning toast
+        await wait(300);
+        setToast('warn', '⚠ Stockwaarschuwing', 'UGA521 · kritiek over 6 dagen');
+        toast.classList.add('shown');
+        // Stock drops slightly
+        await wait(800);
+        countUp(row3val, 85, 74, 700);
+        row3barFill.style.width = '18%';
+        await wait(2500);
+        toast.classList.remove('shown');
+        document.querySelectorAll('.stock-row')[2].classList.remove('row-flash');
+        await wait(500);
+      }
+
+      async function scene3_afroep() {
+        setScene(3);
+        await wait(300);
+        // Cursor appears near stock row 1 (UGA348)
+        showCursor();
+        const row1 = stockRows[0];
+        await moveTo(row1);
+        await wait(300);
+        await clickEl(row1);
+        await wait(300);
+        // Open modal
+        modalBd.classList.add('shown');
+        modal.classList.add('shown');
+        await wait(600);
+        // Count qty 0 → 220
+        await countUp(modalQty, 0, 220, 1400);
+        await wait(500);
+        // Cursor moves to CTA
+        await moveTo(modalCta);
+        await wait(400);
+        await clickEl(modalCta);
+        await wait(400);
+        // Close modal
+        modal.classList.remove('shown');
+        await wait(200);
+        modalBd.classList.remove('shown');
+        hideCursor();
+        await wait(400);
+      }
+
+      async function scene4_confirmed() {
+        setScene(4);
+        await wait(400);
+        // Show success toast
+        setToast('ok', '✓ Afroep bevestigd', 'AFR-2026-042 · levering binnen 24u');
+        toast.classList.add('shown');
+        // Add new pill
+        await wait(700);
+        const newPill = document.createElement('div');
+        newPill.className = 'dash-pill new';
+        newPill.setAttribute('data-pill', '3');
+        newPill.innerHTML = `
+          <div class="dash-pill-ref">AFR-2026-042</div>
+          <div class="dash-pill-status" style="color: var(--ok)"><span class="d" style="background: var(--ok)"></span> Net geplaatst</div>
+        `;
+        // Replace pill 2 to keep 2 columns visible (slide replacement)
+        const pill2 = recents.querySelector('[data-pill="2"]');
+        const pill1 = recents.querySelector('[data-pill="1"]');
+        pill1.style.display = 'none';
+        recents.insertBefore(newPill, pill2);
+        requestAnimationFrame(() => newPill.classList.add('shown'));
+        // Tick afroep KPI up
+        await wait(500);
+        kpiAfroep.classList.add('pop');
+        await countUp(kpiAfroep, 2, 3, 600);
+        setTimeout(() => kpiAfroep.classList.remove('pop'), 600);
+        await wait(2400);
+        toast.classList.remove('shown');
+        await wait(500);
+        // Restore pill1 for next loop
+        pill1.style.display = '';
+      }
+
+      // ═══════════════════════════════════════════
+      // LOOP
+      // ═══════════════════════════════════════════
+
+      async function startLoop() {
+        if (isRunning) return;
+        isRunning = true;
+        // small delay so the dashboard mockup reveal animation finishes first
+        await wait(800);
+        while (true) {
+          reset();
+          await wait(300);
+          await scene1_dashboard();
+          await scene2_warning();
+          await scene3_afroep();
+          await scene4_confirmed();
+          await wait(800);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

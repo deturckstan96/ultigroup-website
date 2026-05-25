@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Pine — primair */
+  --color-pine:    #14352A;
+  --color-pine-2:  #1F4A38;
+  --color-pine-3:  #2D5C44;
+
+  /* Accent */
+  --color-accent:  #5A8C4A;
+  --color-moss:    #8FA663;
+
+  /* Tekst */
+  --color-ink:     #1F2328;
+  --color-ink-2:   #3A3F46;
+  --color-ink-3:   #6B7280;
+
+  /* Achtergronden */
+  --color-cream:   #F4F1E8;
+  --color-cream-2: #EDE8D8;
+  --color-paper:   #FFFFFF;
+  --color-paper-2: #F7F8F4;
+
+  /* Lijnen */
+  --color-line:    #E1DDD0;
+  --color-line-2:  #D1D5DB;
+
+  /* Semantisch */
+  --color-ok:      #2D6A4F;
+  --color-warn:    #C77A18;
+  --color-crit:    #C0392B;
+
+  /* Fonts */
+  --font-sans:    var(--font-body);
+  --font-display: var(--font-display);
+  --font-mono:    var(--font-mono);
+}
+
+:root {
+  --pine:    #14352A;
+  --pine-2:  #1F4A38;
+  --pine-3:  #2D5C44;
+  --accent:  #5A8C4A;
+  --moss:    #8FA663;
+  --cream:   #F4F1E8;
+  --cream-2: #EDE8D8;
+  --paper:   #FFFFFF;
+  --paper-2: #F7F8F4;
+  --ink:     #1F2328;
+  --ink-2:   #3A3F46;
+  --ink-3:   #6B7280;
+  --line:    #E1DDD0;
+  --line-2:  #D1D5DB;
+  --ok:      #2D6A4F;
+  --warn:    #C77A18;
+  --crit:    #C0392B;
+
+  --nav-h: 76px;
+  --pad-x: clamp(24px, 5vw, 80px);
+  --max:   1440px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body), 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+img { display: block; max-width: 100%; }
+
+::selection { background: var(--pine); color: #fff; }
+
+/* ── Typography helpers ── */
+.font-display { font-family: var(--font-display), system-ui, sans-serif; }
+.font-mono    { font-family: var(--font-mono), ui-monospace, monospace; }
+
+/* ── Eyebrow ── */
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.eyebrow-light {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow-light::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: rgba(255,255,255,0.3);
+  flex-shrink: 0;
+}
+
+/* ── Hero heading ── */
+.h-hero {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(56px, 7.5vw, 112px);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+/* ── Section heading ── */
+.h-section {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(40px, 5vw, 60px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+/* ── Lead paragraph ── */
+.lead {
+  font-size: clamp(17px, 1.3vw, 19px);
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 56ch;
+}
+
+/* ── Section padding ── */
+.section-pad {
+  padding: clamp(60px, 8vw, 120px) var(--pad-x);
+}
+.section-pad-sm {
+  padding: clamp(40px, 5vw, 72px) var(--pad-x);
+}
+
+/* ── Container ── */
+.container-max {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+/* ── Scroll reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 0.08s; }
+.reveal-d2 { transition-delay: 0.16s; }
+.reveal-d3 { transition-delay: 0.24s; }
+.reveal-d4 { transition-delay: 0.32s; }
+
+/* ── Grid bg ── */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 40%, transparent 80%);
+  opacity: 0.5;
+}
