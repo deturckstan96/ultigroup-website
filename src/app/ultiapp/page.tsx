@@ -29,7 +29,7 @@ export default function UltiAppPage() {
         overflow: "hidden",
       }}>
         <div className="grid-bg" style={{ position: "absolute", inset: 0, zIndex: 0 }} />
-        <div style={{ maxWidth: 1440, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1.15fr", gap: "clamp(32px,5vw,56px)", alignItems: "center", position: "relative", zIndex: 1 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(32px,5vw,56px)", alignItems: "center", position: "relative", zIndex: 1 }}>
           <div>
             <div className="reveal" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "#E8F0E5", color: "var(--pine)", borderRadius: 0, fontSize: 11, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 28, fontFamily: "var(--font-mono)" }}>
               <span style={{ width: 6, height: 6, background: "var(--accent)", borderRadius: "50%", animation: "ua-pulse 2.4s ease infinite", display: "block" }} />
@@ -53,7 +53,7 @@ export default function UltiAppPage() {
               </Link>
             </div>
           </div>
-          <DashboardDemo />
+          <div className="hidden lg:block"><DashboardDemo /></div>
         </div>
       </section>
 
@@ -65,7 +65,7 @@ export default function UltiAppPage() {
             Van voorraad naar levering
           </h2>
           <p className="reveal reveal-d2 lead" style={{ marginTop: 16 }}>UltiApp verbindt elke stap van het proces — transparant en in realtime.</p>
-          <div className="reveal reveal-d2" style={{ marginTop: 56, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 2, background: "var(--color-line)", border: "1px solid var(--color-line)", borderRadius: 8, overflow: "hidden" }}>
+          <div className="reveal reveal-d2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ marginTop: 56, gap: 2, background: "var(--color-line)", border: "1px solid var(--color-line)", borderRadius: 8, overflow: "hidden" }}>
             {[
               { num: "01 · VOORRAAD", title: "Klaar in onze magazijnen", body: "Uw palletten staan klaar in onze magazijnen, beheerd in eigen voorraad." },
               { num: "02 · AFROEP", title: "U plaatst de afroep", body: "Via UltiApp — in drie klikken. Of telefonisch — zoals u verkiest." },
@@ -84,8 +84,8 @@ export default function UltiAppPage() {
 
       {/* ── STOCKBREUK SIMULATIE ── */}
       <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "clamp(40px,6vw,80px)", alignItems: "center" }}>
-          <div className="reveal" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", padding: 24 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(40px,6vw,80px)", alignItems: "center" }}>
+          <div className="reveal hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", padding: 24 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
               <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 700 }}>Voorraadanalyse</div>
               <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, color: "var(--color-blue)", background: "var(--color-blue-50)", padding: "4px 10px", borderRadius: 999, display: "inline-flex", alignItems: "center", gap: 6 }}>
@@ -162,7 +162,7 @@ export default function UltiAppPage() {
 
       {/* ── AFROEPKALENDER ── */}
       <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)", background: "var(--color-paper-2)" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: "clamp(40px,6vw,80px)", alignItems: "center" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(40px,6vw,80px)", alignItems: "center" }}>
           <div>
             <div className="eyebrow reveal">Planning &amp; opvolging</div>
             <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 20px", maxWidth: "16ch" }}>Plan en volg elke afroep op.</h2>
@@ -184,7 +184,7 @@ export default function UltiAppPage() {
               ))}
             </div>
           </div>
-          <div className="reveal reveal-d2" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", padding: 24 }}>
+          <div className="reveal reveal-d2 hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", padding: 24 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
               <h4 style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 700 }}>Juni 2026</h4>
               <div style={{ display: "flex", gap: 4 }}>
@@ -193,7 +193,7 @@ export default function UltiAppPage() {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 4, marginBottom: 20 }}>
               {["MA","DI","WO","DO","VR","ZA","ZO"].map(d => <div key={d} style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--color-ink-3)", textAlign: "center", padding: "6px 0", letterSpacing: "0.08em" }}>{d}</div>)}
-              {[{d:"1"},{d:"2"},{d:"3"},{d:"4"},{d:"5",mark:true},{d:"6"},{d:"7"},{d:"8"},{d:"9"},{d:"10"},{d:"11"},{d:"12",mark:true},{d:"13"},{d:"14"},{d:"15"},{d:"16"},{d:"17",mark:true},{d:"18",today:true},{d:"19"},{d:"20"},{d:"21"},{d:"22"},{d:"23"},{d:"24"},{d:"25"},{d:"26",mark:true},{d:"27"},{d:"28"},{d:"29"},{d:"30"}].map((day, i) => (
+              {([{d:"1"},{d:"2"},{d:"3"},{d:"4"},{d:"5",mark:true},{d:"6"},{d:"7"},{d:"8"},{d:"9"},{d:"10"},{d:"11"},{d:"12",mark:true},{d:"13"},{d:"14"},{d:"15"},{d:"16"},{d:"17",mark:true},{d:"18",today:true},{d:"19"},{d:"20"},{d:"21"},{d:"22"},{d:"23"},{d:"24"},{d:"25"},{d:"26",mark:true},{d:"27"},{d:"28"},{d:"29"},{d:"30"}] as Array<{d:string;mark?:boolean;today?:boolean;dim?:boolean}>).map((day, i) => (
                 <div key={i} style={{ aspectRatio: "1", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, borderRadius: 6, position: "relative", color: day.dim ? "var(--color-line-2)" : day.mark ? "var(--color-blue)" : "var(--color-ink-2)", fontWeight: (day.mark || day.today) ? 700 : 400, background: day.mark ? "var(--color-blue-50)" : "transparent", border: day.today ? "1.5px solid var(--color-ink)" : "none" }}>
                   {day.d}
                   {day.mark && <span style={{ position: "absolute", bottom: 4, width: 4, height: 4, borderRadius: "50%", background: "var(--color-blue)", display: "block" }} />}
@@ -221,8 +221,8 @@ export default function UltiAppPage() {
 
       {/* ── VERBRUIKSVOORSPELLING ── */}
       <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "clamp(40px,6vw,80px)", alignItems: "center" }}>
-          <div className="reveal" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", padding: 24 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(40px,6vw,80px)", alignItems: "center" }}>
+          <div className="reveal hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", padding: 24 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
               <h4 style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 700 }}>Verbruiksvoorspelling</h4>
               <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, color: "var(--color-blue)", background: "var(--color-blue-50)", padding: "4px 10px", borderRadius: 999, display: "inline-flex", alignItems: "center", gap: 6 }}>
@@ -284,7 +284,7 @@ export default function UltiAppPage() {
           <div className="eyebrow reveal">Eén omgeving</div>
           <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 20px", maxWidth: "16ch" }}>Eén omgeving voor alles.</h2>
           <p className="reveal reveal-d2 lead">Elk onderdeel van uw samenwerking met ULTI is beschikbaar in UltiApp — van voorraad tot rapportering.</p>
-          <div style={{ marginTop: 48, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, position: "relative" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ marginTop: 48, gap: 12, position: "relative" }}>
             {[
               { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>, title: "Dashboard", body: "Volledig overzicht — stock, afroepen, leveringen.", desc: "Real-time overzicht van uw volledige samenwerking. Stock, openstaande afroepen en geplande leveringen op één scherm — altijd up to date.", active: true },
               { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>, title: "Mijn stock", body: "Realtime voorraad per artikel.", desc: "Zie per artikel hoeveel palletten klaarstaan in het magazijn. Historiek, bewegingen en reservaties zijn altijd inbegrepen." },
@@ -339,8 +339,8 @@ export default function UltiAppPage() {
                   <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 600, letterSpacing: "-0.015em", color: isBlue ? "var(--color-paper)" : isComing ? "var(--color-ink-3)" : "var(--color-ink)", marginTop: "auto", transition: "color 0.18s" }}>{tile.title}</div>
                   <div style={{ fontSize: 12, color: isBlue ? "rgba(255,255,255,0.7)" : "var(--color-ink-3)", lineHeight: 1.5, transition: "color 0.18s" }}>{tile.body}</div>
 
-                  {/* Floating popover — always above the card */}
-                  <div style={{ position: "absolute", ...popoverH, ...popoverV, width: 280, background: "#fff", borderRadius: 10, boxShadow: "0 20px 48px -12px rgba(31,35,40,0.22), 0 0 0 1px rgba(31,35,40,0.06)", padding: "18px 20px", zIndex: 50, pointerEvents: "none", opacity: isHovered ? 1 : 0, transform: isHovered ? "translateY(0)" : "translateY(-6px)", transition: "opacity 0.18s ease, transform 0.18s ease" }}>
+                  {/* Floating popover — only on desktop */}
+                  <div className="hidden lg:block" style={{ position: "absolute", ...popoverH, ...popoverV, width: 280, background: "#fff", borderRadius: 10, boxShadow: "0 20px 48px -12px rgba(31,35,40,0.22), 0 0 0 1px rgba(31,35,40,0.06)", padding: "18px 20px", zIndex: 50, pointerEvents: "none", opacity: isHovered ? 1 : 0, transform: isHovered ? "translateY(0)" : "translateY(-6px)", transition: "opacity 0.18s ease, transform 0.18s ease" }}>
                     <div style={{ position: "absolute", ...(isRight ? { right: 24 } : { left: 24 }), width: 0, height: 0, borderStyle: "solid", ...caretShadowStyle }} />
                     <div style={{ position: "absolute", ...(isRight ? { right: 25 } : { left: 25 }), width: 0, height: 0, borderStyle: "solid", ...caretStyle }} />
                     <div style={{ width: 32, height: 32, color: "var(--color-blue)", marginBottom: 12 }}>{tile.icon}</div>
@@ -356,7 +356,7 @@ export default function UltiAppPage() {
 
       {/* ── DARK CTA ── */}
       <section style={{ background: "var(--color-ink)", color: "var(--color-paper)", padding: "clamp(80px,10vw,140px) clamp(24px,5vw,80px)" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 64, alignItems: "end" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: 64, alignItems: "end" }}>
           <div>
             <div className="eyebrow-light reveal">Probeer het zelf</div>
             <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(36px,5vw,72px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.02, marginTop: 18, maxWidth: "18ch" }}>
