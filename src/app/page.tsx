@@ -92,7 +92,7 @@ export default function HomePage() {
 
               {/* Meta strip */}
               <div
-                className="grid grid-cols-3 gap-6 reveal reveal-d4"
+                className="grid grid-cols-3 gap-3 sm:gap-6 reveal reveal-d4"
                 style={{ marginTop: 56, paddingTop: 32, borderTop: "1px solid var(--line)", maxWidth: 520 }}
               >
                 {[
@@ -294,72 +294,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA DARK ── */}
-      <section style={{ background: "var(--pine)", padding: "clamp(80px,10vw,140px) clamp(24px,5vw,80px)" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto" }}>
-          <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: 64, alignItems: "end" }}>
-            <div>
-              <p className="eyebrow-light reveal mb-5">Klaar om samen te werken?</p>
-              <h2
-                className="reveal reveal-d1"
-                style={{ fontFamily: "var(--font-display)", fontSize: "clamp(36px,5vw,72px)", fontWeight: 800, color: "#fff", letterSpacing: "-0.03em", lineHeight: 1.02, maxWidth: "18ch", marginBottom: 20, textTransform: "uppercase" }}
-              >
-                Klaar om uw stockbeheer uit handen te geven?
-              </h2>
-              <p className="reveal reveal-d2" style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.6, maxWidth: "52ch" }}>
-                Vraag vrijblijvend een offerte aan. Wij bekijken samen welke palletten u nodig heeft en hoe wij uw stock het best kunnen beheren.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 items-start lg:items-end reveal reveal-d1">
-              <Link
-                href="/offerte"
-                className="inline-flex items-center gap-2 text-sm font-medium transition-colors"
-                style={{ background: "var(--paper)", color: "var(--pine)", padding: "14px 28px", borderRadius: 0 }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--cream)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--paper)"; }}
-              >
-                Offerte aanvragen
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 text-sm font-medium"
-                style={{ border: "1.5px solid rgba(255,255,255,0.3)", color: "rgba(255,255,255,0.75)", padding: "14px 28px", borderRadius: 0 }}
-              >
-                Neem contact op
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ── KLANTEN STRIP ── */}
-      <section style={{ background: "var(--cream)", padding: "32px clamp(24px,5vw,80px)", borderTop: "1px solid var(--line)" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto" }} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-          <div>
-            <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, color: "var(--pine)" }}>
-              Bent u een bestaande klant?
-            </p>
-            <p style={{ fontSize: 14, color: "var(--ink-3)", marginTop: 2 }}>
-              Log in op UltiApp om uw stock, leveringen en afroepen op te volgen.
-            </p>
-          </div>
-          <Link
-            href="/portaal/login"
-            className="inline-flex items-center gap-2 text-white text-sm font-medium shrink-0"
-            style={{ background: "var(--pine)", padding: "10px 20px", borderRadius: 0 }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--pine-2)")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "var(--pine)")}
-          >
-            Naar UltiApp
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </div>
-      </section>
     </>
   );
 }

@@ -15,9 +15,41 @@ function useReveal() {
   }, []);
 }
 
+function volgendeAfroepDatum() {
+  const d = new Date();
+  d.setDate(d.getDate() + 20);
+  return d.toLocaleDateString("nl-BE", { day: "numeric", month: "long" });
+}
+
 export default function UltiAppPage() {
   useReveal();
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const volgendeAfroep = volgendeAfroepDatum();
+
+  // Kalender — altijd huidige maand, datums altijd in de toekomst
+  const _today = new Date();
+  const todayDay    = _today.getDate();
+  const todayMonth  = _today.getMonth();
+  const todayYear   = _today.getFullYear();
+  const maandLabel  = (() => {
+    const s = _today.toLocaleDateString("nl-BE", { month: "long", year: "numeric" });
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  })();
+  const firstDow     = (new Date(todayYear, todayMonth, 1).getDay() + 6) % 7; // Ma=0
+  const daysInMonth  = new Date(todayYear, todayMonth + 1, 0).getDate();
+  const addDays      = (n: number) => { const d = new Date(_today); d.setDate(todayDay + n); return d; };
+  const calAfroepen  = [
+    { d: addDays(1),  qty: "180 st", status: "Afroep ontvangen", ss: { background: "var(--color-blue-50)", color: "var(--color-blue)" } },
+    { d: addDays(8),  qty: "220 st", status: "Klaar",            ss: { background: "#E0F4E9",              color: "var(--color-ok)"   } },
+    { d: addDays(13), qty: "140 st", status: "Ingepland",        ss: { background: "var(--color-paper-3)", color: "var(--color-ink-2)"} },
+    { d: addDays(22), qty: "260 st", status: "Ingepland",        ss: { background: "var(--color-paper-3)", color: "var(--color-ink-2)"} },
+  ].map(a => ({
+    ...a,
+    day:     a.d.getDate(),
+    inMonth: a.d.getMonth() === todayMonth,
+    label:   a.d.toLocaleDateString("nl-BE", { day: "numeric", month: "short" }),
+  }));
+  const markedDays = new Set(calAfroepen.filter(a => a.inMonth).map(a => a.day));
 
   return (
     <>
@@ -113,25 +145,39 @@ export default function UltiAppPage() {
               </div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, margin: "20px 0" }}>
-              {[["Gem. verbruik","212 / week",false],["Laatste afroep","180 stuks",false],["Pred. stockbreuk","18 juni",true]].map(([lbl,val,crit],i) => (
+              {[["Gem. verbruik","212 / week",false],["Laatste afroep","180 stuks",false],["Verwachte afroep", volgendeAfroep, true]].map(([lbl,val,crit],i) => (
                 <div key={i} style={{ background: "var(--color-paper-2)", borderRadius: 6, padding: 12 }}>
                   <div style={{ fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 600 }}>{lbl as string}</div>
-                  <div style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 700, marginTop: 4, color: crit ? "var(--color-crit)" : "var(--color-ink)" }}>{val as string}</div>
+                  <div style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 700, marginTop: 4, color: crit ? "var(--color-warn)" : "var(--color-ink)" }}>{val as string}</div>
                 </div>
               ))}
             </div>
-            <div style={{ background: "var(--color-paper-2)", borderRadius: 8, overflow: "hidden", marginBottom: 16 }}>
-              {[["Maand","Verwachte stock","Status"],["Jun 2026","1.248 st","ok:Gezond"],["Jul 2026","824 st","ok:Goed"],["Aug 2026","412 st","warn:Let op"],["Sep 2026","0 st","crit:Kritiek"]].map((row, i) => (
-                <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", padding: "10px 14px", fontSize: i === 0 ? 10 : 12, alignItems: "center", borderBottom: i < 4 ? "1px solid var(--color-line)" : "none", background: i === 0 ? "var(--color-paper-3)" : "transparent", letterSpacing: i === 0 ? "0.12em" : 0, textTransform: i === 0 ? "uppercase" : "none", color: i === 0 ? "var(--color-ink-3)" : "var(--color-ink)", fontWeight: i === 0 ? 600 : 400 }}>
-                  <span>{row[0]}</span><span>{row[1]}</span>
-                  {i === 0 ? <span>{row[2]}</span> : (() => {
-                    const [type, label] = (row[2] as string).split(":");
-                    const cm: Record<string,string> = { ok: "var(--color-ok)", warn: "var(--color-warn)", crit: "var(--color-crit)" };
-                    const c = cm[type];
-                    return <span style={{ display: "inline-flex", alignItems: "center", gap: 6, color: c, fontWeight: 600 }}><span style={{ width: 7, height: 7, borderRadius: "50%", background: c, display: "block" }} />{label}</span>;
-                  })()}
+            {/* Staafgrafiek — verwachte stock per maand */}
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 600, marginBottom: 10 }}>Verwachte stock per maand</div>
+              <div style={{ position: "relative", height: 130 }}>
+                {/* Minimumbalk */}
+                <div style={{ position: "absolute", bottom: "26%", left: 0, right: 0, borderTop: "1.5px dashed var(--color-crit)", zIndex: 1, pointerEvents: "none" }}>
+                  <span style={{ position: "absolute", right: 0, top: -14, fontSize: 9, color: "var(--color-crit)", fontWeight: 600, background: "var(--color-paper)", paddingLeft: 4 }}>500 min.</span>
                 </div>
-              ))}
+                {/* Balken */}
+                <div style={{ display: "flex", alignItems: "flex-end", height: "100%", gap: 8 }}>
+                  {[
+                    { month: "Jun", value: 1248, pct: 89, color: "var(--color-ok)" },
+                    { month: "Jul", value: 824,  pct: 59, color: "var(--color-ok)" },
+                    { month: "Aug", value: 412,  pct: 29, color: "var(--color-warn)" },
+                    { month: "Sep", value: 0,    pct: 2,  color: "var(--color-crit)" },
+                  ].map((bar, i) => (
+                    <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", height: "100%", justifyContent: "flex-end" }}>
+                      <div style={{ fontSize: 9, fontWeight: 600, color: bar.color, marginBottom: 3, whiteSpace: "nowrap" }}>
+                        {bar.value > 0 ? `${bar.value.toLocaleString("nl-BE")} st` : "—"}
+                      </div>
+                      <div style={{ width: "100%", height: `${bar.pct}%`, background: bar.color, borderRadius: "3px 3px 0 0", opacity: 0.85, minHeight: bar.value === 0 ? 3 : undefined }} />
+                      <div style={{ fontSize: 10, color: "var(--color-ink-3)", marginTop: 5 }}>{bar.month}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
             <button style={{ width: "100%", background: "var(--color-blue)", color: "var(--color-paper)", padding: 12, borderRadius: 8, border: "none", fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
               → Afroep plannen
@@ -141,20 +187,30 @@ export default function UltiAppPage() {
             <div className="eyebrow reveal">Voorspelling &amp; waarschuwing</div>
             <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 20px", maxWidth: "14ch" }}>Voorkom stockbreuken</h2>
             <p className="reveal reveal-d2 lead">UltiApp volgt het historisch verbruik per pallet en geeft tijdig aan wanneer een nieuwe afroep nodig is — zodat u nooit voor verrassingen staat.</p>
-            <div className="reveal reveal-d3" style={{ marginTop: 36, display: "flex", flexDirection: "column", gap: 10 }}>
-              {[
-                { title: "Voorraad gezond", body: "Geen actie vereist.", border: "var(--color-ok)", bg: "#EFF8F3", dot: "var(--color-ok)" },
-                { title: "Actie binnenkort nodig", body: "Plan tijdig uw volgende afroep.", border: "var(--color-warn)", bg: "#FFF8EE", dot: "var(--color-warn)" },
-                { title: "Afroep aanbevolen", body: "Stockbreuk dreigt — onderneem actie.", border: "var(--color-crit)", bg: "#FFF1EF", dot: "var(--color-crit)" },
-              ].map((card, i) => (
-                <div key={i} style={{ padding: "18px 22px", borderLeft: `3px solid ${card.border}`, background: card.bg, borderRadius: 4, display: "flex", alignItems: "center", gap: 16 }}>
-                  <div style={{ width: 12, height: 12, borderRadius: "50%", background: card.dot, flexShrink: 0 }} />
-                  <div>
-                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 15 }}>{card.title}</div>
-                    <div style={{ fontSize: 13, color: "var(--color-ink-2)", marginTop: 2 }}>{card.body}</div>
-                  </div>
+            <div className="reveal reveal-d3" style={{ marginTop: 36, display: "flex", flexDirection: "column", gap: 16 }}>
+              {/* Urgentiekaart — gebaseerd op huidige situatie */}
+              <div style={{ padding: "22px 24px", borderLeft: "3px solid var(--color-warn)", background: "#FFF8EE", borderRadius: 6 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                  <span style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--color-warn)", display: "block", flexShrink: 0 }} />
+                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 16 }}>Actie binnenkort nodig</div>
                 </div>
-              ))}
+                <div style={{ fontSize: 13, color: "var(--color-ink-2)", lineHeight: 1.5 }}>
+                  Op basis van uw huidig verbruik van <strong>212 stuks/week</strong> raadt UltiApp aan uw volgende afroep te plaatsen voor <strong style={{ color: "var(--color-warn)" }}>{volgendeAfroep}</strong> — zo vermijdt u stockbreuk.
+                </div>
+              </div>
+              {/* Uitleg hoe de urgentie werkt */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {[
+                  { label: "Meer dan 4 weken stock", color: "var(--color-ok)", text: "Geen actie vereist" },
+                  { label: "2 tot 4 weken stock",    color: "var(--color-warn)", text: "Plan uw volgende afroep" },
+                  { label: "Minder dan 2 weken",     color: "var(--color-crit)", text: "Onmiddellijk handelen" },
+                ].map((row, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13 }}>
+                    <span style={{ width: 8, height: 8, borderRadius: "50%", background: row.color, display: "block", flexShrink: 0 }} />
+                    <span style={{ color: "var(--color-ink-2)" }}><strong>{row.label}</strong> — {row.text}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -185,33 +241,42 @@ export default function UltiAppPage() {
             </div>
           </div>
           <div className="reveal reveal-d2 hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", padding: 24 }}>
+            {/* Header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-              <h4 style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 700 }}>Juni 2026</h4>
+              <h4 style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 700 }}>{maandLabel}</h4>
               <div style={{ display: "flex", gap: 4 }}>
                 {["‹","›"].map((c,i) => <span key={i} style={{ width: 28, height: 28, border: "1px solid var(--color-line)", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-ink-2)", fontSize: 12, cursor: "pointer" }}>{c}</span>)}
               </div>
             </div>
+
+            {/* Dag-grid */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 4, marginBottom: 20 }}>
-              {["MA","DI","WO","DO","VR","ZA","ZO"].map(d => <div key={d} style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--color-ink-3)", textAlign: "center", padding: "6px 0", letterSpacing: "0.08em" }}>{d}</div>)}
-              {([{d:"1"},{d:"2"},{d:"3"},{d:"4"},{d:"5",mark:true},{d:"6"},{d:"7"},{d:"8"},{d:"9"},{d:"10"},{d:"11"},{d:"12",mark:true},{d:"13"},{d:"14"},{d:"15"},{d:"16"},{d:"17",mark:true},{d:"18",today:true},{d:"19"},{d:"20"},{d:"21"},{d:"22"},{d:"23"},{d:"24"},{d:"25"},{d:"26",mark:true},{d:"27"},{d:"28"},{d:"29"},{d:"30"}] as Array<{d:string;mark?:boolean;today?:boolean;dim?:boolean}>).map((day, i) => (
-                <div key={i} style={{ aspectRatio: "1", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, borderRadius: 6, position: "relative", color: day.dim ? "var(--color-line-2)" : day.mark ? "var(--color-blue)" : "var(--color-ink-2)", fontWeight: (day.mark || day.today) ? 700 : 400, background: day.mark ? "var(--color-blue-50)" : "transparent", border: day.today ? "1.5px solid var(--color-ink)" : "none" }}>
-                  {day.d}
-                  {day.mark && <span style={{ position: "absolute", bottom: 4, width: 4, height: 4, borderRadius: "50%", background: "var(--color-blue)", display: "block" }} />}
-                </div>
+              {["MA","DI","WO","DO","VR","ZA","ZO"].map(d => (
+                <div key={d} style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--color-ink-3)", textAlign: "center", padding: "6px 0", letterSpacing: "0.08em" }}>{d}</div>
               ))}
+              {/* Lege cellen vóór de eerste dag */}
+              {Array.from({ length: firstDow }).map((_, i) => <div key={`e${i}`} />)}
+              {/* Dagen van de maand */}
+              {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(day => {
+                const isToday  = day === todayDay;
+                const isMark   = markedDays.has(day);
+                return (
+                  <div key={day} style={{ aspectRatio: "1", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, borderRadius: 6, position: "relative", color: isMark ? "var(--color-blue)" : isToday ? "var(--color-ink)" : "var(--color-ink-2)", fontWeight: (isMark || isToday) ? 700 : 400, background: isMark ? "var(--color-blue-50)" : "transparent", border: isToday ? "1.5px solid var(--color-ink)" : "none" }}>
+                    {day}
+                    {isMark && <span style={{ position: "absolute", bottom: 3, width: 4, height: 4, borderRadius: "50%", background: "var(--color-blue)", display: "block" }} />}
+                  </div>
+                );
+              })}
             </div>
+
+            {/* Afroeplijst */}
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {[
-                { date: "5 jun", qty: "180 st", code: "UGA348-1500×3000", status: "Afroep ontvangen", ss: { background: "var(--color-blue-50)", color: "var(--color-blue)" } },
-                { date: "12 jun", qty: "220 st", code: "UGA348-1500×3000", status: "Klaar", ss: { background: "#E0F4E9", color: "var(--color-ok)" } },
-                { date: "17 jun", qty: "140 st", code: "UGA348-1500×3000", status: "Transport", ss: { background: "var(--color-paper-3)", color: "var(--color-ink-2)" } },
-                { date: "26 jun", qty: "260 st", code: "UGA348-1500×3000", status: "Geleverd", ss: { background: "var(--color-ink)", color: "var(--color-paper)" } },
-              ].map((row, i) => (
-                <div key={i} style={{ display: "grid", gridTemplateColumns: "50px 60px 1fr auto", gap: 12, alignItems: "center", padding: "10px 12px", borderRadius: 6, background: "var(--color-paper-2)", fontSize: 12 }}>
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700 }}>{row.date}</span>
+              {calAfroepen.map((row, i) => (
+                <div key={i} style={{ display: "grid", gridTemplateColumns: "56px 60px 1fr auto", gap: 12, alignItems: "center", padding: "10px 12px", borderRadius: 6, background: "var(--color-paper-2)", fontSize: 12 }}>
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700 }}>{row.label}</span>
                   <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600 }}>{row.qty}</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--color-ink-2)" }}>{row.code}</span>
-                  <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 999, fontWeight: 600, ...row.ss }}>{row.status}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--color-ink-2)" }}>UGA348-1500×3000</span>
+                  <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 999, fontWeight: 600, whiteSpace: "nowrap", ...row.ss }}>{row.status}</span>
                 </div>
               ))}
             </div>
@@ -233,10 +298,13 @@ export default function UltiAppPage() {
               <span>Artikel</span><span>Stock</span><span>Verbruik</span><span>Stockbreuk</span>
             </div>
             {[
-              { code: "UGA348", meta: "1500×3000", stock: "1.248 st", rate: "212 / wk", date: "4 jul 2026", days: "41 dagen", type: "blue" },
-              { code: "UGA812", meta: "1000×2000", stock: "420 st", rate: "98 / wk", date: "23 jun 2026", days: "30 dagen", type: "warn" },
-              { code: "UGA521", meta: "1250×2500", stock: "74 st", rate: "85 / wk", date: "30 mei 2026", days: "6 dagen", type: "crit" },
+              { code: "UGA348", meta: "1500×3000", stock: "1.248 st", rate: "212 / wk", offset: 41, type: "blue" },
+              { code: "UGA812", meta: "1000×2000", stock: "420 st",   rate: "98 / wk",  offset: 30, type: "warn" },
+              { code: "UGA521", meta: "1250×2500", stock: "74 st",    rate: "85 / wk",  offset: 6,  type: "crit" },
             ].map((row, i) => {
+              const breukDatum = addDays(row.offset);
+              const dateLabel  = breukDatum.toLocaleDateString("nl-BE", { day: "numeric", month: "short", year: "numeric" });
+              const daysLabel  = `${row.offset} dagen`;
               const dc: Record<string,{bg:string;color:string}> = {
                 blue: { bg: "var(--color-blue-50)", color: "var(--color-blue)" },
                 warn: { bg: "#FBEFE2", color: "var(--color-warn)" },
@@ -249,7 +317,7 @@ export default function UltiAppPage() {
                   <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14 }}>{row.stock}</span>
                   <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--color-ink-2)" }}>{row.rate}</span>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "var(--font-mono)", fontSize: 11, padding: "4px 10px", borderRadius: 999, fontWeight: 600, background: c.bg, color: c.color }}>
-                    {row.date} <span style={{ fontFamily: "var(--font-sans)", fontSize: 10, opacity: 0.7 }}>· {row.days}</span>
+                    {dateLabel} <span style={{ fontFamily: "var(--font-sans)", fontSize: 10, opacity: 0.7 }}>· {daysLabel}</span>
                   </span>
                 </div>
               );
@@ -307,12 +375,12 @@ export default function UltiAppPage() {
               const caretStyle: React.CSSProperties = {
                 bottom: -7, top: "auto",
                 borderWidth: "7px 7px 0 7px",
-                borderColor: "#fff transparent transparent transparent",
+                borderColor: "#14352A transparent transparent transparent",
               };
               const caretShadowStyle: React.CSSProperties = {
-                bottom: -8, top: "auto",
+                bottom: -9, top: "auto",
                 borderWidth: "8px 8px 0 8px",
-                borderColor: "rgba(31,35,40,0.08) transparent transparent transparent",
+                borderColor: "rgba(20,53,42,0.25) transparent transparent transparent",
               };
 
               return (
@@ -322,8 +390,8 @@ export default function UltiAppPage() {
                   style={{
                     position: "relative",
                     zIndex: isHovered ? 20 : 1,
-                    background: isBlue ? "var(--color-blue)" : "var(--color-paper)",
-                    border: `1px ${isComing ? "dashed" : "solid"} ${isBlue ? "var(--color-blue)" : "var(--color-line)"}`,
+                    background: isBlue ? "#14352A" : "var(--color-paper)",
+                    border: `1px ${isComing ? "dashed" : "solid"} ${isBlue ? "#14352A" : "var(--color-line)"}`,
                     borderRadius: 10,
                     padding: "28px 24px",
                     display: "flex", flexDirection: "column", gap: 12,
@@ -335,17 +403,17 @@ export default function UltiAppPage() {
                   onMouseEnter={() => setHoveredCard(i)}
                   onMouseLeave={() => setHoveredCard(null)}
                 >
-                  <div style={{ width: 28, height: 28, color: isBlue ? "var(--color-paper)" : isComing ? "var(--color-ink-3)" : "var(--color-blue)", transition: "color 0.18s" }}>{tile.icon}</div>
+                  <div style={{ width: 28, height: 28, color: isBlue ? "#5A8C4A" : isComing ? "var(--color-ink-3)" : "#14352A", transition: "color 0.18s" }}>{tile.icon}</div>
                   <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 600, letterSpacing: "-0.015em", color: isBlue ? "var(--color-paper)" : isComing ? "var(--color-ink-3)" : "var(--color-ink)", marginTop: "auto", transition: "color 0.18s" }}>{tile.title}</div>
                   <div style={{ fontSize: 12, color: isBlue ? "rgba(255,255,255,0.7)" : "var(--color-ink-3)", lineHeight: 1.5, transition: "color 0.18s" }}>{tile.body}</div>
 
                   {/* Floating popover — only on desktop */}
-                  <div className="hidden lg:block" style={{ position: "absolute", ...popoverH, ...popoverV, width: 280, background: "#fff", borderRadius: 10, boxShadow: "0 20px 48px -12px rgba(31,35,40,0.22), 0 0 0 1px rgba(31,35,40,0.06)", padding: "18px 20px", zIndex: 50, pointerEvents: "none", opacity: isHovered ? 1 : 0, transform: isHovered ? "translateY(0)" : "translateY(-6px)", transition: "opacity 0.18s ease, transform 0.18s ease" }}>
+                  <div className="hidden lg:block" style={{ position: "absolute", ...popoverH, ...popoverV, width: 280, background: "#14352A", borderRadius: 10, boxShadow: "0 20px 48px -12px rgba(20,53,42,0.35)", padding: "18px 20px", zIndex: 50, pointerEvents: "none", opacity: isHovered ? 1 : 0, transform: isHovered ? "translateY(0)" : "translateY(-6px)", transition: "opacity 0.18s ease, transform 0.18s ease" }}>
                     <div style={{ position: "absolute", ...(isRight ? { right: 24 } : { left: 24 }), width: 0, height: 0, borderStyle: "solid", ...caretShadowStyle }} />
                     <div style={{ position: "absolute", ...(isRight ? { right: 25 } : { left: 25 }), width: 0, height: 0, borderStyle: "solid", ...caretStyle }} />
-                    <div style={{ width: 32, height: 32, color: "var(--color-blue)", marginBottom: 12 }}>{tile.icon}</div>
-                    <div style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700, color: "var(--color-ink)", marginBottom: 8, letterSpacing: "-0.01em" }}>{tile.title}</div>
-                    <div style={{ fontSize: 13, color: "var(--color-ink-2)", lineHeight: 1.6 }}>{(tile as any).desc}</div>
+                    <div style={{ width: 32, height: 32, color: "#5A8C4A", marginBottom: 12 }}>{tile.icon}</div>
+                    <div style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700, color: "#ffffff", marginBottom: 8, letterSpacing: "-0.01em" }}>{tile.title}</div>
+                    <div style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>{(tile as any).desc}</div>
                   </div>
                 </div>
               );
