@@ -1,8 +1,18 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+function calcDeliveryDay() {
+  const d = new Date();
+  d.setDate(d.getDate() + 2);
+  if (d.getDay() === 6) d.setDate(d.getDate() + 2); // za → ma
+  if (d.getDay() === 0) d.setDate(d.getDate() + 1); // zo → ma
+  return d;
+}
 
 export default function DashboardDemo() {
   const dashRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     const dash = dashRef.current as HTMLDivElement;
@@ -28,8 +38,8 @@ export default function DashboardDemo() {
     const stockRows     = dash.querySelectorAll<HTMLElement>(".stock-row");
     const dashView      = dash.querySelector<HTMLElement>(".dash-main-view")!;
     const calView       = dash.querySelector<HTMLElement>(".dash-calendar-view")!;
-    const calDay5       = dash.querySelector<HTMLElement>(".cal-day-5")!;
-    const miniDay5      = dash.querySelector<HTMLElement>(".mini-cal-day[data-day='5']")!;
+    const getCalTarget  = () => dash.querySelector<HTMLElement>(".cal-day-target")!;
+    const getMiniTarget = () => dash.querySelector<HTMLElement>(".mini-cal-day.mini-target")!;
 
     const ICON_OK = "M20 6 9 17l-5-5";
 
@@ -92,7 +102,7 @@ export default function DashboardDemo() {
     async function moveTo(el: HTMLElement) {
       const { x, y } = getRel(el);
       cursor.style.transform = `translate(${x}px,${y}px)`;
-      await wait(750);
+      await wait(450);
     }
     async function clickEl(el: HTMLElement) {
       const { x, y } = getRel(el);
@@ -102,7 +112,7 @@ export default function DashboardDemo() {
       void ripple.offsetWidth;
       ripple.classList.add("go");
       cursor.classList.add("clicking");
-      await wait(400);
+      await wait(240);
       cursor.classList.remove("clicking");
     }
 
@@ -112,6 +122,13 @@ export default function DashboardDemo() {
         d.classList.remove("active", "past");
         if (i + 1 === n) d.classList.add("active");
         else if (i + 1 < n) d.classList.add("past");
+      });
+      // Actief nav-icoon: scene 6 = kalender (index 2), rest = dashboard (index 0)
+      const activeIdx = n === 6 ? 2 : 0;
+      dash.querySelectorAll<HTMLElement>(".nav-icon").forEach(el => {
+        const idx = parseInt(el.dataset.idx || "0");
+        el.style.background = idx === activeIdx ? "rgba(255,255,255,0.1)" : "none";
+        el.style.color = idx === activeIdx ? "var(--color-paper)" : "rgba(255,255,255,0.45)";
       });
     }
 
@@ -133,7 +150,9 @@ export default function DashboardDemo() {
       modalQty.textContent = "0";
       dashView.style.display = "";
       calView.style.display = "none";
-      calDay5.classList.remove("event");
+      getCalTarget()?.classList.remove("event");
+      const dr = dash.querySelector<HTMLElement>(".cal-delivery-row");
+      if (dr) dr.style.display = "none";
       dash.querySelectorAll<HTMLElement>(".mini-cal-day").forEach(d => d.classList.remove("selected"));
       hideCursor();
     }
@@ -141,10 +160,10 @@ export default function DashboardDemo() {
     // Scene 1 — Voorraad
     async function scene1_dashboard() {
       setScene(1);
-      await wait(400);
+      await wait(240);
       countUp(kpiStock, 0, 1240, 1400);
       countUp(kpiAfroep, 0, 2, 800);
-      await wait(200);
+      await wait(150);
       dash.querySelectorAll<HTMLElement>("[data-bar-fill]").forEach((b, i) => {
         setTimeout(() => { b.style.width = (b.dataset.target || "0") + "%"; }, i * 220);
       });
@@ -152,71 +171,71 @@ export default function DashboardDemo() {
       countUp(stockVals[0], 0, 850, 1100);
       setTimeout(() => countUp(stockVals[1], 0, 420, 1100), 220);
       setTimeout(() => countUp(stockVals[2], 0, 85, 1100), 440);
-      await wait(1100);
+      await wait(660);
       dash.querySelectorAll<HTMLElement>(".dash-pill").forEach((p, i) => {
         setTimeout(() => p.classList.add("shown"), i * 180);
       });
-      await wait(1800);
+      await wait(1080);
     }
 
     // Scene 2 — Klik op pallet
     async function scene2_click() {
       setScene(2);
-      await wait(300);
+      await wait(180);
       showCursor();
       await moveTo(stockRows[0] as HTMLElement);
-      await wait(300);
+      await wait(180);
       await clickEl(stockRows[0] as HTMLElement);
-      await wait(350);
+      await wait(210);
       modalBd.classList.add("shown");
       modal.classList.add("shown");
-      await wait(600);
+      await wait(360);
     }
 
     // Scene 3 — Afroep plaatsen (aantal invullen)
     async function scene3_afroep() {
       setScene(3);
       await countUp(modalQty, 0, 160, 1400);
-      await wait(600);
+      await wait(360);
       await moveTo(modalCta1);
-      await wait(400);
+      await wait(240);
       await clickEl(modalCta1);
-      await wait(350);
+      await wait(210);
       modalStep1.style.display = "none";
       modalStep2.style.display = "";
-      await wait(300);
+      await wait(180);
     }
 
-    // Scene 4 — Kies datum (morgen = 5 jun)
+    // Scene 4 — Kies datum (leverdatum = vandaag +48u, geen weekend)
     async function scene4_datum() {
       setScene(4);
-      await wait(600);
-      await moveTo(miniDay5);
-      await wait(400);
-      await clickEl(miniDay5);
-      miniDay5.classList.add("selected");
-      await wait(600);
+      await wait(360);
+      await moveTo(getMiniTarget());
+      await wait(240);
+      await clickEl(getMiniTarget());
+      getMiniTarget()?.classList.add("selected");
+      await wait(360);
       await moveTo(modalCta2);
-      await wait(400);
+      await wait(240);
       await clickEl(modalCta2);
-      await wait(350);
+      await wait(210);
       modal.classList.remove("shown");
-      await wait(200);
+      await wait(150);
       modalBd.classList.remove("shown");
       hideCursor();
-      await wait(300);
+      await wait(180);
     }
 
     // Scene 5 — Bevestigd
     async function scene5_bevestigd() {
       setScene(5);
-      await wait(300);
+      await wait(180);
       toastIconPath.setAttribute("d", ICON_OK);
       toast.classList.add("ok");
       toastTitle.textContent = "✓ Afroep bevestigd";
       toastBody.textContent  = "AFR-2026-042 · levering 5 jun";
       toast.classList.add("shown");
-      await wait(700);
+      await wait(420);
       const newPill = document.createElement("div");
       newPill.className = "dash-pill new";
       newPill.setAttribute("data-pill", "3");
@@ -226,38 +245,41 @@ export default function DashboardDemo() {
       if (pill1) pill1.style.display = "none";
       if (pill2) recents.insertBefore(newPill, pill2);
       requestAnimationFrame(() => newPill.classList.add("shown"));
-      await wait(500);
+      await wait(300);
       kpiAfroep.classList.add("pop");
       await countUp(kpiAfroep, 2, 3, 600);
       setTimeout(() => kpiAfroep.classList.remove("pop"), 600);
-      await wait(2000);
+      await wait(1200);
       toast.classList.remove("shown");
-      await wait(500);
+      await wait(300);
     }
 
     // Scene 6 — Kalender
     async function scene6_kalender() {
       setScene(6);
-      await wait(300);
+      await wait(180);
       dashView.style.display = "none";
       calView.style.display  = "";
-      await wait(500);
+      await wait(300);
       showCursor();
-      await moveTo(calDay5);
-      await wait(400);
-      calDay5.classList.add("event");
-      await wait(2500);
+      await moveTo(getCalTarget());
+      await wait(240);
+      getCalTarget()?.classList.add("event");
+      await wait(450);
+      const deliveryRow = dash.querySelector<HTMLElement>(".cal-delivery-row");
+      if (deliveryRow) deliveryRow.style.display = "flex";
+      await wait(1200);
       hideCursor();
-      await wait(600);
+      await wait(360);
     }
 
     async function startLoop() {
       if (isRunning) return;
       isRunning = true;
-      await wait(800);
+      await wait(480);
       while (!destroyed) {
         reset();
-        await wait(300);
+        await wait(180);
         await scene1_dashboard();
         if (destroyed) break;
         await scene2_click();
@@ -270,7 +292,7 @@ export default function DashboardDemo() {
         if (destroyed) break;
         await scene6_kalender();
         if (destroyed) break;
-        await wait(800);
+        await wait(480);
       }
     }
 
@@ -281,8 +303,19 @@ export default function DashboardDemo() {
     };
   }, []);
 
-  // Juni 2026: 1 jun = maandag
-  const calDays = Array.from({ length: 30 }, (_, i) => i + 1);
+  // Leverdatum — altijd client-side berekend na mount (geen SSR-datum)
+  const _deliveryDate = mounted ? calcDeliveryDay() : (() => { const d = new Date(0); return d; })();
+  const deliveryDay   = _deliveryDate.getDate();
+  const deliveryMonth = (() => {
+    const s = _deliveryDate.toLocaleDateString("nl-BE", { month: "long", year: "numeric" });
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  })();
+  const calFirstDow   = (new Date(_deliveryDate.getFullYear(), _deliveryDate.getMonth(), 1).getDay() + 6) % 7;
+  const calTotalDays  = new Date(_deliveryDate.getFullYear(), _deliveryDate.getMonth() + 1, 0).getDate();
+  const calDays       = [
+    ...Array.from({ length: calFirstDow }, (_, i) => -(calFirstDow - 1 - i)), // lege cellen vóór dag 1
+    ...Array.from({ length: calTotalDays }, (_, i) => i + 1),
+  ];
 
   return (
     <div
@@ -309,14 +342,19 @@ export default function DashboardDemo() {
 
         {/* Sidebar */}
         <div style={{ background: "var(--color-ink)", padding: "16px 12px", display: "flex", flexDirection: "column", gap: 4 }}>
-          <div style={{ width: 32, height: 32, background: "var(--color-blue)", color: "var(--color-paper)", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 12, marginBottom: 18 }}>ug</div>
+          <div style={{ position: "relative", width: 32, height: 32, marginBottom: 18, flexShrink: 0 }}>
+              <div style={{ position: "absolute", inset: 0, background: "#1F4A38", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 10, color: "#fff", letterSpacing: "-0.03em" }}>UG</span>
+              </div>
+              <div style={{ position: "absolute", bottom: 0, right: 0, width: 10, height: 10, background: "#8FA663" }} />
+            </div>
           {[
             <><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></>,
             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>,
             <><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></>,
             <path d="M3 3v18h18M7 17V11M12 17V7M17 17V13"/>,
           ].map((icon, i) => (
-            <div key={i} style={{ width: 32, height: 32, borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", background: i === 0 ? "rgba(255,255,255,0.1)" : "none", color: i === 0 ? "var(--color-paper)" : "rgba(255,255,255,0.45)" }}>
+            <div key={i} className="nav-icon" data-idx={String(i)} style={{ width: 32, height: 32, borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", background: i === 0 ? "rgba(255,255,255,0.1)" : "none", color: i === 0 ? "var(--color-paper)" : "rgba(255,255,255,0.45)" }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">{icon}</svg>
             </div>
           ))}
@@ -328,7 +366,7 @@ export default function DashboardDemo() {
           {/* === DASHBOARD VIEW === */}
           <div className="dash-main-view" style={{ padding: "22px 24px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 700, color: "var(--color-ink)" }}>Goedendag, ULTI GROUP BV</div>
+              <span style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 800, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>ULTI<span style={{ color: "#8FA663" }}>APP</span></span>
               <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "var(--color-ink-3)" }}>
                 <span>UG BV</span>
                 <div style={{ width: 24, height: 24, borderRadius: "50%", background: "var(--color-ink)", color: "var(--color-paper)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontSize: 10, fontWeight: 700 }}>U</div>
@@ -394,7 +432,7 @@ export default function DashboardDemo() {
           {/* === CALENDAR VIEW (scene 6) === */}
           <div className="dash-calendar-view" style={{ display: "none", padding: "22px 24px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700, color: "var(--color-ink)" }}>Juni 2026</div>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700, color: "var(--color-ink)" }}>{deliveryMonth}</div>
               <div style={{ display: "flex", gap: 6 }}>
                 <span style={{ fontSize: 11, color: "var(--color-ink-3)", border: "1px solid var(--color-line)", borderRadius: 4, padding: "2px 8px", cursor: "pointer" }}>‹</span>
                 <span style={{ fontSize: 11, color: "var(--color-ink-3)", border: "1px solid var(--color-line)", borderRadius: 4, padding: "2px 8px", cursor: "pointer" }}>›</span>
@@ -406,20 +444,20 @@ export default function DashboardDemo() {
                 <div key={d} style={{ fontSize: 9, fontWeight: 600, textAlign: "center", color: "var(--color-ink-3)", letterSpacing: "0.08em", padding: "3px 0" }}>{d}</div>
               ))}
             </div>
-            {/* Day grid — June 2026 starts on Monday */}
+            {/* Day grid — dynamisch */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 2 }}>
-              {calDays.map(d => (
+              {calDays.map((d, i) => d < 1 ? <div key={`e${i}`} /> : (
                 <div
                   key={d}
-                  className={`cal-day cal-day-${d}`}
+                  className={`cal-day cal-day-${d}${d === deliveryDay ? " cal-day-target" : ""}`}
                   style={{
                     fontSize: 11,
                     textAlign: "center",
                     padding: "5px 2px",
                     borderRadius: 4,
-                    color: d === 4 ? "var(--color-blue)" : "var(--color-ink)",
-                    fontWeight: d === 4 ? 700 : 400,
-                    border: d === 4 ? "1.5px solid var(--color-blue)" : "1px solid transparent",
+                    color: "var(--color-ink)",
+                    fontWeight: 400,
+                    border: "1px solid transparent",
                     position: "relative",
                   }}
                 >
@@ -427,10 +465,17 @@ export default function DashboardDemo() {
                 </div>
               ))}
             </div>
-            {/* Legend */}
-            <div style={{ marginTop: 10, paddingTop: 8, borderTop: "1px solid var(--color-line)", fontSize: 10, color: "var(--color-ink-3)", display: "flex", alignItems: "center", gap: 6 }}>
-              <span style={{ width: 8, height: 8, borderRadius: 2, background: "var(--color-ok)", display: "inline-block" }} />
-              Geplande levering
+            {/* Leveringslijst */}
+            <div style={{ marginTop: 12, borderTop: "1px solid var(--color-line)", paddingTop: 10 }}>
+              <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-ink-3)", marginBottom: 8 }}>Geplande levering</div>
+              <div className="cal-delivery-row" style={{ display: "none", alignItems: "center", gap: 10, padding: "10px 12px", background: "#E0F4E9", borderRadius: 6, border: "1px solid var(--color-ok)" }}>
+                <span style={{ width: 8, height: 28, background: "var(--color-ok)", borderRadius: 2, flexShrink: 0, display: "block" }} />
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: "var(--font-display)", fontSize: 12, fontWeight: 700, color: "var(--color-ok)" }}>160 × UGA348 · 1500×3000</div>
+                  <div style={{ fontSize: 10, color: "var(--color-ink-3)", marginTop: 2 }}>Industrielaan · Kortrijk · Ingepland</div>
+                </div>
+                <span style={{ fontSize: 9, fontWeight: 700, color: "var(--color-ok)", background: "#fff", padding: "2px 7px", borderRadius: 999, border: "1px solid var(--color-ok)", whiteSpace: "nowrap" }}>✓ Bevestigd</span>
+              </div>
             </div>
           </div>
         </div>
@@ -462,7 +507,7 @@ export default function DashboardDemo() {
           {/* Step 1 — Aantal */}
           <div className="modal-step-1">
             <h5 style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, letterSpacing: "-0.015em", marginBottom: 3 }}>Nieuwe bestelling</h5>
-            <p style={{ fontSize: 10, color: "var(--color-ink-3)", marginBottom: 10 }}>UGA348 · 1500×3000 — beschikbaar in Waregem</p>
+            <p style={{ fontSize: 10, color: "var(--color-ink-3)", marginBottom: 10 }}>UGA348 · 1500×3000</p>
             <div style={{ background: "var(--color-paper-2)", borderRadius: 6, padding: "10px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
               <span style={{ fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 600 }}>Aantal palletten</span>
               <span style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>
@@ -475,7 +520,7 @@ export default function DashboardDemo() {
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", padding: "4px 0", fontSize: 11, marginBottom: 12 }}>
               <span style={{ color: "var(--color-ink-3)" }}>Adres</span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 10, fontWeight: 500 }}>HQ · Kortrijk</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 10, fontWeight: 500 }}>Industrielaan · Kortrijk</span>
             </div>
             <button className="demo-modal-cta-1" style={{ width: "100%", background: "var(--color-ok)", color: "#fff", border: "none", padding: "11px 0", borderRadius: 6, fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
@@ -489,7 +534,7 @@ export default function DashboardDemo() {
             <p style={{ fontSize: 10, color: "var(--color-ink-3)", marginBottom: 12 }}>160 palletten · UGA348</p>
             {/* Mini calendar header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-              <span style={{ fontSize: 11, fontWeight: 600, color: "var(--color-ink)" }}>Juni 2026</span>
+              <span style={{ fontSize: 11, fontWeight: 600, color: "var(--color-ink)" }}>{deliveryMonth}</span>
             </div>
             {/* Day headers */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 2, marginBottom: 3 }}>
@@ -497,12 +542,12 @@ export default function DashboardDemo() {
                 <div key={d} style={{ fontSize: 8, textAlign: "center", color: "var(--color-ink-3)", fontWeight: 600 }}>{d}</div>
               ))}
             </div>
-            {/* Mini calendar days — June 2026 starts Monday */}
+            {/* Mini calendar days — dynamisch */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 2, marginBottom: 12 }}>
-              {calDays.map(d => (
+              {calDays.map((d, i) => d < 1 ? <div key={`e${i}`} /> : (
                 <div
                   key={d}
-                  className="mini-cal-day"
+                  className={`mini-cal-day${d === deliveryDay ? " mini-target" : ""}`}
                   data-day={String(d)}
                   style={{
                     fontSize: 10,
@@ -510,10 +555,10 @@ export default function DashboardDemo() {
                     padding: "4px 2px",
                     borderRadius: 4,
                     cursor: "pointer",
-                    background: d === 5 ? "var(--color-ok)" : "transparent",
-                    color: d === 5 ? "#fff" : d === 4 ? "var(--color-blue)" : d < 5 ? "var(--color-ink-3)" : "var(--color-ink)",
-                    fontWeight: d === 5 || d === 4 ? 700 : 400,
-                    border: d === 4 ? "1.5px solid var(--color-blue)" : d === 5 ? "1.5px solid var(--color-ok)" : "1px solid transparent",
+                    background: "transparent",
+                    color: "var(--color-ink)",
+                    fontWeight: 400,
+                    border: "1px solid transparent",
                   }}
                 >
                   {d}
@@ -579,21 +624,25 @@ export default function DashboardDemo() {
           font-weight: 700;
         }
 
-        #demo-dash .cal-day-5.event {
-          background: var(--color-ok);
+        #demo-dash .cal-day-target.event {
+          background: var(--color-ok) !important;
           color: #fff !important;
-          font-weight: 700;
+          font-weight: 700 !important;
+          border-radius: 6px !important;
+          padding: 6px 4px 5px !important;
+          box-shadow: 0 2px 8px rgba(45,106,79,0.35) !important;
         }
-        #demo-dash .cal-day-5.event::after {
+        #demo-dash .cal-day-target.event::after {
           content: 'UGA348 · 160 st';
           display: block;
-          font-size: 7px;
-          font-weight: 500;
-          color: rgba(255,255,255,0.85);
-          margin-top: 2px;
+          font-size: 8px;
+          font-weight: 600;
+          color: rgba(255,255,255,0.9);
+          margin-top: 3px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          letter-spacing: 0.01em;
         }
 
         #demo-dash:hover .dash-pause { opacity: 1 !important; }

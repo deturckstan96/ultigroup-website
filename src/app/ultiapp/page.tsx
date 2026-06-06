@@ -21,6 +21,10 @@ function volgendeAfroepDatum() {
   return d.toLocaleDateString("nl-BE", { day: "numeric", month: "long" });
 }
 
+function dagenTotAfroep() {
+  return 20;
+}
+
 export default function UltiAppPage() {
   useReveal();
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -37,19 +41,46 @@ export default function UltiAppPage() {
   })();
   const firstDow     = (new Date(todayYear, todayMonth, 1).getDay() + 6) % 7; // Ma=0
   const daysInMonth  = new Date(todayYear, todayMonth + 1, 0).getDate();
-  const addDays      = (n: number) => { const d = new Date(_today); d.setDate(todayDay + n); return d; };
-  const calAfroepen  = [
-    { d: addDays(1),  qty: "180 st", status: "Afroep ontvangen", ss: { background: "var(--color-blue-50)", color: "var(--color-blue)" } },
-    { d: addDays(8),  qty: "220 st", status: "Klaar",            ss: { background: "#E0F4E9",              color: "var(--color-ok)"   } },
-    { d: addDays(13), qty: "140 st", status: "Ingepland",        ss: { background: "var(--color-paper-3)", color: "var(--color-ink-2)"} },
-    { d: addDays(22), qty: "260 st", status: "Ingepland",        ss: { background: "var(--color-paper-3)", color: "var(--color-ink-2)"} },
+  const addDays = (n: number) => { const d = new Date(_today); d.setDate(todayDay + n); return d; };
+
+  function addWorkDays(base: Date, n: number): Date {
+    const d = new Date(base);
+    let count = 0;
+    const dir = n >= 0 ? 1 : -1;
+    const abs = Math.abs(n);
+    while (count < abs) {
+      d.setDate(d.getDate() + dir);
+      const dow = d.getDay();
+      if (dow !== 0 && dow !== 6) count++;
+    }
+    return d;
+  }
+
+  type CalType = "delivered" | "planned" | "suggested";
+  const CAL_STYLES: Record<CalType, { bg: string; color: string; badge: string }> = {
+    delivered: { bg: "#DBEAFE", color: "#1D4ED8", badge: "Geleverd" },
+    planned:   { bg: "#FEF9C3", color: "#92400E", badge: "Levering ingepland" },
+    suggested: { bg: "#FED7AA", color: "#C2410C", badge: "Voorgestelde afroep" },
+  };
+
+  const calAfroepen = [
+    // Verleden — geleverd (lichtblauw) — 2 per week, werkdagen
+    { d: addWorkDays(_today, -4), qty: "180 st", type: "delivered" as CalType },
+    { d: addWorkDays(_today, -2), qty: "220 st", type: "delivered" as CalType },
+    // Komend — ingepland (geel) — 3 en 6 werkdagen uit
+    { d: addWorkDays(_today,  3), qty: "140 st", type: "planned"   as CalType },
+    { d: addWorkDays(_today,  6), qty: "260 st", type: "planned"   as CalType },
+    // Suggestie van de app — oranje — ~10 werkdagen
+    { d: addWorkDays(_today, 10), qty: "",        type: "suggested" as CalType },
   ].map(a => ({
     ...a,
     day:     a.d.getDate(),
     inMonth: a.d.getMonth() === todayMonth,
     label:   a.d.toLocaleDateString("nl-BE", { day: "numeric", month: "short" }),
+    style:   CAL_STYLES[a.type],
   }));
-  const markedDays = new Set(calAfroepen.filter(a => a.inMonth).map(a => a.day));
+
+  const calDayMap = new Map(calAfroepen.filter(a => a.inMonth).map(a => [a.day, a.type]));
 
   return (
     <>
@@ -117,7 +148,26 @@ export default function UltiAppPage() {
       {/* ── STOCKBREUK SIMULATIE ── */}
       <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)" }}>
         <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(40px,6vw,80px)", alignItems: "center" }}>
-          <div className="reveal hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", padding: 24 }}>
+          <div className="reveal hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", overflow: "hidden" }}>
+
+            {/* App topbar */}
+            <div style={{ background: "var(--color-paper-2)", borderBottom: "1px solid var(--color-line)", padding: "10px 16px", display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ display: "flex", gap: 5 }}>
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ED6A5E", display: "block" }} />
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#F4BF4F", display: "block" }} />
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#62C554", display: "block" }} />
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ position: "relative", width: 22, height: 22, flexShrink: 0 }}>
+                  <div style={{ position: "absolute", inset: 0, background: "#1F4A38", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: 7, fontWeight: 900, color: "#fff", letterSpacing: "-0.03em" }}>UG</span>
+                  </div>
+                  <div style={{ position: "absolute", bottom: 0, right: 0, width: 7, height: 7, background: "#8FA663" }} />
+                </div>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 800, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>ULTI<span style={{ color: "#8FA663" }}>APP</span></span>
+              </div>
+            </div>
+            <div style={{ padding: 24 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
               <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 700 }}>Voorraadanalyse</div>
               <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, color: "var(--color-blue)", background: "var(--color-blue-50)", padding: "4px 10px", borderRadius: 999, display: "inline-flex", alignItems: "center", gap: 6 }}>
@@ -127,61 +177,62 @@ export default function UltiAppPage() {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: 14, borderBottom: "1px solid var(--color-line)", marginBottom: 18 }}>
               <div>
                 <div style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600 }}>UGA348-1500×3000</div>
-                <div style={{ fontSize: 11, color: "var(--color-ink-3)", marginTop: 2 }}>ISPM15 · Waregem stock</div>
+                <div style={{ fontSize: 11, color: "var(--color-ink-3)", marginTop: 2 }}>ISPM15</div>
               </div>
-              <span style={{ background: "#FBEFE2", color: "var(--color-warn)", padding: "5px 12px", borderRadius: 999, fontSize: 11, fontWeight: 600 }}>Nog 9 dagen</span>
+              <span style={{ background: "#FBEFE2", color: "var(--color-warn)", padding: "5px 12px", borderRadius: 999, fontSize: 11, fontWeight: 600 }}>Nog {dagenTotAfroep()} dagen</span>
             </div>
-            <div>
-              <span style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 800, letterSpacing: "-0.03em" }}>1.248</span>
-              <span style={{ fontSize: 16, color: "var(--color-ink-3)", fontWeight: 500, marginLeft: 6 }}>stuks</span>
-            </div>
-            <div style={{ marginTop: 16 }}>
-              <div style={{ height: 10, background: "var(--color-paper-3)", borderRadius: 999, overflow: "hidden", position: "relative" }}>
-                <div style={{ height: "100%", background: "var(--color-warn)", width: "32%" }} />
-                <div style={{ position: "absolute", top: -4, bottom: -4, width: 2, background: "var(--color-ink)", left: "12.8%" }} />
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8, fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--color-ink-3)" }}>
-                <span>0</span><span>500 min.</span><span>3.900 max</span>
-              </div>
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, margin: "20px 0" }}>
-              {[["Gem. verbruik","212 / week",false],["Laatste afroep","180 stuks",false],["Verwachte afroep", volgendeAfroep, true]].map(([lbl,val,crit],i) => (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, margin: "4px 0 20px" }}>
+              {[["Gem. verbruik","212 / week",false],["Laatste afroep","600 stuks",false],["Verwachte afroep", volgendeAfroep, true]].map(([lbl,val,crit],i) => (
                 <div key={i} style={{ background: "var(--color-paper-2)", borderRadius: 6, padding: 12 }}>
                   <div style={{ fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 600 }}>{lbl as string}</div>
                   <div style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 700, marginTop: 4, color: crit ? "var(--color-warn)" : "var(--color-ink)" }}>{val as string}</div>
                 </div>
               ))}
             </div>
-            {/* Staafgrafiek — verwachte stock per maand */}
-            <div style={{ marginBottom: 16 }}>
-              <div style={{ fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 600, marginBottom: 10 }}>Verwachte stock per maand</div>
-              <div style={{ position: "relative", height: 130 }}>
-                {/* Minimumbalk */}
-                <div style={{ position: "absolute", bottom: "26%", left: 0, right: 0, borderTop: "1.5px dashed var(--color-crit)", zIndex: 1, pointerEvents: "none" }}>
-                  <span style={{ position: "absolute", right: 0, top: -14, fontSize: 9, color: "var(--color-crit)", fontWeight: 600, background: "var(--color-paper)", paddingLeft: 4 }}>500 min.</span>
-                </div>
-                {/* Balken */}
-                <div style={{ display: "flex", alignItems: "flex-end", height: "100%", gap: 8 }}>
-                  {[
-                    { month: "Jun", value: 1248, pct: 89, color: "var(--color-ok)" },
-                    { month: "Jul", value: 824,  pct: 59, color: "var(--color-ok)" },
-                    { month: "Aug", value: 412,  pct: 29, color: "var(--color-warn)" },
-                    { month: "Sep", value: 0,    pct: 2,  color: "var(--color-crit)" },
-                  ].map((bar, i) => (
-                    <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", height: "100%", justifyContent: "flex-end" }}>
-                      <div style={{ fontSize: 9, fontWeight: 600, color: bar.color, marginBottom: 3, whiteSpace: "nowrap" }}>
-                        {bar.value > 0 ? `${bar.value.toLocaleString("nl-BE")} st` : "—"}
-                      </div>
-                      <div style={{ width: "100%", height: `${bar.pct}%`, background: bar.color, borderRadius: "3px 3px 0 0", opacity: 0.85, minHeight: bar.value === 0 ? 3 : undefined }} />
-                      <div style={{ fontSize: 10, color: "var(--color-ink-3)", marginTop: 5 }}>{bar.month}</div>
+            {/* Historisch verbruik — afgelopen 6 maanden */}
+            <div style={{ marginBottom: 20 }}>
+              <div style={{ fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 600, marginBottom: 10 }}>Afroepen afgelopen 6 maanden</div>
+              {(() => {
+                const CHART_H = 90;
+                const MAX_VAL = 1020;
+                const MEDIAN_PCT = (900 / MAX_VAL) * 100;
+                const bars = [
+                  { month: "Jan", value: 780,  partial: false },
+                  { month: "Feb", value: 960,  partial: false },
+                  { month: "Mrt", value: 1020, partial: false },
+                  { month: "Apr", value: 840,  partial: false },
+                  { month: "Mei", value: 900,  partial: false },
+                  { month: "Jun", value: 480,  partial: true  },
+                ];
+                return (
+                  <div style={{ position: "relative" }}>
+                    {/* Mediaan-lijn: positie = vanaf onderkant (label 20px) + bar hoogte van mediaan */}
+                    <div style={{ position: "absolute", bottom: 20 + Math.round((900 / MAX_VAL) * CHART_H), left: 0, right: 0, borderTop: "1.5px dashed #8FA663", zIndex: 2, pointerEvents: "none" }}>
+                      <span style={{ position: "absolute", right: 0, top: -14, fontSize: 9, color: "#5A8C4A", fontWeight: 600, background: "var(--color-paper)", paddingLeft: 4 }}>∅ 900 st</span>
                     </div>
-                  ))}
-                </div>
-              </div>
+                    <div style={{ display: "flex", alignItems: "flex-end", gap: 10, height: CHART_H + 20, position: "relative" }}>
+                      {bars.map((bar, i) => {
+                        const barH = Math.round((bar.value / MAX_VAL) * CHART_H);
+                        return (
+                          <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", height: "100%" }}>
+                            <div style={{ fontSize: 8, fontWeight: 600, color: "var(--color-ink-2)", marginBottom: 3, whiteSpace: "nowrap" }}>
+                              {bar.partial ? "" : `${bar.value} st`}
+                            </div>
+                            <div style={{ width: "60%", height: barH, background: bar.partial ? "var(--color-line-2)" : "#1F4A38", borderRadius: "3px 3px 0 0", opacity: bar.partial ? 0.5 : 0.85, flexShrink: 0 }} />
+                            <div style={{ fontSize: 9, color: "var(--color-ink-3)", marginTop: 4 }}>{bar.month}</div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })()}
+              <div style={{ fontSize: 9, color: "var(--color-ink-3)", marginTop: 6 }}>Jun is lopende maand</div>
             </div>
-            <button style={{ width: "100%", background: "var(--color-blue)", color: "var(--color-paper)", padding: 12, borderRadius: 8, border: "none", fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
-              → Afroep plannen
+            <button style={{ width: "100%", background: "#1F4A38", color: "#fff", border: "none", padding: "11px 0", borderRadius: 8, fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+              Plan een afroep →
             </button>
+            </div>{/* end padding wrapper */}
           </div>
           <div>
             <div className="eyebrow reveal">Voorspelling &amp; waarschuwing</div>
@@ -198,19 +249,6 @@ export default function UltiAppPage() {
                   Op basis van uw huidig verbruik van <strong>212 stuks/week</strong> raadt UltiApp aan uw volgende afroep te plaatsen voor <strong style={{ color: "var(--color-warn)" }}>{volgendeAfroep}</strong> — zo vermijdt u stockbreuk.
                 </div>
               </div>
-              {/* Uitleg hoe de urgentie werkt */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {[
-                  { label: "Meer dan 4 weken stock", color: "var(--color-ok)", text: "Geen actie vereist" },
-                  { label: "2 tot 4 weken stock",    color: "var(--color-warn)", text: "Plan uw volgende afroep" },
-                  { label: "Minder dan 2 weken",     color: "var(--color-crit)", text: "Onmiddellijk handelen" },
-                ].map((row, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13 }}>
-                    <span style={{ width: 8, height: 8, borderRadius: "50%", background: row.color, display: "block", flexShrink: 0 }} />
-                    <span style={{ color: "var(--color-ink-2)" }}><strong>{row.label}</strong> — {row.text}</span>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>
@@ -223,24 +261,54 @@ export default function UltiAppPage() {
             <div className="eyebrow reveal">Planning &amp; opvolging</div>
             <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 20px", maxWidth: "16ch" }}>Plan en volg elke afroep op.</h2>
             <p className="reveal reveal-d2 lead">In de afroepkalender ziet u per maand wanneer elke levering gepland staat en welke status die heeft — van ontvangen tot geleverd.</p>
-            <div className="reveal reveal-d3" style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 10 }}>
+            <div className="reveal reveal-d3" style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 12 }}>
               {[
-                { title: "Afroep ontvangen", body: "ULTI heeft uw afroep bevestigd.", border: "var(--color-blue)", bg: "var(--color-blue-50)", dot: "var(--color-blue)" },
-                { title: "Klaar voor afhaling", body: "Stock staat klaar in het magazijn.", border: "var(--color-ok)", bg: "#EFF8F3", dot: "var(--color-ok)" },
-                { title: "Transport ingepland", body: "Chauffeur en tijdslot zijn vastgelegd.", border: "var(--color-ink-3)", bg: "var(--color-paper-3)", dot: "var(--color-ink-3)" },
-                { title: "Geleverd", body: "Afroep volledig afgerond.", border: "var(--color-ink)", bg: "#F8F9FA", dot: "var(--color-ink)" },
+                {
+                  bg: "#DBEAFE", color: "#1D4ED8",
+                  title: "Geleverd",
+                  body: "Leveringen die al bij u zijn aangekomen. Afroep volledig afgerond.",
+                },
+                {
+                  bg: "#FEF9C3", color: "#92400E",
+                  title: "Levering ingepland",
+                  body: "Levering bevestigd.",
+                },
+                {
+                  bg: "#FED7AA", color: "#C2410C",
+                  title: "Voorgestelde afroep",
+                  body: "UltiApp stelt voor om binnenkort af te roepen op basis van uw historisch verbruik. Nog niet bevestigd.",
+                },
               ].map((card, i) => (
-                <div key={i} style={{ padding: "18px 22px", borderLeft: `3px solid ${card.border}`, background: card.bg, borderRadius: 4, display: "flex", alignItems: "center", gap: 16 }}>
-                  <div style={{ width: 12, height: 12, borderRadius: "50%", background: card.dot, flexShrink: 0 }} />
-                  <div>
-                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 15 }}>{card.title}</div>
-                    <div style={{ fontSize: 13, color: "var(--color-ink-2)", marginTop: 2 }}>{card.body}</div>
+                <div key={i} style={{ padding: "16px 20px", borderLeft: `3px solid ${card.color}`, background: card.bg, borderRadius: 4 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
+                    <div style={{ width: 12, height: 12, borderRadius: 3, background: card.color, flexShrink: 0 }} />
+                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, color: card.color }}>{card.title}</div>
                   </div>
+                  <div style={{ fontSize: 13, color: "var(--color-ink-2)", lineHeight: 1.55, paddingLeft: 22 }}>{card.body}</div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="reveal reveal-d2 hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", padding: 24 }}>
+          <div className="reveal reveal-d2 hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", overflow: "hidden" }}>
+
+            {/* App topbar */}
+            <div style={{ background: "var(--color-paper-2)", borderBottom: "1px solid var(--color-line)", padding: "10px 16px", display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ display: "flex", gap: 5 }}>
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ED6A5E", display: "block" }} />
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#F4BF4F", display: "block" }} />
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#62C554", display: "block" }} />
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ position: "relative", width: 22, height: 22, flexShrink: 0 }}>
+                  <div style={{ position: "absolute", inset: 0, background: "#1F4A38", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: 7, fontWeight: 900, color: "#fff", letterSpacing: "-0.03em" }}>UG</span>
+                  </div>
+                  <div style={{ position: "absolute", bottom: 0, right: 0, width: 7, height: 7, background: "#8FA663" }} />
+                </div>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 800, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>ULTI<span style={{ color: "#8FA663" }}>APP</span></span>
+              </div>
+            </div>
+            <div style={{ padding: 24 }}>
             {/* Header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
               <h4 style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 700 }}>{maandLabel}</h4>
@@ -256,30 +324,38 @@ export default function UltiAppPage() {
               ))}
               {/* Lege cellen vóór de eerste dag */}
               {Array.from({ length: firstDow }).map((_, i) => <div key={`e${i}`} />)}
-              {/* Dagen van de maand */}
               {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(day => {
-                const isToday  = day === todayDay;
-                const isMark   = markedDays.has(day);
+                const isToday = day === todayDay;
+                const type    = calDayMap.get(day);
+                const s       = type ? CAL_STYLES[type] : null;
                 return (
-                  <div key={day} style={{ aspectRatio: "1", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, borderRadius: 6, position: "relative", color: isMark ? "var(--color-blue)" : isToday ? "var(--color-ink)" : "var(--color-ink-2)", fontWeight: (isMark || isToday) ? 700 : 400, background: isMark ? "var(--color-blue-50)" : "transparent", border: isToday ? "1.5px solid var(--color-ink)" : "none" }}>
+                  <div key={day} style={{
+                    aspectRatio: "1", display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: 12, borderRadius: 6, position: "relative",
+                    background: s ? s.bg : "transparent",
+                    color:      s ? s.color : isToday ? "var(--color-ink)" : "var(--color-ink-2)",
+                    fontWeight: (s || isToday) ? 700 : 400,
+                    border:     isToday ? "1.5px solid var(--color-ink)" : "none",
+                  }}>
                     {day}
-                    {isMark && <span style={{ position: "absolute", bottom: 3, width: 4, height: 4, borderRadius: "50%", background: "var(--color-blue)", display: "block" }} />}
+                    {s && <span style={{ position: "absolute", bottom: 3, width: 4, height: 4, borderRadius: "50%", background: s.color, display: "block" }} />}
                   </div>
                 );
               })}
             </div>
 
             {/* Afroeplijst */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               {calAfroepen.map((row, i) => (
-                <div key={i} style={{ display: "grid", gridTemplateColumns: "56px 60px 1fr auto", gap: 12, alignItems: "center", padding: "10px 12px", borderRadius: 6, background: "var(--color-paper-2)", fontSize: 12 }}>
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700 }}>{row.label}</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600 }}>{row.qty}</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--color-ink-2)" }}>UGA348-1500×3000</span>
-                  <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 999, fontWeight: 600, whiteSpace: "nowrap", ...row.ss }}>{row.status}</span>
+                <div key={i} style={{ display: "grid", gridTemplateColumns: "52px 56px 1fr auto", gap: 10, alignItems: "center", padding: "9px 12px", borderRadius: 6, background: row.style.bg + "66", borderLeft: `3px solid ${row.style.color}`, fontSize: 12 }}>
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700, color: row.style.color }}>{row.label}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600, color: "var(--color-ink)" }}>{row.qty}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--color-ink-3)" }}>{row.type !== "suggested" ? "UGA348-1500×3000" : "UGA348"}</span>
+                  <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 999, fontWeight: 700, whiteSpace: "nowrap", background: row.style.bg, color: row.style.color }}>{row.style.badge}</span>
                 </div>
               ))}
             </div>
+            </div>{/* end padding wrapper */}
           </div>
         </div>
       </section>
@@ -287,12 +363,29 @@ export default function UltiAppPage() {
       {/* ── VERBRUIKSVOORSPELLING ── */}
       <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)" }}>
         <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(40px,6vw,80px)", alignItems: "center" }}>
-          <div className="reveal hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", padding: 24 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-              <h4 style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 700 }}>Verbruiksvoorspelling</h4>
-              <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, color: "var(--color-blue)", background: "var(--color-blue-50)", padding: "4px 10px", borderRadius: 999, display: "inline-flex", alignItems: "center", gap: 6 }}>
-                <span style={{ width: 5, height: 5, background: "var(--color-blue)", borderRadius: "50%", animation: "ua-pulse 2s infinite", display: "block" }} /> Live data
+          <div style={{ maxWidth: 860, margin: "0 auto", width: "100%" }}>
+            <div className="reveal hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", overflow: "hidden" }}>
+
+            {/* App topbar */}
+            <div style={{ background: "var(--color-paper-2)", borderBottom: "1px solid var(--color-line)", padding: "10px 16px", display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ display: "flex", gap: 5 }}>
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ED6A5E", display: "block" }} />
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#F4BF4F", display: "block" }} />
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#62C554", display: "block" }} />
               </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ position: "relative", width: 22, height: 22, flexShrink: 0 }}>
+                  <div style={{ position: "absolute", inset: 0, background: "#1F4A38", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: 7, fontWeight: 900, color: "#fff", letterSpacing: "-0.03em" }}>UG</span>
+                  </div>
+                  <div style={{ position: "absolute", bottom: 0, right: 0, width: 7, height: 7, background: "#8FA663" }} />
+                </div>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 800, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>ULTI<span style={{ color: "#8FA663" }}>APP</span></span>
+              </div>
+            </div>
+            <div style={{ padding: 20 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
+              <h4 style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700 }}>Verbruiksvoorspelling</h4>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1.2fr", gap: 12, padding: "0 12px 10px", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 600 }}>
               <span>Artikel</span><span>Stock</span><span>Verbruik</span><span>Stockbreuk</span>
@@ -322,29 +415,29 @@ export default function UltiAppPage() {
                 </div>
               );
             })}
-          </div>
+            </div>{/* end padding */}
+            </div>{/* end card */}
+          </div>{/* end card wrapper */}
           <div>
             <div className="eyebrow reveal">Voorspelling</div>
             <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 20px", maxWidth: "14ch" }}>Verbruik voorspellen.</h2>
             <p className="reveal reveal-d2 lead">UltiApp berekent op basis van uw historisch verbruik wanneer uw stock dreigt op te raken — per artikel, per week. Zo weet u op voorhand wanneer een nieuwe afroep nodig is, zonder zelf bij te houden.</p>
             <ul className="reveal reveal-d3" style={{ listStyle: "none", marginTop: 36, display: "flex", flexDirection: "column" }}>
               {[
-                { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" strokeWidth="1.8"><path d="M3 3v18h18"/><path d="M7 16l4-6 4 3 5-8"/></svg>, title: "Historisch verbruik", body: "UltiApp volgt hoeveel palletten u gemiddeld per week verbruikt per artikeltype." },
-                { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" strokeWidth="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>, title: "Verwachte stockbreuk", body: "Op basis van de huidige voorraad en het verbruiksritme berekenen we de datum waarop u tekortkomt." },
-                { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" strokeWidth="1.8"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>, title: "Tijdig afroep plaatsen", body: "U krijgt een signaal vóór het kritiek wordt — zodat levering altijd op tijd is." },
+                { title: "Historisch verbruik", body: "UltiApp volgt hoeveel palletten u gemiddeld per week verbruikt per artikeltype." },
+                { title: "Verwachte stockbreuk", body: "Op basis van de huidige voorraad en het verbruiksritme berekenen we de datum waarop u tekortkomt." },
+                { title: "Tijdig afroep plaatsen", body: "U krijgt een signaal vóór het kritiek wordt — zodat levering altijd op tijd is." },
               ].map((item, i) => (
-                <li key={i} style={{ padding: "24px 0", borderTop: "1px solid var(--color-line)", ...(i===2?{borderBottom:"1px solid var(--color-line)"}:{}), display: "grid", gridTemplateColumns: "28px 1fr", gap: 18, alignItems: "start" }}>
-                  <div style={{ marginTop: 2 }}>{item.icon}</div>
-                  <div>
-                    <h3 style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 600, marginBottom: 4 }}>{item.title}</h3>
-                    <p style={{ fontSize: 14, color: "var(--color-ink-2)", lineHeight: 1.55 }}>{item.body}</p>
-                  </div>
+                <li key={i} style={{ padding: "20px 0", borderTop: "1px solid var(--color-line)", ...(i===2?{borderBottom:"1px solid var(--color-line)"}:{}) }}>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 600, marginBottom: 4 }}>{item.title}</h3>
+                  <p style={{ fontSize: 14, color: "var(--color-ink-2)", lineHeight: 1.55 }}>{item.body}</p>
                 </li>
               ))}
             </ul>
           </div>
         </div>
       </section>
+
 
       {/* ── MODULES ── */}
       <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)", background: "var(--color-paper-2)" }}>
@@ -428,7 +521,7 @@ export default function UltiAppPage() {
           <div>
             <div className="eyebrow-light reveal">Probeer het zelf</div>
             <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(36px,5vw,72px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.02, marginTop: 18, maxWidth: "18ch" }}>
-              Klaar om uw stock realtime te volgen?
+              Klaar om uw maatpalletten op afroep te hebben?
             </h2>
             <p className="reveal reveal-d2" style={{ marginTop: 24, color: "rgba(255,255,255,0.7)", maxWidth: "56ch", fontSize: "clamp(16px,1.3vw,19px)", lineHeight: 1.55 }}>
               Vraag een persoonlijke demo aan. Wij geven u een rondleiding door UltiApp aan de hand van uw eigen artikelen.

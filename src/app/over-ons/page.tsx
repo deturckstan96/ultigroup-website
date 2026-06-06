@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,12 +17,30 @@ function useReveal() {
 
 export default function OverOnsPage() {
   useReveal();
+  const logoRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = logoRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.querySelectorAll<HTMLElement>(".ug-piece, .ug-logo-text, .ug-tagline, .ug-sub")
+            .forEach(node => node.classList.add("play"));
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <>
       {/* ── ONS VERHAAL ── */}
       <section style={{ padding: "clamp(56px,8vw,96px) clamp(24px,5vw,80px) clamp(60px,8vw,100px)" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "clamp(40px,6vw,80px)", alignItems: "start" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(40px,6vw,80px)", alignItems: "start" }}>
           <div>
             <div className="eyebrow reveal">Ons verhaal</div>
             <h1 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 32px", maxWidth: "14ch" }}>
@@ -59,25 +77,47 @@ export default function OverOnsPage() {
         </div>
       </section>
 
-      {/* ── HOE WIJ WERKEN ── */}
-      <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)", background: "var(--color-paper-2)" }}>
+      {/* ── ZO WERKEN WIJ ── */}
+      <section ref={logoRef} style={{ padding: "clamp(80px,10vw,140px) clamp(24px,5vw,80px)" }}>
         <div style={{ maxWidth: 1440, margin: "0 auto" }}>
-          <div className="eyebrow reveal">Onze aanpak</div>
-          <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 20px", maxWidth: "16ch" }}>Hoe wij werken.</h2>
-          <p className="reveal reveal-d2 lead" style={{ marginBottom: 0 }}>Drie principes die elke samenwerking met ULTI bepalen.</p>
-          <div style={{ marginTop: 56, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
-            {[
-              { num: "01 · PRODUCTIE", title: "Op maat gemaakt", body: "Geen standaardoplossingen. Elk pallet wordt geproduceerd op de exacte specificaties van uw project — afmeting, houtsoort en behandeling.", delay: "" },
-              { num: "02 · LEVERING", title: "Snelle levering", body: "Korte communicatielijnen en efficiënte productie zorgen ervoor dat uw pallets klaarstaan wanneer u ze nodig heeft.", delay: " reveal-d1" },
-              { num: "03 · SERVICE", title: "Voorraad als service", body: "Klanten krijgen via ons portaal realtime inzicht in hun stock, leveringen en afroepen — volledig transparant.", delay: " reveal-d2" },
-            ].map((card, i) => (
-              <div key={i} className={`reveal${card.delay}`} style={{ background: "var(--color-paper)", border: "1px solid var(--color-line)", padding: "36px 32px", display: "flex", flexDirection: "column", gap: 16, transition: "border-color 0.2s, transform 0.2s" }}>
-                <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.16em", color: "var(--color-blue)", fontWeight: 600 }}>{card.num}</div>
-                <div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 700, letterSpacing: "-0.02em" }}>{card.title}</div>
-                <p style={{ fontSize: 14, color: "var(--color-ink-2)", lineHeight: 1.6 }}>{card.body}</p>
+
+          {/* Bovenste rij: titel links, logo rechts */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "clamp(32px,5vw,80px)", alignItems: "end", paddingBottom: "clamp(48px,6vw,80px)", borderBottom: "1px solid var(--color-line)", marginBottom: 0 }}>
+            <div>
+              <div className="eyebrow reveal">Onze aanpak</div>
+              <h2 className="ug-tagline" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(40px,6vw,80px)", fontWeight: 800, lineHeight: 1.0, letterSpacing: "-0.04em", color: "var(--color-ink)", margin: "18px 0 24px", maxWidth: "14ch" }}>
+                Zo werken wij.
+              </h2>
+              <p className="ug-sub" style={{ fontSize: "clamp(16px,1.2vw,18px)", color: "var(--color-ink-2)", lineHeight: 1.65, maxWidth: "48ch" }}>
+                Jij hebt het bedrijf — wij zijn het ontbrekende stuk. Pallets op maat, voorraad als service, directe communicatie. Geen omwegen.
+              </p>
+            </div>
+
+            {/* Logo — klein accent rechts */}
+            <div style={{ position: "relative", width: 120, height: 120, flexShrink: 0 }}>
+              <div style={{ position: "absolute", inset: 0, background: "#1F4A38", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span className="ug-logo-text" style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 900, color: "#fff", letterSpacing: "-0.04em" }}>UG</span>
               </div>
-            ))}
+              <div className="ug-piece" style={{ position: "absolute", bottom: 0, right: 0, width: 36, height: 36, background: "#8FA663" }} />
+            </div>
           </div>
+
+          {/* 3 horizontale rijen */}
+          {[
+            { num: "01", label: "PRODUCTIE", title: "Op maat gemaakt", body: "Geen standaardoplossingen. Elk pallet wordt geproduceerd op de exacte specificaties van uw project — afmeting, houtsoort en behandeling." },
+            { num: "02", label: "LEVERING",  title: "Snelle levering",     body: "Korte communicatielijnen en efficiënte productie zorgen ervoor dat uw pallets klaarstaan wanneer u ze nodig heeft." },
+            { num: "03", label: "SERVICE",   title: "Voorraad als service", body: "Klanten krijgen via ons portaal realtime inzicht in hun stock, leveringen en afroepen — volledig transparant." },
+          ].map((item, i) => (
+            <div key={i} className="reveal" style={{ display: "grid", gridTemplateColumns: "100px 1fr 1.4fr", gap: "clamp(24px,4vw,64px)", alignItems: "start", padding: "clamp(28px,4vw,48px) 0", borderBottom: "1px solid var(--color-line)" }}>
+              <div>
+                <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(48px,5vw,72px)", fontWeight: 800, letterSpacing: "-0.05em", lineHeight: 1, color: "#8FA663", opacity: 0.35 }}>{item.num}</div>
+                <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 600, marginTop: 8 }}>{item.label}</div>
+              </div>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(20px,2vw,28px)", fontWeight: 700, letterSpacing: "-0.025em", color: "var(--color-ink)", lineHeight: 1.1, paddingTop: 8 }}>{item.title}</div>
+              <p style={{ fontSize: 15, color: "var(--color-ink-2)", lineHeight: 1.7, paddingTop: 8 }}>{item.body}</p>
+            </div>
+          ))}
+
         </div>
       </section>
 
@@ -88,7 +128,7 @@ export default function OverOnsPage() {
           <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 20px", maxWidth: "18ch" }}>
             Waar ULTI vandaan komt — en waar we naartoe groeien.
           </h2>
-          <div style={{ marginTop: 56, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 24, position: "relative" }}>
+          <div className="grid grid-cols-2 lg:grid-cols-4" style={{ marginTop: 56, gap: 24, position: "relative" }}>
             <div style={{ position: "absolute", top: 18, left: "5%", right: "5%", height: 1, background: "var(--color-line)" }} />
             {[
               { year: "2022", title: "ULTI GROUP opgericht", body: "Start van een Belgische onderneming met focus op houten oplossingen op maat.", done: true, delay: "" },
@@ -117,22 +157,14 @@ export default function OverOnsPage() {
 
       {/* ── STAN & LORE ── */}
       <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)", background: "var(--color-paper-2)" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1.15fr", gap: "clamp(40px,6vw,80px)", alignItems: "start" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(40px,6vw,80px)", alignItems: "start" }}>
           {/* Portraits */}
-          <div className="reveal" style={{ position: "relative", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, paddingBottom: 60 }}>
+          <div className="reveal grid grid-cols-1 sm:grid-cols-2" style={{ position: "relative", gap: 24, paddingBottom: 60 }}>
             <div style={{ aspectRatio: "4/5", overflow: "hidden", background: "var(--color-paper)", position: "relative" }}>
               <Image src="/Stan.jpg" alt="Stan Deturck — Co-founder ULTI GROUP" fill style={{ objectFit: "cover", objectPosition: "top" }} />
-              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "var(--color-paper)", padding: "16px 18px", display: "flex", justifyContent: "space-between", fontFamily: "var(--font-sans)", fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--color-ink)", fontWeight: 600 }}>
-                <strong style={{ fontFamily: "var(--font-display)", fontSize: 13, letterSpacing: "-0.01em", textTransform: "none" }}>Stan Deturck</strong>
-                <span>Co-founder</span>
-              </div>
             </div>
             <div style={{ aspectRatio: "4/5", overflow: "hidden", marginTop: 60, position: "relative" }}>
               <Image src="/Lore.JPG" alt="Lore Deturck — Co-founder ULTI GROUP" fill style={{ objectFit: "cover", objectPosition: "top" }} />
-              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "var(--color-paper)", padding: "16px 18px", display: "flex", justifyContent: "space-between", fontFamily: "var(--font-sans)", fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--color-ink)", fontWeight: 600 }}>
-                <strong style={{ fontFamily: "var(--font-display)", fontSize: 13, letterSpacing: "-0.01em", textTransform: "none" }}>Lore Deturck</strong>
-                <span>Co-founder</span>
-              </div>
             </div>
           </div>
 
@@ -161,14 +193,14 @@ export default function OverOnsPage() {
 
       {/* ── WAAROM SAMENWERKEN MET ULTI ── */}
       <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: "clamp(40px,6vw,80px)", alignItems: "start" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(40px,6vw,80px)", alignItems: "start" }}>
           <div>
             <div className="eyebrow reveal">Voordelen</div>
             <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 20px", maxWidth: "16ch" }}>
               Waarom samenwerken met ULTI.
             </h2>
             <p className="reveal reveal-d2 lead">Zes principes die elke klant terugvindt in de dagelijkse samenwerking.</p>
-            <ul className="reveal reveal-d3" style={{ listStyle: "none", marginTop: 36, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, borderTop: "1px solid var(--color-line)" }}>
+            <ul className="reveal reveal-d3 grid grid-cols-1 md:grid-cols-2" style={{ listStyle: "none", marginTop: 36, gap: 0, borderTop: "1px solid var(--color-line)" }}>
               {[
                 "Flexibele productie — geen minimumafname",
                 "Op maat gemaakte oplossingen per klant",
@@ -187,29 +219,12 @@ export default function OverOnsPage() {
             </ul>
           </div>
 
-          <div className="reveal reveal-d1">
-            <div className="eyebrow" style={{ marginBottom: 20 }}>In één zin</div>
-            <div style={{ background: "var(--color-paper)", border: "1px solid var(--color-line)", padding: 36, marginTop: 20 }}>
-              <p style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: 22, fontWeight: 400, color: "var(--color-ink)", lineHeight: 1.35, marginBottom: 28, letterSpacing: "-0.005em" }}>
-                "We werken enkel met industriële klanten die nood hebben aan betrouwbaarheid, snelheid en maatwerk. Geen massaproductie — wél kwaliteit op maat."
-              </p>
-              <div style={{ display: "flex", alignItems: "center", gap: 14, paddingTop: 24, borderTop: "1px solid var(--color-line)" }}>
-                <div style={{ width: 44, height: 44, borderRadius: "50%", background: "var(--color-ink)", overflow: "hidden", flexShrink: 0 }}>
-                  <Image src="/Stan.jpg" alt="Stan Deturck" width={44} height={44} style={{ objectFit: "cover", objectPosition: "top" }} />
-                </div>
-                <div>
-                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: "var(--color-ink)" }}>Stan Deturck</div>
-                  <div style={{ fontSize: 12, color: "var(--color-ink-3)", marginTop: 2 }}>Business Development · ULTI GROUP</div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
       {/* ── DARK CTA ── */}
       <section style={{ background: "var(--color-ink)", color: "var(--color-paper)", padding: "clamp(80px,10vw,140px) clamp(24px,5vw,80px)" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 64, alignItems: "end" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: 64, alignItems: "end" }}>
           <div>
             <div className="eyebrow-light reveal">Samenwerken</div>
             <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(36px,5vw,72px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.02, marginTop: 20, maxWidth: "18ch" }}>
