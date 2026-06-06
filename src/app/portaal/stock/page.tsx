@@ -47,18 +47,18 @@ export default async function StockPage() {
   const aantalLaag = items.filter((a) => a.laag).length;
 
   return (
-    <div className="p-8 max-w-5xl">
-      {/* Header */}
-      <div className="flex items-start justify-between mb-6">
+    <div>
+      <div className="px-8 py-6 border-b border-[#E1DDD0] flex items-center justify-between" style={{ background: "#F4F1E8" }}>
         <div>
-          <p className="text-xs font-semibold text-[#1F2328]/40 uppercase tracking-widest mb-1">Live overzicht</p>
-          <h1 className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: 'var(--font-jakarta)' }}>
+          <p className="text-xs font-semibold text-[#14352A]/40 uppercase tracking-widest mb-1" style={{ fontFamily: "var(--font-display)" }}>Live overzicht</p>
+          <h1 className="text-2xl font-bold text-[#14352A]" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>
             Mijn palletten
           </h1>
         </div>
         <Link
           href="/portaal/afroep"
-          className="flex items-center gap-2 px-4 py-2 bg-[#1D4E89] text-white text-sm font-semibold rounded-lg hover:bg-[#163d6e] transition-colors"
+          className="flex items-center gap-2 px-4 py-2 text-white text-sm font-semibold transition-colors"
+          style={{ background: "#14352A", fontFamily: "var(--font-display)" }}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -66,16 +66,17 @@ export default async function StockPage() {
           Nieuwe afroep
         </Link>
       </div>
+    <div className="p-8 max-w-5xl">
 
       {/* Samenvatting */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-white border border-[#1F2328]/10 rounded-xl px-5 py-4">
+        <div className="bg-white border border-[#E1DDD0] px-5 py-4">
           <p className="text-xs text-[#1F2328]/40 uppercase tracking-widest mb-1">Artikelen</p>
-          <p className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: 'var(--font-jakarta)' }}>{items.length}</p>
+          <p className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: 'var(--font-display)' }}>{items.length}</p>
         </div>
-        <div className="bg-white border border-[#1F2328]/10 rounded-xl px-5 py-4">
+        <div className="bg-white border border-[#E1DDD0] px-5 py-4">
           <p className="text-xs text-[#1F2328]/40 uppercase tracking-widest mb-1">Totaal in stock</p>
-          <p className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: 'var(--font-jakarta)' }}>
+          <p className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: 'var(--font-display)' }}>
             {totaalStuks.toLocaleString("nl-BE")}
             <span className="text-sm font-normal text-[#1F2328]/35 ml-1">st</span>
           </p>
@@ -85,7 +86,7 @@ export default async function StockPage() {
             Status
           </p>
           <p className={`text-2xl font-bold ${aantalLaag > 0 ? "text-amber-700" : "text-[#2E7D32]"}`}
-            style={{ fontFamily: 'var(--font-jakarta)' }}>
+            style={{ fontFamily: 'var(--font-display)' }}>
             {aantalLaag > 0 ? `${aantalLaag} laag` : "Alles OK"}
           </p>
         </div>
@@ -93,14 +94,14 @@ export default async function StockPage() {
 
       {/* Tabel */}
       {items.length === 0 ? (
-        <div className="bg-white border border-[#1F2328]/10 rounded-xl p-12 text-center">
+        <div className="bg-white border border-[#E1DDD0] p-12 text-center">
           <p className="text-[#1F2328]/35 text-sm">Geen palletartikelen gevonden.</p>
         </div>
       ) : (
-        <div className="bg-white border border-[#1F2328]/10 rounded-xl overflow-hidden">
+        <div className="bg-white border border-[#E1DDD0] overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#1F2328]/8">
+              <tr className="border-b border-[#E1DDD0]">
                 <th className="text-left px-6 py-3 text-xs font-semibold uppercase tracking-widest text-[#1F2328]/35">
                   Artikel
                 </th>
@@ -123,12 +124,12 @@ export default async function StockPage() {
               {items.map((art, i) => (
                 <tr
                   key={art.nr}
-                  className={`border-b border-[#1F2328]/6 last:border-0 ${art.laag ? "bg-amber-50/40" : ""}`}
+                  className={`border-b border-[#E1DDD0] last:border-0 ${art.laag ? "bg-amber-50/40" : ""}`}
                 >
                   {/* UGA + naam */}
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <span className="text-xs font-bold text-[#1D4E89] bg-[#1D4E89]/8 border border-[#1D4E89]/15 rounded px-2 py-0.5 shrink-0">
+                      <span className="text-xs font-bold text-[#14352A] bg-[#14352A]/8 border border-[#14352A]/15 rounded px-2 py-0.5 shrink-0">
                         {art.nr}
                       </span>
                       <span className="text-sm font-medium text-[#1F2328]">{art.naam}</span>
@@ -155,7 +156,7 @@ export default async function StockPage() {
                       <div className="flex items-center gap-2">
                         <div className="flex-1 h-1.5 bg-[#1F2328]/8 rounded-full overflow-hidden">
                           <div
-                            className={`h-full rounded-full ${art.laag ? "bg-amber-400" : "bg-[#1D4E89]"}`}
+                            className={`h-full rounded-full ${art.laag ? "bg-amber-400" : "bg-[#14352A]"}`}
                             style={{ width: `${art.pct}%` }}
                           />
                         </div>
@@ -171,7 +172,7 @@ export default async function StockPage() {
                   {/* Stuks */}
                   <td className="px-6 py-4 text-right">
                     <span className={`text-base font-bold ${art.laag ? "text-amber-600" : "text-[#1F2328]"}`}
-                      style={{ fontFamily: 'var(--font-jakarta)' }}>
+                      style={{ fontFamily: 'var(--font-display)' }}>
                       {art.totaal.toLocaleString("nl-BE")}
                     </span>
                     <span className="text-xs text-[#1F2328]/30 ml-1">st</span>
@@ -184,7 +185,7 @@ export default async function StockPage() {
                   <td className="px-4 py-4">
                     <Link
                       href={`/portaal/afroep?artikel=${art.nr}`}
-                      className="text-[#1D4E89] hover:text-[#163d6e] transition-colors"
+                      className="text-[#14352A] hover:text-[#1F4A38] transition-colors"
                       title="Afroep plaatsen"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -199,6 +200,7 @@ export default async function StockPage() {
           </table>
         </div>
       )}
+    </div>
     </div>
   );
 }

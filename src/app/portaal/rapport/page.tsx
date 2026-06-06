@@ -101,20 +101,21 @@ export default async function RapportPage() {
   };
 
   return (
-    <div className="p-8 max-w-5xl">
-      <div className="mb-8">
-        <p className="text-xs font-semibold text-[#1F2328]/40 uppercase tracking-widest mb-1">Analyse</p>
-        <h1 className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: "var(--font-jakarta)" }}>
+    <div>
+      <div className="px-8 py-6 border-b border-[#E1DDD0]" style={{ background: "#F4F1E8" }}>
+        <p className="text-xs font-semibold text-[#14352A]/40 uppercase tracking-widest mb-1" style={{ fontFamily: "var(--font-display)" }}>Analyse</p>
+        <h1 className="text-2xl font-bold text-[#14352A]" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>
           Rapport
         </h1>
         <p className="text-sm text-[#1F2328]/45 mt-0.5">Overzicht van de laatste 12 maanden</p>
       </div>
+    <div className="p-8 max-w-5xl">
 
       {/* KPI rij */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         <div className="bg-white border border-[#1F2328]/10 rounded-xl px-5 py-4">
           <p className="text-xs text-[#1F2328]/40 uppercase tracking-widest mb-1">Totaal afgenomen</p>
-          <p className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: "var(--font-jakarta)" }}>
+          <p className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: "var(--font-display)" }}>
             {data.totaalStuks.toLocaleString("nl-BE")}
             <span className="text-sm font-normal text-[#1F2328]/35 ml-1">st</span>
           </p>
@@ -122,7 +123,7 @@ export default async function RapportPage() {
         </div>
         <div className="bg-white border border-[#1F2328]/10 rounded-xl px-5 py-4">
           <p className="text-xs text-[#1F2328]/40 uppercase tracking-widest mb-1">Gem. per maand</p>
-          <p className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: "var(--font-jakarta)" }}>
+          <p className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: "var(--font-display)" }}>
             {data.gemiddeldPerMaand.toLocaleString("nl-BE")}
             <span className="text-sm font-normal text-[#1F2328]/35 ml-1">st</span>
           </p>
@@ -130,7 +131,7 @@ export default async function RapportPage() {
         </div>
         <div className="bg-white border border-[#1F2328]/10 rounded-xl px-5 py-4">
           <p className="text-xs text-[#1F2328]/40 uppercase tracking-widest mb-1">Leveringen</p>
-          <p className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: "var(--font-jakarta)" }}>
+          <p className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: "var(--font-display)" }}>
             {data.totaalLeveringen}
           </p>
           <p className="text-xs text-[#1F2328]/35 mt-0.5">afgehandeld dit jaar</p>
@@ -138,6 +139,7 @@ export default async function RapportPage() {
       </div>
 
       <RapportCharts maandData={data.maandData} topArtikelen={data.topArtikelen} />
+    </div>
     </div>
   );
 }

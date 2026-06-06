@@ -9,7 +9,7 @@ export default async function PortaalLayout({ children }: { children: React.Reac
   const klantEmail = user?.email ?? "";
 
   return (
-    <div className="flex h-screen bg-[#F5F7FA] overflow-hidden">
+    <div className="flex h-screen overflow-hidden" style={{ background: "#ffffff" }}>
       <PortaalSidebar klantNaam={klantNaam} klantEmail={klantEmail} />
       <div className="flex-1 flex flex-col overflow-hidden">
         <main className="flex-1 overflow-y-auto">

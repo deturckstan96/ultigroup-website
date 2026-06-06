@@ -61,7 +61,7 @@ export default function RapportCharts({ maandData, topArtikelen }: Props) {
             <Tooltip content={<CustomTooltip />} cursor={{ fill: "#1F23280a" }} />
             <Bar
               dataKey="stuks"
-              fill="#1D4E89"
+              fill="#14352A"
               radius={[4, 4, 0, 0]}
             />
           </BarChart>
@@ -80,10 +80,10 @@ export default function RapportCharts({ maandData, topArtikelen }: Props) {
                 <div key={art.nr}>
                   <div className="flex items-center justify-between mb-1.5">
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <span className="text-xs font-bold text-white bg-[#1D4E89] rounded px-1.5 py-0.5 shrink-0">
+                      <span className="text-xs font-bold text-white bg-[#14352A] rounded px-1.5 py-0.5 shrink-0">
                         #{i + 1}
                       </span>
-                      <span className="text-xs font-bold text-[#1D4E89] bg-[#1D4E89]/8 border border-[#1D4E89]/15 rounded px-2 py-0.5 shrink-0">
+                      <span className="text-xs font-bold text-[#14352A] bg-[#14352A]/8 border border-[#14352A]/15 rounded px-2 py-0.5 shrink-0">
                         {art.nr}
                       </span>
                       <span className="text-sm font-medium text-[#1F2328] truncate">{art.naam}</span>
@@ -97,7 +97,7 @@ export default function RapportCharts({ maandData, topArtikelen }: Props) {
                   </div>
                   <div className="h-2 bg-[#1F2328]/6 rounded-full overflow-hidden">
                     <div
-                      className="h-full rounded-full bg-[#1D4E89] transition-all"
+                      className="h-full rounded-full bg-[#14352A] transition-all"
                       style={{ width: `${pct}%` }}
                     />
                   </div>

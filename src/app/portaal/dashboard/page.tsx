@@ -5,9 +5,9 @@ import { getKlantNaam } from "@/lib/supabase/get-klant";
 type SalesStatus = "Draft" | "Confirmed" | "Partially Delivered" | "Fully Delivered" | "Cancelled";
 
 const statusMap: Record<SalesStatus, { label: string; bg: string; color: string }> = {
-  Draft:                { label: "Ingediend",      bg: "bg-[#1D4E89]/8",  color: "text-[#1D4E89]"   },
+  Draft:                { label: "Ingediend",      bg: "bg-[#14352A]/8",  color: "text-[#14352A]"   },
   Confirmed:            { label: "Bevestigd",      bg: "bg-amber-50",     color: "text-amber-700"    },
-  "Partially Delivered":{ label: "In behandeling", bg: "bg-blue-50",      color: "text-blue-700"     },
+  "Partially Delivered":{ label: "In behandeling", bg: "bg-[#5A8C4A]/10", color: "text-[#2D5C44]"   },
   "Fully Delivered":    { label: "Geleverd",       bg: "bg-[#2E7D32]/8",  color: "text-[#2E7D32]"   },
   Cancelled:            { label: "Geannuleerd",    bg: "bg-[#1F2328]/6",  color: "text-[#1F2328]/50" },
 };
@@ -88,48 +88,50 @@ export default async function DashboardPage() {
   const laatsteLevering = leveringen[0];
 
   return (
-    <div className="p-8 max-w-5xl">
-      <div className="mb-8">
-        <p className="text-xs font-semibold text-[#1F2328]/40 uppercase tracking-widest mb-1">Welkom terug</p>
-        <h1 className="text-2xl font-bold text-[#1F2328]">{klantNaam ?? "Portaal"}</h1>
-        <p className="text-sm text-[#1F2328]/50 mt-0.5">
+    <div>
+      {/* Crème header band */}
+      <div className="px-8 py-6 border-b border-[#E1DDD0]" style={{ background: "#F4F1E8" }}>
+        <p className="text-xs font-semibold text-[#14352A]/40 uppercase tracking-widest mb-1" style={{ fontFamily: "var(--font-display)" }}>Welkom terug</p>
+        <h1 className="text-2xl font-bold text-[#14352A]" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>{klantNaam ?? "Portaal"}</h1>
+        <p className="text-sm text-[#1F2328]/45 mt-0.5">
           {new Date().toLocaleDateString("nl-BE", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
         </p>
       </div>
+    <div className="p-8 max-w-5xl">
 
       {/* KPI kaarten */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white border border-[#1F2328]/10 rounded-xl p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/40 mb-2">Totaal in stock</p>
-          <p className="text-3xl font-bold text-[#1F2328]">{totaleStuks.toLocaleString("nl-BE")}</p>
+        <div className="bg-white border border-[#E1DDD0] p-5" style={{ borderRadius: 0 }}>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/40 mb-2" style={{ fontFamily: "var(--font-display)" }}>Totaal in stock</p>
+          <p className="text-3xl font-bold text-[#14352A]" style={{ fontFamily: "var(--font-display)" }}>{totaleStuks.toLocaleString("nl-BE")}</p>
           <p className="text-xs text-[#1F2328]/40 mt-1">stuks over alle locaties</p>
         </div>
-        <div className="bg-white border border-[#1F2328]/10 rounded-xl p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/40 mb-2">Open afroepen</p>
-          <p className="text-3xl font-bold text-[#1F2328]">{aantalOpen}</p>
+        <div className="bg-white border border-[#E1DDD0] p-5" style={{ borderRadius: 0 }}>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/40 mb-2" style={{ fontFamily: "var(--font-display)" }}>Open afroepen</p>
+          <p className="text-3xl font-bold text-[#14352A]" style={{ fontFamily: "var(--font-display)" }}>{aantalOpen}</p>
           <p className="text-xs text-[#1F2328]/40 mt-1">in behandeling</p>
         </div>
-        <div className="bg-white border border-[#1F2328]/10 rounded-xl p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/40 mb-2">Laatste levering</p>
+        <div className="bg-white border border-[#E1DDD0] p-5" style={{ borderRadius: 0 }}>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/40 mb-2" style={{ fontFamily: "var(--font-display)" }}>Laatste levering</p>
           {laatsteLevering ? (
             <>
-              <p className="text-lg font-bold text-[#1F2328]">
+              <p className="text-lg font-bold text-[#14352A]" style={{ fontFamily: "var(--font-display)" }}>
                 {new Date(laatsteLevering.delivery_date ?? laatsteLevering.planned_date).toLocaleDateString("nl-BE", { day: "numeric", month: "short" })}
               </p>
-              <p className="text-xs text-[#1F2328]/40 mt-1">{laatsteLevering.delivery_id}</p>
+              <p className="text-xs text-[#1F2328]/40 mt-1 font-mono">{laatsteLevering.delivery_id}</p>
             </>
           ) : (
-            <p className="text-lg font-bold text-[#1F2328]/40">—</p>
+            <p className="text-lg font-bold text-[#1F2328]/30">—</p>
           )}
         </div>
-        <div className={`border rounded-xl p-5 ${laagsteStock ? "bg-amber-50 border-amber-200" : "bg-green-50 border-green-200"}`}>
-          <p className={`text-xs font-semibold uppercase tracking-widest mb-2 ${laagsteStock ? "text-amber-600" : "text-green-600"}`}>
+        <div className={`border p-5 ${laagsteStock ? "bg-amber-50 border-amber-200" : "border-[#E1DDD0]"}`} style={{ borderRadius: 0, background: laagsteStock ? undefined : "rgba(90,140,74,0.08)" }}>
+          <p className={`text-xs font-semibold uppercase tracking-widest mb-2 ${laagsteStock ? "text-amber-600" : "text-[#2D5C44]"}`} style={{ fontFamily: "var(--font-display)" }}>
             Stock status
           </p>
-          <p className={`text-lg font-bold ${laagsteStock ? "text-amber-700" : "text-green-700"}`}>
+          <p className={`text-lg font-bold ${laagsteStock ? "text-amber-700" : "text-[#14352A]"}`} style={{ fontFamily: "var(--font-display)" }}>
             {laagsteStock ? "Let op" : "OK"}
           </p>
-          <p className={`text-xs mt-1 ${laagsteStock ? "text-amber-600" : "text-green-600"}`}>
+          <p className={`text-xs mt-1 ${laagsteStock ? "text-amber-600" : "text-[#2D5C44]"}`}>
             {laagsteStock ? `${laagsteStock.naam} laag` : "Alle artikelen voldoende"}
           </p>
         </div>
@@ -137,10 +139,10 @@ export default async function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Stock samenvatting */}
-        <div className="bg-white border border-[#1F2328]/10 rounded-xl p-6">
+        <div className="bg-white border border-[#E1DDD0] p-6" style={{ borderRadius: 0 }}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-[#1F2328]">Mijn stock</h2>
-            <Link href="/portaal/stock" className="text-xs text-[#1D4E89] hover:underline font-medium">Alles bekijken →</Link>
+            <h2 className="font-semibold text-[#14352A]" style={{ fontFamily: "var(--font-display)" }}>Mijn stock</h2>
+            <Link href="/portaal/stock" className="text-xs font-medium hover:underline" style={{ color: "#5A8C4A" }}>Alles bekijken →</Link>
           </div>
           {Object.keys(stockTotaal).length === 0 ? (
             <p className="text-sm text-[#1F2328]/40">Geen stockartikelen.</p>
@@ -153,12 +155,12 @@ export default async function DashboardPage() {
                   <div key={nr}>
                     <div className="flex justify-between text-sm mb-1">
                       <span className="text-[#1F2328]/80 font-medium">{art.naam}</span>
-                      <span className={`font-semibold ${laag ? "text-amber-600" : "text-[#1F2328]"}`}>
+                      <span className={`font-semibold ${laag ? "text-amber-600" : "text-[#14352A]"}`}>
                         {art.qty.toLocaleString("nl-BE")} st
                       </span>
                     </div>
-                    <div className="h-1.5 bg-[#F5F7FA] rounded-full overflow-hidden">
-                      <div className={`h-full rounded-full ${laag ? "bg-amber-400" : "bg-[#1D4E89]"}`}
+                    <div className="h-1.5 overflow-hidden" style={{ background: "#EDE8D8" }}>
+                      <div className={`h-full ${laag ? "bg-amber-400" : "bg-[#14352A]"}`}
                         style={{ width: `${pct}%` }} />
                     </div>
                   </div>
@@ -169,10 +171,10 @@ export default async function DashboardPage() {
         </div>
 
         {/* Recente afroepen */}
-        <div className="bg-white border border-[#1F2328]/10 rounded-xl p-6">
+        <div className="bg-white border border-[#E1DDD0] p-6" style={{ borderRadius: 0 }}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-[#1F2328]">Recente afroepen</h2>
-            <Link href="/portaal/afroepen" className="text-xs text-[#1D4E89] hover:underline font-medium">Alles bekijken →</Link>
+            <h2 className="font-semibold text-[#14352A]" style={{ fontFamily: "var(--font-display)" }}>Recente afroepen</h2>
+            <Link href="/portaal/afroepen" className="text-xs font-medium hover:underline" style={{ color: "#5A8C4A" }}>Alles bekijken →</Link>
           </div>
           {recenteAfroepen.length === 0 ? (
             <p className="text-sm text-[#1F2328]/40 mb-4">Nog geen afroepen geplaatst.</p>
@@ -181,9 +183,9 @@ export default async function DashboardPage() {
               {recenteAfroepen.slice(0, 3).map((a) => {
                 const s = statusMap[a.status] ?? statusMap.Draft;
                 return (
-                  <div key={a.id} className="flex items-center justify-between py-2 border-b border-[#1F2328]/4 last:border-0">
+                  <div key={a.id} className="flex items-center justify-between py-2 border-b border-[#E1DDD0] last:border-0">
                     <div>
-                      <p className="text-sm font-medium text-[#1F2328]">{a.id}</p>
+                      <p className="text-sm font-medium text-[#14352A] font-mono">{a.id}</p>
                       <p className="text-xs text-[#1F2328]/40">
                         {a.gewenste_datum
                           ? `Levering ${new Date(a.gewenste_datum).toLocaleDateString("nl-BE")}`
@@ -201,7 +203,8 @@ export default async function DashboardPage() {
             </div>
           )}
           <Link href="/portaal/afroep"
-            className="flex items-center justify-center gap-1.5 w-full py-2 border border-dashed border-[#1F2328]/15 rounded-lg text-sm text-[#1F2328]/50 hover:border-[#1D4E89] hover:text-[#1D4E89] transition-colors">
+            className="flex items-center justify-center gap-1.5 w-full py-2.5 border border-dashed border-[#14352A]/20 text-sm transition-colors hover:border-[#5A8C4A] hover:text-[#5A8C4A]"
+            style={{ color: "rgba(31,35,40,0.4)", fontFamily: "var(--font-display)" }}>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
@@ -212,33 +215,33 @@ export default async function DashboardPage() {
 
       {/* Laatste levering */}
       {laatsteLevering && (
-        <div className="bg-white border border-[#1F2328]/10 rounded-xl p-6 mt-6">
+        <div className="bg-white border border-[#E1DDD0] p-6 mt-6" style={{ borderRadius: 0 }}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-[#1F2328]">Laatste levering</h2>
-            <Link href="/portaal/leveringen" className="text-xs text-[#1D4E89] hover:underline font-medium">Volledige historiek →</Link>
+            <h2 className="font-semibold text-[#14352A]" style={{ fontFamily: "var(--font-display)" }}>Laatste levering</h2>
+            <Link href="/portaal/leveringen" className="text-xs font-medium hover:underline" style={{ color: "#5A8C4A" }}>Volledige historiek →</Link>
           </div>
           <div className="flex items-start gap-4 flex-wrap">
             <div className="min-w-[120px]">
               <p className="text-xs text-[#1F2328]/40 mb-0.5">Datum</p>
-              <p className="text-sm font-semibold text-[#1F2328]">
+              <p className="text-sm font-semibold text-[#14352A]">
                 {new Date(laatsteLevering.delivery_date ?? laatsteLevering.planned_date).toLocaleDateString("nl-BE", { day: "numeric", month: "long", year: "numeric" })}
               </p>
             </div>
             <div className="min-w-[120px]">
               <p className="text-xs text-[#1F2328]/40 mb-0.5">Referentie</p>
-              <p className="text-sm font-semibold text-[#1F2328]">{laatsteLevering.delivery_id}</p>
+              <p className="text-sm font-semibold text-[#14352A] font-mono">{laatsteLevering.delivery_id}</p>
             </div>
             {laatsteLevering.ref && (
               <div className="min-w-[120px]">
                 <p className="text-xs text-[#1F2328]/40 mb-0.5">Klant ref</p>
-                <p className="text-sm font-semibold text-[#1F2328]">{laatsteLevering.ref}</p>
+                <p className="text-sm font-semibold text-[#14352A]">{laatsteLevering.ref}</p>
               </div>
             )}
             <div className="flex-1">
               <p className="text-xs text-[#1F2328]/40 mb-0.5">Artikelen</p>
               <div className="flex flex-wrap gap-2 mt-1">
                 {leveringRegels.map((r, i) => (
-                  <span key={i} className="text-xs bg-[#F5F7FA] text-[#1F2328]/80 rounded-full px-3 py-1">
+                  <span key={i} className="text-xs text-[#14352A]/70 px-3 py-1 font-mono" style={{ background: "#EDE8D8" }}>
                     {Number(r.qty_received ?? r.qty_planned).toLocaleString("nl-BE")}× {r.item_name}
                   </span>
                 ))}
@@ -247,6 +250,7 @@ export default async function DashboardPage() {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 }

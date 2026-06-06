@@ -215,16 +215,17 @@ export default async function VoorspellingPage() {
   const waarschuwing = voorspellingen.filter((v) => v.status === "waarschuwing");
 
   return (
-    <div className="p-8 max-w-5xl">
-      <div className="mb-8">
-        <p className="text-xs font-semibold text-[#1F2328]/40 uppercase tracking-widest mb-1">Analyse</p>
-        <h1 className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: "var(--font-jakarta)" }}>
+    <div>
+      <div className="px-8 py-6 border-b border-[#E1DDD0]" style={{ background: "#F4F1E8" }}>
+        <p className="text-xs font-semibold text-[#14352A]/40 uppercase tracking-widest mb-1" style={{ fontFamily: "var(--font-display)" }}>Analyse</p>
+        <h1 className="text-2xl font-bold text-[#14352A]" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>
           Verbruik voorspellen
         </h1>
         <p className="text-sm text-[#1F2328]/45 mt-0.5">
           Stockbreuk vroeg detecteren op basis van historisch verbruik
         </p>
       </div>
+    <div className="p-8 max-w-5xl">
 
       {/* Meldingen */}
       {(kritiek.length > 0 || waarschuwing.length > 0) && (
@@ -289,6 +290,7 @@ export default async function VoorspellingPage() {
       ) : (
         <VoorspellingCards voorspellingen={voorspellingen} />
       )}
+    </div>
     </div>
   );
 }

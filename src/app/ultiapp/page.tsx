@@ -149,7 +149,6 @@ export default function UltiAppPage() {
       <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)" }}>
         <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(40px,6vw,80px)", alignItems: "center" }}>
           <div className="reveal hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", overflow: "hidden" }}>
-
             {/* App topbar */}
             <div style={{ background: "var(--color-paper-2)", borderBottom: "1px solid var(--color-line)", padding: "10px 16px", display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ display: "flex", gap: 5 }}>
@@ -189,13 +188,11 @@ export default function UltiAppPage() {
                 </div>
               ))}
             </div>
-            {/* Historisch verbruik — afgelopen 6 maanden */}
             <div style={{ marginBottom: 20 }}>
               <div style={{ fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 600, marginBottom: 10 }}>Afroepen afgelopen 6 maanden</div>
               {(() => {
                 const CHART_H = 90;
                 const MAX_VAL = 1020;
-                const MEDIAN_PCT = (900 / MAX_VAL) * 100;
                 const bars = [
                   { month: "Jan", value: 780,  partial: false },
                   { month: "Feb", value: 960,  partial: false },
@@ -206,7 +203,6 @@ export default function UltiAppPage() {
                 ];
                 return (
                   <div style={{ position: "relative" }}>
-                    {/* Mediaan-lijn: positie = vanaf onderkant (label 20px) + bar hoogte van mediaan */}
                     <div style={{ position: "absolute", bottom: 20 + Math.round((900 / MAX_VAL) * CHART_H), left: 0, right: 0, borderTop: "1.5px dashed #8FA663", zIndex: 2, pointerEvents: "none" }}>
                       <span style={{ position: "absolute", right: 0, top: -14, fontSize: 9, color: "#5A8C4A", fontWeight: 600, background: "var(--color-paper)", paddingLeft: 4 }}>∅ 900 st</span>
                     </div>
@@ -232,14 +228,13 @@ export default function UltiAppPage() {
             <button style={{ width: "100%", background: "#1F4A38", color: "#fff", border: "none", padding: "11px 0", borderRadius: 8, fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
               Plan een afroep →
             </button>
-            </div>{/* end padding wrapper */}
+            </div>
           </div>
           <div>
             <div className="eyebrow reveal">Voorspelling &amp; waarschuwing</div>
             <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 20px", maxWidth: "14ch" }}>Voorkom stockbreuken</h2>
             <p className="reveal reveal-d2 lead">UltiApp volgt het historisch verbruik per pallet en geeft tijdig aan wanneer een nieuwe afroep nodig is — zodat u nooit voor verrassingen staat.</p>
             <div className="reveal reveal-d3" style={{ marginTop: 36, display: "flex", flexDirection: "column", gap: 16 }}>
-              {/* Urgentiekaart — gebaseerd op huidige situatie */}
               <div style={{ padding: "22px 24px", borderLeft: "3px solid var(--color-warn)", background: "#FFF8EE", borderRadius: 6 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
                   <span style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--color-warn)", display: "block", flexShrink: 0 }} />
@@ -263,21 +258,9 @@ export default function UltiAppPage() {
             <p className="reveal reveal-d2 lead">In de afroepkalender ziet u per maand wanneer elke levering gepland staat en welke status die heeft — van ontvangen tot geleverd.</p>
             <div className="reveal reveal-d3" style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 12 }}>
               {[
-                {
-                  bg: "#DBEAFE", color: "#1D4ED8",
-                  title: "Geleverd",
-                  body: "Leveringen die al bij u zijn aangekomen. Afroep volledig afgerond.",
-                },
-                {
-                  bg: "#FEF9C3", color: "#92400E",
-                  title: "Levering ingepland",
-                  body: "Levering bevestigd.",
-                },
-                {
-                  bg: "#FED7AA", color: "#C2410C",
-                  title: "Voorgestelde afroep",
-                  body: "UltiApp stelt voor om binnenkort af te roepen op basis van uw historisch verbruik. Nog niet bevestigd.",
-                },
+                { bg: "#DBEAFE", color: "#1D4ED8", title: "Geleverd", body: "Leveringen die al bij u zijn aangekomen. Afroep volledig afgerond." },
+                { bg: "#FEF9C3", color: "#92400E", title: "Levering ingepland", body: "Levering bevestigd." },
+                { bg: "#FED7AA", color: "#C2410C", title: "Voorgestelde afroep", body: "UltiApp stelt voor om binnenkort af te roepen op basis van uw historisch verbruik. Nog niet bevestigd." },
               ].map((card, i) => (
                 <div key={i} style={{ padding: "16px 20px", borderLeft: `3px solid ${card.color}`, background: card.bg, borderRadius: 4 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
@@ -290,7 +273,6 @@ export default function UltiAppPage() {
             </div>
           </div>
           <div className="reveal reveal-d2 hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", overflow: "hidden" }}>
-
             {/* App topbar */}
             <div style={{ background: "var(--color-paper-2)", borderBottom: "1px solid var(--color-line)", padding: "10px 16px", display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ display: "flex", gap: 5 }}>
@@ -309,42 +291,29 @@ export default function UltiAppPage() {
               </div>
             </div>
             <div style={{ padding: 24 }}>
-            {/* Header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
               <h4 style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 700 }}>{maandLabel}</h4>
               <div style={{ display: "flex", gap: 4 }}>
                 {["‹","›"].map((c,i) => <span key={i} style={{ width: 28, height: 28, border: "1px solid var(--color-line)", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-ink-2)", fontSize: 12, cursor: "pointer" }}>{c}</span>)}
               </div>
             </div>
-
-            {/* Dag-grid */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 4, marginBottom: 20 }}>
               {["MA","DI","WO","DO","VR","ZA","ZO"].map(d => (
                 <div key={d} style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--color-ink-3)", textAlign: "center", padding: "6px 0", letterSpacing: "0.08em" }}>{d}</div>
               ))}
-              {/* Lege cellen vóór de eerste dag */}
               {Array.from({ length: firstDow }).map((_, i) => <div key={`e${i}`} />)}
               {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(day => {
                 const isToday = day === todayDay;
                 const type    = calDayMap.get(day);
                 const s       = type ? CAL_STYLES[type] : null;
                 return (
-                  <div key={day} style={{
-                    aspectRatio: "1", display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 12, borderRadius: 6, position: "relative",
-                    background: s ? s.bg : "transparent",
-                    color:      s ? s.color : isToday ? "var(--color-ink)" : "var(--color-ink-2)",
-                    fontWeight: (s || isToday) ? 700 : 400,
-                    border:     isToday ? "1.5px solid var(--color-ink)" : "none",
-                  }}>
+                  <div key={day} style={{ aspectRatio: "1", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, borderRadius: 6, position: "relative", background: s ? s.bg : "transparent", color: s ? s.color : isToday ? "var(--color-ink)" : "var(--color-ink-2)", fontWeight: (s || isToday) ? 700 : 400, border: isToday ? "1.5px solid var(--color-ink)" : "none" }}>
                     {day}
                     {s && <span style={{ position: "absolute", bottom: 3, width: 4, height: 4, borderRadius: "50%", background: s.color, display: "block" }} />}
                   </div>
                 );
               })}
             </div>
-
-            {/* Afroeplijst */}
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               {calAfroepen.map((row, i) => (
                 <div key={i} style={{ display: "grid", gridTemplateColumns: "52px 56px 1fr auto", gap: 10, alignItems: "center", padding: "9px 12px", borderRadius: 6, background: row.style.bg + "66", borderLeft: `3px solid ${row.style.color}`, fontSize: 12 }}>
@@ -355,7 +324,7 @@ export default function UltiAppPage() {
                 </div>
               ))}
             </div>
-            </div>{/* end padding wrapper */}
+            </div>
           </div>
         </div>
       </section>
@@ -365,7 +334,6 @@ export default function UltiAppPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(40px,6vw,80px)", alignItems: "center" }}>
           <div style={{ maxWidth: 860, margin: "0 auto", width: "100%" }}>
             <div className="reveal hidden lg:block" style={{ background: "var(--color-paper)", borderRadius: 12, boxShadow: "0 24px 60px -20px rgba(31,35,40,0.15)", border: "1px solid var(--color-line)", overflow: "hidden" }}>
-
             {/* App topbar */}
             <div style={{ background: "var(--color-paper-2)", borderBottom: "1px solid var(--color-line)", padding: "10px 16px", display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ display: "flex", gap: 5 }}>
@@ -415,9 +383,9 @@ export default function UltiAppPage() {
                 </div>
               );
             })}
-            </div>{/* end padding */}
-            </div>{/* end card */}
-          </div>{/* end card wrapper */}
+            </div>
+            </div>
+          </div>
           <div>
             <div className="eyebrow reveal">Voorspelling</div>
             <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 20px", maxWidth: "14ch" }}>Verbruik voorspellen.</h2>
@@ -437,7 +405,6 @@ export default function UltiAppPage() {
           </div>
         </div>
       </section>
-
 
       {/* ── MODULES ── */}
       <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)", background: "var(--color-paper-2)" }}>

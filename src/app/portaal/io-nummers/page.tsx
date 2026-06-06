@@ -128,19 +128,20 @@ export default async function IoNummersPage() {
   const ioNummers = klantNaam ? await getIoData(klantNaam) : [];
 
   return (
-    <div className="p-8 max-w-5xl">
-      {/* Header */}
-      <div className="mb-8">
-        <p className="text-xs font-semibold text-[#1F2328]/40 uppercase tracking-widest mb-1">Contractbeheer</p>
-        <h1 className="text-2xl font-bold text-[#1F2328]" style={{ fontFamily: "var(--font-jakarta)" }}>
+    <div>
+      <div className="px-8 py-6 border-b border-[#E1DDD0]" style={{ background: "#F4F1E8" }}>
+        <p className="text-xs font-semibold text-[#14352A]/40 uppercase tracking-widest mb-1" style={{ fontFamily: "var(--font-display)" }}>Contractbeheer</p>
+        <h1 className="text-2xl font-bold text-[#14352A]" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>
           IO-nummers
         </h1>
         <p className="text-sm text-[#1F2328]/45 mt-0.5">
           Overzicht van uw contracten, beschikbaar saldo en leveringshistoriek per artikel.
         </p>
       </div>
+    <div className="p-8 max-w-5xl">
 
       <IoNummersClient ioNummers={ioNummers} />
+    </div>
     </div>
   );
 }

@@ -56,7 +56,7 @@ export default function IoNummersClient({ ioNummers }: Props) {
       <div className="grid grid-cols-3 gap-4">
         {[
           { label: "Totaal besteld",    waarde: totaalBesteld,   kleur: "text-[#1F2328]",   bg: "bg-white" },
-          { label: "Al geleverd",       waarde: totaalVerbruikt, kleur: "text-[#1D4E89]",   bg: "bg-[#1D4E89]/6" },
+          { label: "Al geleverd",       waarde: totaalVerbruikt, kleur: "text-[#14352A]",   bg: "bg-[#14352A]/6" },
           { label: "Nog beschikbaar",   waarde: totaalBeschikb,  kleur: "text-[#2E7D32]",   bg: "bg-[#2E7D32]/6" },
         ].map(k => (
           <div key={k.label} className={`${k.bg} border border-[#1F2328]/10 rounded-xl p-5`}>
@@ -74,7 +74,7 @@ export default function IoNummersClient({ ioNummers }: Props) {
           const pct      = io.qty_totaal > 0 ? (io.qty_verbruikt / io.qty_totaal) * 100 : 0;
           const bijna    = io.qty_beschikbaar < io.qty_totaal * 0.2 && io.qty_beschikbaar > 0;
           const leeg     = io.qty_beschikbaar <= 0;
-          const barKleur = leeg ? "bg-[#1F2328]/20" : bijna ? "bg-amber-500" : "bg-[#1D4E89]";
+          const barKleur = leeg ? "bg-[#1F2328]/20" : bijna ? "bg-amber-500" : "bg-[#14352A]";
           const badgeKleur = leeg
             ? "bg-[#1F2328]/6 text-[#1F2328]/40"
             : bijna
@@ -85,7 +85,7 @@ export default function IoNummersClient({ ioNummers }: Props) {
             <div
               key={io.id}
               className={`bg-white border rounded-xl overflow-hidden transition-all ${
-                isOpen ? "border-[#1D4E89]/30" : "border-[#1F2328]/10"
+                isOpen ? "border-[#14352A]/30" : "border-[#1F2328]/10"
               }`}
             >
               {/* Header rij */}
@@ -96,7 +96,7 @@ export default function IoNummersClient({ ioNummers }: Props) {
                 {/* IO badge */}
                 <div className="shrink-0">
                   <p className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/35 mb-0.5">Contractnr</p>
-                  <p className="text-sm font-bold text-[#1D4E89] font-mono">{io.io_nummer}</p>
+                  <p className="text-sm font-bold text-[#14352A] font-mono">{io.io_nummer}</p>
                 </div>
 
                 <div className="w-px h-10 bg-[#1F2328]/10 shrink-0" />
@@ -105,7 +105,7 @@ export default function IoNummersClient({ ioNummers }: Props) {
                 <div className="shrink-0">
                   <p className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/35 mb-0.5">Artikel</p>
                   <p className="text-sm font-medium text-[#1F2328]">
-                    <span className="font-bold text-[#1D4E89] font-mono mr-1.5">{io.item_id}</span>
+                    <span className="font-bold text-[#14352A] font-mono mr-1.5">{io.item_id}</span>
                     {io.item_name ?? ""}
                   </p>
                 </div>
@@ -201,7 +201,7 @@ export default function IoNummersClient({ ioNummers }: Props) {
                                 <td className="py-2.5 pr-6 text-[#1F2328]/60 whitespace-nowrap text-xs">
                                   {fmtD(datum)}
                                 </td>
-                                <td className="py-2.5 pr-6 text-[#1D4E89] font-mono text-xs font-semibold">
+                                <td className="py-2.5 pr-6 text-[#14352A] font-mono text-xs font-semibold">
                                   {lev.delivery_id.startsWith("afroep-") ? "—" : lev.delivery_id}
                                 </td>
                                 <td className="py-2.5 pr-6 font-semibold text-[#1F2328] text-right">

@@ -82,9 +82,6 @@ export default function Footer() {
           <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
             © 2026 ULTI GROUP BV · BE 0795.537.976
           </p>
-          <p className="text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
-            Ontworpen voor Belgische maakindustrie
-          </p>
         </div>
       </div>
     </footer>

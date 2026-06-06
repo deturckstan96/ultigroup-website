@@ -51,14 +51,11 @@ export default function OverOnsPage() {
                 ULTI GROUP werd opgericht door broer en zus <strong style={{ color: "var(--color-ink)", fontWeight: 600 }}>Stan en Lore Deturck</strong> vanuit de overtuiging dat houten verpakkingen niet standaard hoeven te zijn.
               </p>
               <p style={{ fontSize: 16, color: "var(--color-ink-2)", lineHeight: 1.75, marginBottom: 18, maxWidth: "56ch" }}>
-                Waar veel spelers focussen op standaardafmetingen en grote volumes, kiest ULTI voor flexibiliteit, maatwerk en een snelle samenwerking.
+                Waar veel spelers focussen op standaardafmetingen en grote volumes, kiest ULTI voor flexibiliteit, maatwerk en een directe samenwerking. Uw palletten worden geproduceerd op uw exacte maat en staan klaar in ons magazijn — leverbaar binnen 48 uur na afroep.
               </p>
               <p style={{ fontSize: 16, color: "var(--color-ink-2)", lineHeight: 1.75, maxWidth: "56ch" }}>
-                Vandaag bouwen we verder aan een Belgische onderneming die industriële klanten helpt met op maat gemaakte pallets, voorraadbeheer en betrouwbare leveringen.
+                Via <strong style={{ color: "var(--color-ink)", fontWeight: 600 }}>UltiApp</strong> — ons eigen klantenportaal — volgt u uw stock in realtime op, plaatst u afroepen in drie klikken en heeft u altijd zicht op geplande en historische leveringen. Geen verrassingen, geen telefoontjes nodig.
               </p>
-            </div>
-            <div className="reveal reveal-d3" style={{ marginTop: 36, padding: "24px 28px", borderLeft: "3px solid var(--color-blue)", background: "var(--color-blue-50)", fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: 22, fontWeight: 400, color: "var(--color-ink)", lineHeight: 1.35, maxWidth: "36ch", letterSpacing: "-0.005em" }}>
-              "Op maat gemaakt. Snel geleverd. Klaar voor productie."
             </div>
           </div>
 
@@ -188,37 +185,6 @@ export default function OverOnsPage() {
               "Elke klant verdient een pallet dat exact past — niet een compromis dat het net doet."
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ── WAAROM SAMENWERKEN MET ULTI ── */}
-      <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)" }}>
-        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(40px,6vw,80px)", alignItems: "start" }}>
-          <div>
-            <div className="eyebrow reveal">Voordelen</div>
-            <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 20px", maxWidth: "16ch" }}>
-              Waarom samenwerken met ULTI.
-            </h2>
-            <p className="reveal reveal-d2 lead">Zes principes die elke klant terugvindt in de dagelijkse samenwerking.</p>
-            <ul className="reveal reveal-d3 grid grid-cols-1 md:grid-cols-2" style={{ listStyle: "none", marginTop: 36, gap: 0, borderTop: "1px solid var(--color-line)" }}>
-              {[
-                "Flexibele productie — geen minimumafname",
-                "Op maat gemaakte oplossingen per klant",
-                "Snelle opvolging en korte communicatielijnen",
-                "Industriële focus en vakkennis",
-                "Voorraadbeheer als geïntegreerde service",
-                "100% Belgische productie",
-              ].map((item, i) => (
-                <li key={i} style={{ padding: "24px 0", borderBottom: "1px solid var(--color-line)", display: "grid", gridTemplateColumns: "36px 1fr", gap: 12, alignItems: "start", ...(i%2===0 ? { paddingRight: 24 } : { paddingLeft: 24, borderLeft: "1px solid var(--color-line)" }) }}>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--color-blue)", fontWeight: 600, letterSpacing: "0.06em", marginTop: 4 }}>
-                    {String(i+1).padStart(2,"0")}
-                  </span>
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 600, letterSpacing: "-0.015em", color: "var(--color-ink)", lineHeight: 1.3 }}>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
         </div>
       </section>
 

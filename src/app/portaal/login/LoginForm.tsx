@@ -29,45 +29,82 @@ export default function LoginForm() {
     router.refresh();
   }
 
+  const inputStyle = {
+    fontFamily: "var(--font-display)",
+    border: "1px solid #E1DDD0",
+    borderRadius: 0,
+    padding: "10px 14px",
+    fontSize: 14,
+    color: "#14352A",
+    width: "100%",
+    outline: "none",
+    background: "#fff",
+  };
+
+  const labelStyle = {
+    display: "block",
+    fontSize: 11,
+    fontWeight: 600,
+    textTransform: "uppercase" as const,
+    letterSpacing: "0.08em",
+    color: "rgba(31,35,40,0.4)",
+    marginBottom: 6,
+    fontFamily: "var(--font-display)",
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div>
-        <label className="block text-xs font-semibold uppercase tracking-widest text-[#1F2328]/35 mb-1.5">
-          E-mailadres
-        </label>
+        <label style={labelStyle}>E-mailadres</label>
         <input
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="aankoop@bedrijf.be"
-          className="w-full border border-[#1F2328]/15 rounded-lg px-3.5 py-2.5 text-sm text-[#1F2328] placeholder-[#1F2328]/25 focus:outline-none focus:border-[#1D4E89] transition-colors"
+          style={inputStyle}
+          onFocus={e => (e.currentTarget.style.borderColor = "#14352A")}
+          onBlur={e => (e.currentTarget.style.borderColor = "#E1DDD0")}
         />
       </div>
       <div>
-        <label className="block text-xs font-semibold uppercase tracking-widest text-[#1F2328]/35 mb-1.5">
-          Wachtwoord
-        </label>
+        <label style={labelStyle}>Wachtwoord</label>
         <input
           type="password"
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
-          className="w-full border border-[#1F2328]/15 rounded-lg px-3.5 py-2.5 text-sm text-[#1F2328] placeholder-[#1F2328]/25 focus:outline-none focus:border-[#1D4E89] transition-colors"
+          style={inputStyle}
+          onFocus={e => (e.currentTarget.style.borderColor = "#14352A")}
+          onBlur={e => (e.currentTarget.style.borderColor = "#E1DDD0")}
         />
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg px-3.5 py-2.5">
-          <p className="text-sm text-red-600">{error}</p>
+        <div style={{ background: "#FEF2F2", border: "1px solid #FECACA", padding: "10px 14px" }}>
+          <p style={{ fontSize: 13, color: "#DC2626", fontFamily: "var(--font-display)" }}>{error}</p>
         </div>
       )}
 
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-2.5 bg-[#1D4E89] text-white text-sm font-semibold rounded-lg hover:bg-[#163d6e] transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+        style={{
+          width: "100%",
+          padding: "11px 0",
+          background: loading ? "#8FA663" : "#14352A",
+          color: "#ffffff",
+          fontSize: 14,
+          fontWeight: 700,
+          fontFamily: "var(--font-display)",
+          letterSpacing: "-0.01em",
+          border: "none",
+          borderRadius: 0,
+          cursor: loading ? "not-allowed" : "pointer",
+          transition: "background 0.15s",
+          marginTop: 4,
+        }}
       >
         {loading ? "Bezig met inloggen…" : "Inloggen"}
       </button>

@@ -90,23 +90,6 @@ export default function HomePage() {
                   Bekijk klantenportaal
                 </Link>
               </div>
-
-              {/* Meta strip */}
-              <div
-                className="grid grid-cols-3 gap-3 sm:gap-6 reveal reveal-d4"
-                style={{ marginTop: 56, paddingTop: 32, borderTop: "1px solid var(--line)", maxWidth: 520 }}
-              >
-                {[
-                  { label: "PRODUCTIE", val: "100% op maat" },
-                  { label: "LEVERTIJD", val: "< 48 uur" },
-                  { label: "LOCATIE", val: "België" },
-                ].map((s) => (
-                  <div key={s.label}>
-                    <p style={{ fontFamily: "var(--font-mono)", fontSize: 10, fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--ink-3)", marginBottom: 4 }}>{s.label}</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700, color: "var(--pine)" }}>{s.val}</p>
-                  </div>
-                ))}
-              </div>
             </div>
 
             {/* Right photo */}
