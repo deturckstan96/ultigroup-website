@@ -38,7 +38,7 @@ const bullets = [
 const bullets2 = [
   { label: "Stockbreuk vermijden", tekst: "Wij bewaken uw minimumstock en grijpen in vóór u tekortkomt." },
   { label: "Afroep via UltiApp", tekst: "In drie stappen geplaatst. Live overzicht van uw beschikbaar saldo." },
-  { label: "Levering binnen 24u", tekst: "Vanuit uw eigen beheerde voorraad — exact op het gewenste moment." },
+  { label: "Levering binnen 48u", tekst: "Vanuit uw eigen beheerde voorraad — exact op het gewenste moment." },
 ];
 
 export default function HomePage() {
@@ -98,7 +98,7 @@ export default function HomePage() {
               >
                 {[
                   { label: "PRODUCTIE", val: "100% op maat" },
-                  { label: "LEVERTIJD", val: "< 24 uur" },
+                  { label: "LEVERTIJD", val: "< 48 uur" },
                   { label: "LOCATIE", val: "België" },
                 ].map((s) => (
                   <div key={s.label}>
@@ -240,7 +240,7 @@ export default function HomePage() {
                 Altijd voorraad.<br />Direct leverbaar.
               </h2>
               <p className="lead reveal reveal-d2" style={{ marginBottom: 36 }}>
-                Wij beheren uw palletvoorraad van A tot Z. U roept af wanneer u het nodig heeft — wij leveren binnen 24 uur vanuit uw beschikbare stock.
+                Wij beheren uw palletvoorraad van A tot Z. U roept af wanneer u het nodig heeft — wij leveren binnen 48 uur vanuit uw beschikbare stock.
               </p>
 
               <div style={{ marginBottom: 40 }}>
