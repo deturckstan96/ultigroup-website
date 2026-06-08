@@ -8,6 +8,10 @@ export default async function PortaalLayout({ children }: { children: React.Reac
   const klantNaam = (user?.user_metadata?.klant_naam as string) ?? "Klant";
   const klantEmail = user?.email ?? "";
 
+  if (!user) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="flex h-screen overflow-hidden" style={{ background: "#ffffff" }}>
       <PortaalSidebar klantNaam={klantNaam} klantEmail={klantEmail} />

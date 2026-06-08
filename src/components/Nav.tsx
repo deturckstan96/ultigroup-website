@@ -60,7 +60,7 @@ export default function Nav() {
       {/* Right: CTA buttons */}
       <div className="hidden md:flex items-center gap-3">
         <Link
-          href="/offerte"
+          href="/contact"
           className="inline-flex items-center gap-2 text-white text-sm font-medium transition-colors"
           style={{ background: "#14352A", padding: "10px 20px", borderRadius: 0 }}
           onMouseEnter={(e) => (e.currentTarget.style.background = "#1F4A38")}
@@ -117,7 +117,7 @@ export default function Nav() {
             </Link>
           ))}
           <Link
-            href="/offerte"
+            href="/contact"
             onClick={() => setOpen(false)}
             className="inline-flex items-center gap-2 text-sm font-medium text-white w-fit"
             style={{ background: "#14352A", padding: "10px 20px", borderRadius: 0 }}

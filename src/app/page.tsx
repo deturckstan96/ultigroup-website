@@ -203,7 +203,7 @@ export default function HomePage() {
 
             <div className="reveal reveal-d1" style={{ position: "relative" }}>
               <div style={{ position: "relative", aspectRatio: "4/5", overflow: "hidden", background: "#fff" }}>
-                <Image src="/tekening1.jpg" alt="Technische tekening pallet op maat — ULTI GROUP" fill className="object-contain" />
+                <Image src="/tekening3.png" alt="Technische tekening pallet op maat — ULTI GROUP" fill className="object-contain" />
               </div>
             </div>
           </div>
