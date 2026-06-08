@@ -70,7 +70,6 @@ export default function ContactPage() {
                 { label: "E-mail",             value: "info@ultigroup.be",   href: "mailto:info@ultigroup.be" },
                 { label: "Verkoop",            value: "+32 492 45 66 85",    href: "tel:+32492456685" },
                 { label: "Admin / Facturatie", value: "+32 474 66 83 17",    href: "tel:+32474668317" },
-                { label: "Bedrijf",            value: "ULTI GROUP BV",       href: undefined },
                 { label: "BTW",                value: "BE 0795 537 976",      href: undefined },
               ].map((row, i) => (
                 <div key={i} style={{ display: "grid", gridTemplateColumns: "140px 1fr", gap: 16, padding: "20px 0", borderBottom: "1px solid var(--color-line)" }}>
@@ -90,21 +89,13 @@ export default function ContactPage() {
               ))}
             </div>
 
-            <div style={{ marginTop: 48, padding: "28px 32px", borderLeft: "3px solid var(--color-ok)", background: "var(--color-paper-2)" }}>
-              <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, color: "var(--color-ink)", marginBottom: 8 }}>
-                Snelle reactie gegarandeerd
-              </p>
-              <p style={{ fontSize: 14, color: "var(--color-ink-2)", lineHeight: 1.6 }}>
-                Wij antwoorden binnen de 24 uur op werkdagen. Voor dringende vragen belt u ons direct.
-              </p>
-            </div>
           </div>
 
           {/* Rechts — formulier */}
           <div>
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                {[["Voornaam", "text", "Jan", "voornaam"], ["Achternaam", "text", "Peeters", "achternaam"]].map(([lbl, type, ph, name]) => (
+                {[["Voornaam", "text", "Olivier", "voornaam"], ["Achternaam", "text", "Vermeersch", "achternaam"]].map(([lbl, type, ph, name]) => (
                   <div key={lbl}>
                     <label style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: 10, fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--color-ink-3)", marginBottom: 8 }}>{lbl}</label>
                     <input type={type} name={name} placeholder={ph} required={name === "voornaam"}
@@ -121,7 +112,7 @@ export default function ContactPage() {
 
               <div>
                 <label style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: 10, fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--color-ink-3)", marginBottom: 8 }}>E-mail</label>
-                <input type="email" name="email" placeholder="jan@bedrijf.be" required
+                <input type="email" name="email" placeholder="info@bedrijf.be" required
                   style={{ width: "100%", background: "var(--color-paper)", border: "1px solid var(--color-line)", padding: "12px 16px", fontSize: 14, color: "var(--color-ink)", outline: "none" }} />
               </div>
 

@@ -22,23 +22,23 @@ function useReveal() {
 }
 
 const steps = [
-  { nr: "01", titel: "Technische tekening", tekst: "Wij tekenen het pallet volledig op basis van uw productienoden — afmeting, belasting, houtsoort en behandeling." },
-  { nr: "02", titel: "Productie", tekst: "Elk pallet wordt geproduceerd op maat, volgens de goedgekeurde tekening. Geen catalogusformaten, geen compromissen." },
-  { nr: "03", titel: "Stock", tekst: "Uw palletten komen rechtstreeks in uw beheerde voorraad bij ULTI. Altijd beschikbaar, realtime zichtbaar via UltiApp." },
-  { nr: "04", titel: "Afroep", tekst: "U roept af wanneer u ze nodig heeft — via UltiApp in drie klikken, of telefonisch. Wij bevestigen dezelfde dag." },
-  { nr: "05", titel: "Levering binnen 48u", tekst: "Vanuit uw eigen voorraad, op het door u gekozen adres en tijdstip — geleverd binnen 48 uur na afroep." },
+  { nr: "01", titel: "Technische tekening", tekst: "Wij tekenen de pallet volledig op basis van uw productienoden." },
+  { nr: "02", titel: "Productie", tekst: "Elk pallet wordt geproduceerd op maat, volgens de goedgekeurde technische tekening." },
+  { nr: "03", titel: "Stock", tekst: "Wij stockeren uw palletten. U volgt uw voorraad realtime op via ons klantenportaal, de UltiApp." },
+  { nr: "04", titel: "Afroep", tekst: "U roept af wanneer u ze nodig heeft, via UltiApp in drie klikken of telefonisch. Wij bevestigen dezelfde dag." },
+  { nr: "05", titel: "Levering binnen 48u", tekst: "Vanuit uw eigen voorraad, op het door u gekozen adres, geleverd binnen max 48 uur na afroep." },
 ];
 
 const bullets = [
   { label: "Exacte maatvoering", tekst: "Elke mm telt. Wij produceren op basis van uw technische tekening." },
   { label: "Softwood & hardwood", tekst: "Keuze uit verschillende houtsoorten, afgestemd op uw toepassing." },
-  { label: "Kwaliteitscontrole", tekst: "Nagels verzonken, inslagpunten gecontroleerd, valproef conform norm." },
+  { label: "Kwaliteitscontrole", tekst: "Nagels verzonken, inslagpunten gecontroleerd, valproef conform de norm." },
 ];
 
 const bullets2 = [
   { label: "Stockbreuk vermijden", tekst: "Wij bewaken uw minimumstock en grijpen in vóór u tekortkomt." },
   { label: "Afroep via UltiApp", tekst: "In drie stappen geplaatst. Live overzicht van uw beschikbaar saldo." },
-  { label: "Levering binnen 48u", tekst: "Vanuit uw eigen beheerde voorraad — exact op het gewenste moment." },
+  { label: "Levering binnen 48u", tekst: "Vanuit uw eigen beheerde voorraad geleverd op afroep." },
 ];
 
 export default function HomePage() {
@@ -64,12 +64,12 @@ export default function HomePage() {
 
               <p className="lead reveal reveal-d2" style={{ marginBottom: 40 }}>
                 ULTI GROUP produceert houten palletten op uw exacte specificaties,
-                beheert uw voorraad en levert exact wanneer u het nodig heeft.
+                beheert uw voorraad en levert exact wanneer u het nodig hebt.
               </p>
 
               <div className="flex flex-wrap gap-3 reveal reveal-d3">
                 <Link
-                  href="/offerte"
+                  href="/contact"
                   className="inline-flex items-center gap-2 text-white text-sm font-medium transition-colors"
                   style={{ background: "var(--pine)", padding: "14px 24px", borderRadius: 0 }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "var(--pine-2)")}
@@ -107,7 +107,7 @@ export default function HomePage() {
             {[
               { big: "<48u", label: "Levertijd", body: "Vanaf afroep tot levering op uw bedrijf — vanuit uw eigen voorraadbeheer." },
               { big: "Live", label: "Stockupdates", body: "Realtime inzicht in uw beschikbare voorraad — 24/7 via het klantenportaal." },
-              { big: "BE", label: "Belgische voorraad", body: "Productie, opslag en opvolging volledig in eigen beheer. Geen tussenpartijen." },
+              { big: "BE", label: "Belgische productie", body: "Productie, opslag en opvolging volledig in eigen beheer. Geen tussenpartijen." },
             ].map((s, i) => (
               <div
                 key={s.label}
@@ -141,7 +141,8 @@ export default function HomePage() {
                 Van productie tot levering
               </h2>
               <p className="lead reveal reveal-d2" style={{ marginBottom: 48 }}>
-                Vijf stappen, één partner. ULTI beheert het volledige proces — van de eerste technische tekening tot de levering op uw bedrijf.
+                Vijf stappen, één partner. ULTI GROUP beheert het volledige proces —{" "}
+                <br />van de eerste technische tekening tot de levering op uw bedrijf.
               </p>
 
               <div>
@@ -178,7 +179,7 @@ export default function HomePage() {
                 Palletten voor elke afmeting.
               </h2>
               <p className="lead reveal reveal-d2" style={{ marginBottom: 36 }}>
-                Elk pallet wordt geproduceerd op basis van uw exacte specificaties — lengte, breedte, hoogte, belasting en materiaal. Geen compromissen, geen standaardmaten.
+                Elke pallet wordt geproduceerd op basis van uw exacte specificaties, lengte, breedte, hoogte en materiaal. Geen compromissen, geen standaardmaten.
               </p>
 
               <div>
@@ -245,7 +246,7 @@ export default function HomePage() {
               </div>
 
               <Link
-                href="/offerte"
+                href="/contact"
                 className="inline-flex items-center gap-2 text-white text-sm font-medium reveal reveal-d3"
                 style={{ background: "var(--pine)", padding: "14px 24px", borderRadius: 0 }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = "var(--pine-2)")}

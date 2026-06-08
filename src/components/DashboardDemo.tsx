@@ -162,7 +162,7 @@ export default function DashboardDemo() {
       setScene(1);
       await wait(240);
       countUp(kpiStock, 0, 1240, 1400);
-      countUp(kpiAfroep, 0, 2, 800);
+      countUp(kpiAfroep, 0, 0, 800);
       await wait(150);
       dash.querySelectorAll<HTMLElement>("[data-bar-fill]").forEach((b, i) => {
         setTimeout(() => { b.style.width = (b.dataset.target || "0") + "%"; }, i * 220);
@@ -233,7 +233,8 @@ export default function DashboardDemo() {
       toastIconPath.setAttribute("d", ICON_OK);
       toast.classList.add("ok");
       toastTitle.textContent = "✓ Afroep bevestigd";
-      toastBody.textContent  = "AFR-2026-042 · levering 5 jun";
+      const dateLabel = getMiniTarget()?.dataset.dateLabel ?? getMiniTarget()?.dataset.day ?? "";
+      toastBody.textContent  = `AFR-2026-042 · levering ${dateLabel}`;
       toast.classList.add("shown");
       await wait(420);
       const newPill = document.createElement("div");
@@ -247,7 +248,7 @@ export default function DashboardDemo() {
       requestAnimationFrame(() => newPill.classList.add("shown"));
       await wait(300);
       kpiAfroep.classList.add("pop");
-      await countUp(kpiAfroep, 2, 3, 600);
+      await countUp(kpiAfroep, 0, 1, 600);
       setTimeout(() => kpiAfroep.classList.remove("pop"), 600);
       await wait(1200);
       toast.classList.remove("shown");
@@ -310,6 +311,9 @@ export default function DashboardDemo() {
     const s = _deliveryDate.toLocaleDateString("nl-BE", { month: "long", year: "numeric" });
     return s.charAt(0).toUpperCase() + s.slice(1);
   })();
+  const deliveryMonthShort = mounted
+    ? _deliveryDate.toLocaleDateString("nl-BE", { month: "short" }).replace(".", "")
+    : "";
   const calFirstDow   = (new Date(_deliveryDate.getFullYear(), _deliveryDate.getMonth(), 1).getDay() + 6) % 7;
   const calTotalDays  = new Date(_deliveryDate.getFullYear(), _deliveryDate.getMonth() + 1, 0).getDate();
   const calDays       = [
@@ -366,7 +370,7 @@ export default function DashboardDemo() {
           {/* === DASHBOARD VIEW === */}
           <div className="dash-main-view" style={{ padding: "22px 24px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-              <span style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 800, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>ULTI<span style={{ color: "#8FA663" }}>APP</span></span>
+              <span style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 800, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>Ulti<span style={{ color: "#8FA663" }}>App</span></span>
               <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "var(--color-ink-3)" }}>
                 <span>UG BV</span>
                 <div style={{ width: 24, height: 24, borderRadius: "50%", background: "var(--color-ink)", color: "var(--color-paper)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontSize: 10, fontWeight: 700 }}>U</div>
@@ -530,7 +534,7 @@ export default function DashboardDemo() {
 
           {/* Step 2 — Datum kiezen */}
           <div className="modal-step-2" style={{ display: "none" }}>
-            <h5 style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, letterSpacing: "-0.015em", marginBottom: 3 }}>Kies een leverdatum</h5>
+            <h5 style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, letterSpacing: "-0.015em", marginBottom: 3 }}>Gewenste leverdatum</h5>
             <p style={{ fontSize: 10, color: "var(--color-ink-3)", marginBottom: 12 }}>160 palletten · UGA348</p>
             {/* Mini calendar header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
@@ -549,6 +553,7 @@ export default function DashboardDemo() {
                   key={d}
                   className={`mini-cal-day${d === deliveryDay ? " mini-target" : ""}`}
                   data-day={String(d)}
+                  data-date-label={d === deliveryDay ? `${d} ${deliveryMonthShort}` : undefined}
                   style={{
                     fontSize: 10,
                     textAlign: "center",

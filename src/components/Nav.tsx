@@ -21,10 +21,10 @@ export default function Nav() {
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
       style={{
         height: "76px",
-        background: "rgba(244,241,232,0.94)",
+        background: "rgba(238,240,234,0.94)",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
-        borderBottom: "1px solid #E1DDD0",
+        borderBottom: "1px solid #D4D8CE",
         padding: "0 clamp(24px, 5vw, 80px)",
       }}
     >

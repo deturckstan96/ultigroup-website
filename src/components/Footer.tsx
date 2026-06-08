@@ -20,7 +20,7 @@ export default function Footer() {
               <Logo variant="reversed" size="sm" />
             </Link>
             <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)", maxWidth: "30ch" }}>
-              Belgische maakindustrie. Palletten op maat, voorraadbeheer op afroep. Sinds 2022.
+              Belgische maakindustrie sinds 2022.
             </p>
           </div>
 

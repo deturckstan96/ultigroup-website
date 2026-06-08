@@ -51,10 +51,10 @@ export default function OverOnsPage() {
                 ULTI GROUP werd opgericht door broer en zus <strong style={{ color: "var(--color-ink)", fontWeight: 600 }}>Stan en Lore Deturck</strong> vanuit de overtuiging dat houten verpakkingen niet standaard hoeven te zijn.
               </p>
               <p style={{ fontSize: 16, color: "var(--color-ink-2)", lineHeight: 1.75, marginBottom: 18, maxWidth: "56ch" }}>
-                Waar veel spelers focussen op standaardafmetingen en grote volumes, kiest ULTI voor flexibiliteit, maatwerk en een directe samenwerking. Uw palletten worden geproduceerd op uw exacte maat en staan klaar in ons magazijn — leverbaar binnen 48 uur na afroep.
+                Waar veel spelers focussen op standaardafmetingen en grote volumes, kiest ULTI GROUP voor flexibiliteit, maatwerk en een directe samenwerking. Uw palletten worden geproduceerd op uw exacte maat en staan klaar in ons magazijn, leverbaar binnen 48 uur na afroep.
               </p>
               <p style={{ fontSize: 16, color: "var(--color-ink-2)", lineHeight: 1.75, maxWidth: "56ch" }}>
-                Via <strong style={{ color: "var(--color-ink)", fontWeight: 600 }}>UltiApp</strong> — ons eigen klantenportaal — volgt u uw stock in realtime op, plaatst u afroepen in drie klikken en heeft u altijd zicht op geplande en historische leveringen. Geen verrassingen, geen telefoontjes nodig.
+                Via <strong style={{ color: "var(--color-ink)", fontWeight: 600 }}>UltiApp</strong>, ons eigen klantenportaal, volgt u uw stock in realtime op, plaatst u afroepen in drie klikken en heeft u altijd zicht op geplande en historische leveringen.
               </p>
             </div>
           </div>
@@ -63,7 +63,7 @@ export default function OverOnsPage() {
             <Image src="/p2.jpg" alt="ULTI GROUP — palletten productie" fill style={{ objectFit: "cover" }} />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 30%, rgba(31,35,40,0.7) 100%)" }} />
             <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: 32, display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 24, color: "var(--color-paper)" }}>
-              {[["2022","Opgericht"],["Flex","Maatwerk"],["B2B","Industrieel"],["BE","Belgisch"]].map(([num,lbl]) => (
+              {[["2022","Opgericht"],["UltiApp","Klantenportaal"],["BE","Belgisch"],["ISPM-15","Gecertificeerd"]].map(([num,lbl]) => (
                 <div key={lbl}>
                   <div style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1 }}>{num}</div>
                   <div style={{ fontFamily: "var(--font-sans)", fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.8)", marginTop: 6, fontWeight: 600 }}>{lbl}</div>
@@ -85,9 +85,6 @@ export default function OverOnsPage() {
               <h2 className="ug-tagline" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(40px,6vw,80px)", fontWeight: 800, lineHeight: 1.0, letterSpacing: "-0.04em", color: "var(--color-ink)", margin: "18px 0 24px", maxWidth: "14ch" }}>
                 Zo werken wij.
               </h2>
-              <p className="ug-sub" style={{ fontSize: "clamp(16px,1.2vw,18px)", color: "var(--color-ink-2)", lineHeight: 1.65, maxWidth: "48ch" }}>
-                Jij hebt het bedrijf — wij zijn het ontbrekende stuk. Pallets op maat, voorraad als service, directe communicatie. Geen omwegen.
-              </p>
             </div>
 
             {/* Logo — klein accent rechts */}
@@ -101,9 +98,9 @@ export default function OverOnsPage() {
 
           {/* 3 horizontale rijen */}
           {[
-            { num: "01", label: "PRODUCTIE", title: "Op maat gemaakt", body: "Geen standaardoplossingen. Elk pallet wordt geproduceerd op de exacte specificaties van uw project — afmeting, houtsoort en behandeling." },
-            { num: "02", label: "LEVERING",  title: "Snelle levering",     body: "Korte communicatielijnen en efficiënte productie zorgen ervoor dat uw pallets klaarstaan wanneer u ze nodig heeft." },
-            { num: "03", label: "SERVICE",   title: "Voorraad als service", body: "Klanten krijgen via ons portaal realtime inzicht in hun stock, leveringen en afroepen — volledig transparant." },
+            { num: "01", label: "PRODUCTIE", title: "Op maat gemaakt", body: "Geen standaardoplossingen. Elke pallet wordt geproduceerd op de exacte specificaties van uw project, afmeting, houtsoort en behandeling." },
+            { num: "02", label: "LEVERING",  title: "Snelle levering",     body: "Korte communicatielijnen en efficiënte productie zorgen ervoor dat uw palletten klaarstaan wanneer u ze nodig heeft." },
+            { num: "03", label: "SERVICE",   title: "Voorraad als service", body: "Klanten krijgen via ons portaal realtime inzicht in hun stock, leveringen en afroepen, volledig transparant." },
           ].map((item, i) => (
             <div key={i} className="reveal" style={{ display: "grid", gridTemplateColumns: "100px 1fr 1.4fr", gap: "clamp(24px,4vw,64px)", alignItems: "start", padding: "clamp(28px,4vw,48px) 0", borderBottom: "1px solid var(--color-line)" }}>
               <div>
@@ -123,14 +120,14 @@ export default function OverOnsPage() {
         <div style={{ maxWidth: 1440, margin: "0 auto" }}>
           <div className="eyebrow reveal">Onze groei</div>
           <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 20px", maxWidth: "18ch" }}>
-            Waar ULTI vandaan komt — en waar we naartoe groeien.
+            Waar ULTI GROUP vandaan komt en waar we naartoe groeien.
           </h2>
           <div className="grid grid-cols-2 lg:grid-cols-4" style={{ marginTop: 56, gap: 24, position: "relative" }}>
             <div style={{ position: "absolute", top: 18, left: "5%", right: "5%", height: 1, background: "var(--color-line)" }} />
             {[
               { year: "2022", title: "ULTI GROUP opgericht", body: "Start van een Belgische onderneming met focus op houten oplossingen op maat.", done: true, delay: "" },
-              { year: "2023", title: "Eerste industriële klanten", body: "Uitbouw van de eerste samenwerkingen met productiebedrijven.", done: true, delay: " reveal-d1" },
-              { year: "2024", title: "Focus op maatwerk", body: "Verdere specialisatie in niet-standaard pallets en industriële toepassingen.", done: true, delay: " reveal-d2" },
+              { year: "2024", title: "Focus op maatwerk", body: "Verdere specialisatie in niet-standaard palletten.", done: true, delay: " reveal-d2" },
+              { year: "2025", title: "ISPM-15 certificering", body: "Erkenning als officieel gecertificeerde producent van warmtebehandeld hout onder een eigen ISPM-15 nummer.", done: true, delay: " reveal-d3" },
               { year: "2026", title: "Lancering klantenportaal", body: "Realtime inzicht in stock, leveringen, afroepen en rapportering.", current: true, delay: " reveal-d3" },
             ].map((step, i) => (
               <div key={i} className={`reveal${step.delay}`} style={{ position: "relative", paddingTop: 40 }}>
@@ -152,6 +149,7 @@ export default function OverOnsPage() {
         </div>
       </section>
 
+
       {/* ── STAN & LORE ── */}
       <section style={{ padding: "clamp(60px,8vw,120px) clamp(24px,5vw,80px)", background: "var(--color-paper-2)" }}>
         <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: "clamp(40px,6vw,80px)", alignItems: "start" }}>
@@ -167,49 +165,25 @@ export default function OverOnsPage() {
 
           {/* Content */}
           <div style={{ paddingTop: 8 }}>
-            <div className="eyebrow reveal">Het team</div>
             <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px,4.5vw,60px)", fontWeight: 700, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "18px 0 28px", maxWidth: "18ch" }}>
               Wat Stan en Lore belangrijk vinden.
             </h2>
             <div className="reveal reveal-d2">
               {[
-                "Voor veel industriële klanten was het bestellen van pallets jarenlang een traag en ondoorzichtig proces. Minimumafnames, standaardmaten die net niet pasten, weinig communicatie. Stan en Lore wilden dat anders.",
-                "Ze geloven allebei in de kracht van directe samenwerking. Geen tussenpersonen, geen onduidelijkheid. Als een klant een vraag heeft, krijgt hij dezelfde dag een antwoord. Als een levering anders loopt dan gepland, is er meteen contact.",
-                "Wat hen het meest drijft: dat een klant nooit hoeft te twijfelen. Niet over de kwaliteit van het product, niet over de levertijd, niet over wat er in stock staat. Transparantie is voor hen geen extra service — het is de standaard.",
+                "Beiden geloven in de kracht van directe samenwerking. Geen tussenpersonen, geen onduidelijkheid. Als een klant een vraag heeft, krijgt hij dezelfde dag een antwoord. Als een levering anders loopt dan gepland, is er meteen contact.",
+                "Wat hen het meest drijft: dat een klant nooit hoeft te twijfelen. Niet over de kwaliteit van het product, niet over de levertijd, niet over wat er in stock staat. Transparantie is voor hen geen extra service, het is de standaard.",
                 "ULTI GROUP bouwen ze bewust klein en sterk. Niet zo groot dat de persoonlijke aanpak verloren gaat, maar groot genoeg om elke klant echt te ontzorgen.",
               ].map((p, i) => (
                 <p key={i} style={{ fontSize: 16, color: "var(--color-ink-2)", lineHeight: 1.75, marginBottom: 18, maxWidth: "56ch" }}>{p}</p>
               ))}
             </div>
             <div className="reveal reveal-d3" style={{ marginTop: 36, padding: "28px 32px", borderLeft: "4px solid var(--color-blue)", background: "var(--color-paper)", fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: 26, fontWeight: 500, color: "var(--color-ink)", lineHeight: 1.3, maxWidth: "38ch", letterSpacing: "-0.005em" }}>
-              "Elke klant verdient een pallet dat exact past — niet een compromis dat het net doet."
+              "Elke klant verdient een pallet dat exact past, niet een compromis dat het net doet."
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── DARK CTA ── */}
-      <section style={{ background: "var(--color-ink)", color: "var(--color-paper)", padding: "clamp(80px,10vw,140px) clamp(24px,5vw,80px)" }}>
-        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ maxWidth: 1440, margin: "0 auto", gap: 64, alignItems: "end" }}>
-          <div>
-            <div className="eyebrow-light reveal">Samenwerken</div>
-            <h2 className="reveal reveal-d1" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(36px,5vw,72px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.02, marginTop: 20, maxWidth: "18ch" }}>
-              Klaar om samen te werken?
-            </h2>
-            <p className="reveal reveal-d2" style={{ marginTop: 24, color: "rgba(255,255,255,0.7)", maxWidth: "56ch", fontSize: "clamp(16px,1.3vw,19px)", lineHeight: 1.55 }}>
-              Ontdek hoe ULTI uw verpakkingsproces eenvoudiger kan maken.
-            </p>
-          </div>
-          <div className="reveal reveal-d2" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <Link href="/offerte" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 24px", borderRadius: 4, background: "var(--color-paper)", color: "var(--color-ink)", fontSize: 15, fontWeight: 500, letterSpacing: "0.01em", textDecoration: "none" }}>
-              Vraag offerte aan →
-            </Link>
-            <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 24px", borderRadius: 4, background: "transparent", color: "var(--color-paper)", fontSize: 15, fontWeight: 500, border: "1px solid rgba(255,255,255,0.3)", letterSpacing: "0.01em", textDecoration: "none" }}>
-              Contacteer ons
-            </Link>
-          </div>
-        </div>
-      </section>
     </>
   );
 }
