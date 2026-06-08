@@ -126,8 +126,8 @@ export default function HomePage() {
       </section>
 
       {/* ── FULL-BLEED FOTO ── */}
-      <section className="relative overflow-hidden" style={{ height: "64vh", minHeight: 480 }}>
-        <Image src="/p2.jpg" alt="Palletstock ULTI GROUP" fill className="object-cover object-center" />
+      <section className="relative overflow-hidden" style={{ height: "51vh", minHeight: 384 }}>
+        <Image src="/stock1.jpeg" alt="Palletstock ULTI GROUP" fill className="object-cover object-center" style={{ filter: "contrast(1.12) saturate(1.1)" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 50%, rgba(20,53,42,0.7) 100%)" }} />
       </section>
 
