@@ -60,18 +60,6 @@ export default function Nav() {
       {/* Right: CTA buttons */}
       <div className="hidden md:flex items-center gap-3">
         <Link
-          href="/contact"
-          className="inline-flex items-center gap-2 text-white text-sm font-medium transition-colors"
-          style={{ background: "#14352A", padding: "10px 20px", borderRadius: 0 }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "#1F4A38")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "#14352A")}
-        >
-          Offerte aanvragen
-          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </Link>
-        <Link
           href="/portaal/login"
           className="inline-flex items-center gap-2 text-sm font-medium transition-colors"
           style={{ border: "1.5px solid #14352A", color: "#14352A", padding: "10px 20px", borderRadius: 0 }}
@@ -116,14 +104,6 @@ export default function Nav() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/contact"
-            onClick={() => setOpen(false)}
-            className="inline-flex items-center gap-2 text-sm font-medium text-white w-fit"
-            style={{ background: "#14352A", padding: "10px 20px", borderRadius: 0 }}
-          >
-            Offerte aanvragen
-          </Link>
           <Link
             href="/portaal/login"
             onClick={() => setOpen(false)}
