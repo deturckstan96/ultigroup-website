@@ -1,5 +1,5 @@
 function Skeleton({ className }: { className?: string }) {
-  return <div className={`animate-pulse bg-[#E1DDD0] ${className ?? ""}`} />;
+  return <div className={`animate-pulse bg-[#D3DBE7] ${className ?? ""}`} />;
 }
 
 export default function RapportLoading() {
@@ -12,7 +12,7 @@ export default function RapportLoading() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {[...Array(2)].map((_, i) => (
-          <div key={i} className="bg-white border border-[#E1DDD0] p-6">
+          <div key={i} className="bg-white border border-[#D3DBE7] p-6">
             <Skeleton className="h-4 w-40 mb-6" />
             <Skeleton className="h-48 w-full" />
           </div>

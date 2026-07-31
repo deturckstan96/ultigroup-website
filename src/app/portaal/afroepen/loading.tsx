@@ -1,5 +1,5 @@
 function Skeleton({ className }: { className?: string }) {
-  return <div className={`animate-pulse bg-[#E1DDD0] ${className ?? ""}`} />;
+  return <div className={`animate-pulse bg-[#D3DBE7] ${className ?? ""}`} />;
 }
 
 export default function AfroepenLoading() {
@@ -15,7 +15,7 @@ export default function AfroepenLoading() {
       </div>
 
       {/* Status legenda */}
-      <div className="bg-white border border-[#E1DDD0] px-6 py-4 mb-6 flex items-center gap-6">
+      <div className="bg-white border border-[#D3DBE7] px-6 py-4 mb-6 flex items-center gap-6">
         {[...Array(4)].map((_, i) => (
           <div key={i} className="flex items-center gap-2">
             <Skeleton className="w-6 h-6 rounded-full" />
@@ -27,8 +27,8 @@ export default function AfroepenLoading() {
       {/* Afroep kaarten */}
       <div className="space-y-4">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="bg-white border border-[#E1DDD0]">
-            <div className="flex items-start justify-between px-6 py-4 border-b border-[#E1DDD0]">
+          <div key={i} className="bg-white border border-[#D3DBE7]">
+            <div className="flex items-start justify-between px-6 py-4 border-b border-[#D3DBE7]">
               <div className="flex gap-4">
                 <Skeleton className="w-9 h-9" />
                 <div>

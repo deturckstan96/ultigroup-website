@@ -95,7 +95,7 @@ export default function PortaalSidebar({ klantNaam, klantEmail }: Props) {
   }
 
   return (
-    <aside className="w-64 shrink-0 flex flex-col" style={{ background: "#14352A" }}>
+    <aside className="w-64 shrink-0 flex flex-col" style={{ background: "#0C355F" }}>
       {/* Logo */}
       <div className="h-16 flex items-center px-5 border-b border-white/10">
         <Link href="/portaal/dashboard">
@@ -128,7 +128,7 @@ export default function PortaalSidebar({ klantNaam, klantEmail }: Props) {
                 borderRadius: 0,
                 background: active ? "rgba(255,255,255,0.1)" : "transparent",
                 color: active ? "#ffffff" : "rgba(255,255,255,0.5)",
-                borderLeft: active ? "3px solid #5A8C4A" : "3px solid transparent",
+                borderLeft: active ? "3px solid #007EBE" : "3px solid transparent",
               }}
             >
               <span style={{ opacity: active ? 1 : 0.7 }}>{item.icon}</span>
@@ -145,7 +145,7 @@ export default function PortaalSidebar({ klantNaam, klantEmail }: Props) {
           className="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-semibold transition-colors"
           style={{
             fontFamily: "var(--font-display)",
-            background: "#5A8C4A",
+            background: "#007EBE",
             color: "#ffffff",
             borderRadius: 0,
           }}

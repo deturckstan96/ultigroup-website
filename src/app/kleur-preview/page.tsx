@@ -26,13 +26,13 @@ const kleuren = [
   {
     nr: 5,
     naam: "Licht groen-grijs",
-    hex: "#EEF0EA",
+    hex: "#EEF2F7",
     omschrijving: "Subtiel groen ondertoon — sluit aan op het pine-groen van het logo.",
   },
 ];
 
-const PINE = "#14352A";
-const ACCENT = "#5A8C4A";
+const PINE = "#0C355F";
+const ACCENT = "#007EBE";
 const INK = "#1F2328";
 const INK_2 = "#3A3F46";
 

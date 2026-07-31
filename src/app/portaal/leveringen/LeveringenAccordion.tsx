@@ -35,10 +35,10 @@ function ArtikelRij({ art }: { art: ArtikelSummary }) {
         style={{ gridTemplateColumns: "1fr 100px 100px 28px" }}
         onClick={() => setOpen(!open)}
       >
-        <span className="text-sm font-semibold text-[#14352A]" style={{ fontFamily: "var(--font-display)" }}>
+        <span className="text-sm font-semibold text-[#0C355F]" style={{ fontFamily: "var(--font-display)" }}>
           {art.naam}
         </span>
-        <span className="text-sm font-mono text-right text-[#14352A] font-bold">
+        <span className="text-sm font-mono text-right text-[#0C355F] font-bold">
           {art.totaalStuks.toLocaleString("nl-BE")}
           <span className="text-xs font-normal text-[#1F2328]/40 ml-1">st</span>
         </span>
@@ -46,7 +46,7 @@ function ArtikelRij({ art }: { art: ArtikelSummary }) {
           {art.aantalLeveringen} levering{art.aantalLeveringen !== 1 ? "en" : ""}
         </span>
         <svg
-          className="w-3.5 h-3.5 text-[#14352A]/30 ml-auto transition-transform"
+          className="w-3.5 h-3.5 text-[#0C355F]/30 ml-auto transition-transform"
           style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
           fill="none" stroke="currentColor" viewBox="0 0 24 24"
         >
@@ -90,7 +90,7 @@ export default function LeveringenAccordion({ maanden }: { maanden: MaandGroep[]
   const [open, setOpen] = useState<string | null>(maanden[0]?.key ?? null);
 
   return (
-    <div className="divide-y divide-[#E1DDD0] border border-[#E1DDD0] bg-white">
+    <div className="divide-y divide-[#D3DBE7] border border-[#D3DBE7] bg-white">
       {maanden.map((m) => {
         const isOpen = open === m.key;
         const artikelen = aggregeerArtikelen(m.leveringen);
@@ -104,7 +104,7 @@ export default function LeveringenAccordion({ maanden }: { maanden: MaandGroep[]
             >
               <div className="flex items-center gap-4">
                 <span
-                  className="text-base font-bold text-[#14352A] capitalize"
+                  className="text-base font-bold text-[#0C355F] capitalize"
                   style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
                 >
                   {m.label}
@@ -128,7 +128,7 @@ export default function LeveringenAccordion({ maanden }: { maanden: MaandGroep[]
                 </div>
               </div>
               <svg
-                className="w-4 h-4 text-[#14352A]/30 shrink-0 transition-transform"
+                className="w-4 h-4 text-[#0C355F]/30 shrink-0 transition-transform"
                 style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
                 fill="none" stroke="currentColor" viewBox="0 0 24 24"
               >
@@ -138,10 +138,10 @@ export default function LeveringenAccordion({ maanden }: { maanden: MaandGroep[]
 
             {/* Artikelen per maand */}
             {isOpen && (
-              <div className="border-t border-[#E1DDD0]">
+              <div className="border-t border-[#D3DBE7]">
                 {/* Tabel header */}
                 <div
-                  className="grid px-6 py-2 bg-[#F4F1E8] border-b border-[#E1DDD0]"
+                  className="grid px-6 py-2 bg-[#F4F1E8] border-b border-[#D3DBE7]"
                   style={{ gridTemplateColumns: "1fr 100px 100px 28px" }}
                 >
                   <span className="text-[10px] font-semibold uppercase tracking-widest text-[#1F2328]/40" style={{ fontFamily: "var(--font-display)" }}>Artikel</span>

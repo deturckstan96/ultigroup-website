@@ -60,9 +60,9 @@ export default async function LeveringenPage() {
 
   return (
     <div>
-      <div className="px-8 py-6 border-b border-[#E1DDD0]" style={{ background: "#F4F1E8" }}>
-        <p className="text-xs font-semibold text-[#14352A]/40 uppercase tracking-widest mb-1" style={{ fontFamily: "var(--font-display)" }}>Historiek</p>
-        <h1 className="text-2xl font-bold text-[#14352A]" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>
+      <div className="px-8 py-6 border-b border-[#D3DBE7]" style={{ background: "#F4F1E8" }}>
+        <p className="text-xs font-semibold text-[#0C355F]/40 uppercase tracking-widest mb-1" style={{ fontFamily: "var(--font-display)" }}>Historiek</p>
+        <h1 className="text-2xl font-bold text-[#0C355F]" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>
           Leveringen
         </h1>
         <p className="text-sm text-[#1F2328]/45 mt-0.5">
@@ -72,7 +72,7 @@ export default async function LeveringenPage() {
 
       <div className="p-8 max-w-3xl">
         {maanden.length === 0 ? (
-          <div className="bg-white border border-[#E1DDD0] p-12 text-center">
+          <div className="bg-white border border-[#D3DBE7] p-12 text-center">
             <p className="text-[#1F2328]/35 text-sm">Geen leveringen gevonden.</p>
           </div>
         ) : (

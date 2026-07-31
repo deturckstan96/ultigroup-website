@@ -3,7 +3,7 @@ export default function OffertePage() {
     <>
       <section className="pt-28 pb-12 bg-white border-b border-[#1F2328]/8">
         <div className="max-w-6xl mx-auto px-6">
-          <p className="text-xs font-semibold text-[#1D4E89] uppercase tracking-[0.25em] mb-3"
+          <p className="text-xs font-semibold text-[#0C355F] uppercase tracking-[0.25em] mb-3"
             style={{ fontFamily: 'var(--font-jakarta)' }}>Vrijblijvend</p>
           <h1 className="text-4xl md:text-5xl font-bold text-[#1F2328] mb-4"
             style={{ fontFamily: 'var(--font-jakarta)' }}>Offerte aanvragen</h1>
@@ -17,7 +17,7 @@ export default function OffertePage() {
         <div className="max-w-2xl mx-auto px-6">
           <form className="space-y-8">
             <fieldset>
-              <legend className="text-xs font-semibold uppercase tracking-[0.3em] text-[#1D4E89] mb-6"
+              <legend className="text-xs font-semibold uppercase tracking-[0.3em] text-[#0C355F] mb-6"
                 style={{ fontFamily: 'var(--font-jakarta)' }}>1 — Uw gegevens</legend>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {[
@@ -29,13 +29,13 @@ export default function OffertePage() {
                   <div key={f.label}>
                     <label className="block text-xs font-semibold uppercase tracking-widest text-[#1F2328]/35 mb-2">{f.label}</label>
                     <input type={f.type} required={f.required}
-                      className="w-full bg-white border border-[#1F2328]/15 rounded-lg px-4 py-3 text-sm text-[#1F2328] focus:outline-none focus:border-[#1D4E89] transition-colors" />
+                      className="w-full bg-white border border-[#1F2328]/15 rounded-lg px-4 py-3 text-sm text-[#1F2328] focus:outline-none focus:border-[#0C355F] transition-colors" />
                   </div>
                 ))}
                 <div className="sm:col-span-2">
                   <label className="block text-xs font-semibold uppercase tracking-widest text-[#1F2328]/35 mb-2">Telefoon</label>
                   <input type="tel"
-                    className="w-full bg-white border border-[#1F2328]/15 rounded-lg px-4 py-3 text-sm text-[#1F2328] focus:outline-none focus:border-[#1D4E89] transition-colors" />
+                    className="w-full bg-white border border-[#1F2328]/15 rounded-lg px-4 py-3 text-sm text-[#1F2328] focus:outline-none focus:border-[#0C355F] transition-colors" />
                 </div>
               </div>
             </fieldset>
@@ -43,13 +43,13 @@ export default function OffertePage() {
             <div className="border-t border-[#1F2328]/8" />
 
             <fieldset>
-              <legend className="text-xs font-semibold uppercase tracking-[0.3em] text-[#1D4E89] mb-6"
+              <legend className="text-xs font-semibold uppercase tracking-[0.3em] text-[#0C355F] mb-6"
                 style={{ fontFamily: 'var(--font-jakarta)' }}>2 — Uw aanvraag</legend>
               <div className="space-y-5">
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-widest text-[#1F2328]/35 mb-2">Productcategorie *</label>
                   <select required
-                    className="w-full bg-white border border-[#1F2328]/15 rounded-lg px-4 py-3 text-sm text-[#1F2328] focus:outline-none focus:border-[#1D4E89] transition-colors">
+                    className="w-full bg-white border border-[#1F2328]/15 rounded-lg px-4 py-3 text-sm text-[#1F2328] focus:outline-none focus:border-[#0C355F] transition-colors">
                     <option value="" disabled>Selecteer een categorie</option>
                     <option value="palletten">Palletten op maat</option>
                     <option value="overige">Overige</option>
@@ -59,18 +59,18 @@ export default function OffertePage() {
                   <label className="block text-xs font-semibold uppercase tracking-widest text-[#1F2328]/35 mb-2">Omschrijving aanvraag *</label>
                   <textarea rows={5} required
                     placeholder="Beschrijf uw project, gewenste afmetingen, hoeveelheden en houtsoort..."
-                    className="w-full bg-white border border-[#1F2328]/15 rounded-lg px-4 py-3 text-sm text-[#1F2328] placeholder-[#1F2328]/25 focus:outline-none focus:border-[#1D4E89] transition-colors resize-none" />
+                    className="w-full bg-white border border-[#1F2328]/15 rounded-lg px-4 py-3 text-sm text-[#1F2328] placeholder-[#1F2328]/25 focus:outline-none focus:border-[#0C355F] transition-colors resize-none" />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-widest text-[#1F2328]/35 mb-2">Gewenste leverdatum</label>
                   <input type="date"
-                    className="w-full bg-white border border-[#1F2328]/15 rounded-lg px-4 py-3 text-sm text-[#1F2328] focus:outline-none focus:border-[#1D4E89] transition-colors" />
+                    className="w-full bg-white border border-[#1F2328]/15 rounded-lg px-4 py-3 text-sm text-[#1F2328] focus:outline-none focus:border-[#0C355F] transition-colors" />
                 </div>
               </div>
             </fieldset>
 
             <button type="submit"
-              className="w-full py-3 bg-[#1D4E89] text-white font-semibold rounded-lg hover:bg-[#163d6e] transition-colors text-sm">
+              className="w-full py-3 bg-[#0C355F] text-white font-semibold rounded-lg hover:bg-[#10457A] transition-colors text-sm">
               Offerte aanvragen
             </button>
             <p className="text-center text-xs text-[#1F2328]/30">

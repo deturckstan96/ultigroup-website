@@ -31,11 +31,11 @@ export default function LoginForm() {
 
   const inputStyle = {
     fontFamily: "var(--font-display)",
-    border: "1px solid #E1DDD0",
+    border: "1px solid #D3DBE7",
     borderRadius: 0,
     padding: "10px 14px",
     fontSize: 14,
-    color: "#14352A",
+    color: "#0C355F",
     width: "100%",
     outline: "none",
     background: "#fff",
@@ -63,8 +63,8 @@ export default function LoginForm() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="aankoop@bedrijf.be"
           style={inputStyle}
-          onFocus={e => (e.currentTarget.style.borderColor = "#14352A")}
-          onBlur={e => (e.currentTarget.style.borderColor = "#E1DDD0")}
+          onFocus={e => (e.currentTarget.style.borderColor = "#0C355F")}
+          onBlur={e => (e.currentTarget.style.borderColor = "#D3DBE7")}
         />
       </div>
       <div>
@@ -76,8 +76,8 @@ export default function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
           style={inputStyle}
-          onFocus={e => (e.currentTarget.style.borderColor = "#14352A")}
-          onBlur={e => (e.currentTarget.style.borderColor = "#E1DDD0")}
+          onFocus={e => (e.currentTarget.style.borderColor = "#0C355F")}
+          onBlur={e => (e.currentTarget.style.borderColor = "#D3DBE7")}
         />
       </div>
 
@@ -93,7 +93,7 @@ export default function LoginForm() {
         style={{
           width: "100%",
           padding: "11px 0",
-          background: loading ? "#8FA663" : "#14352A",
+          background: loading ? "#4FA3D8" : "#0C355F",
           color: "#ffffff",
           fontSize: 14,
           fontWeight: 700,

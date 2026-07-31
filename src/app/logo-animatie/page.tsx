@@ -44,7 +44,7 @@ export default function LogoAnimatiePreview() {
 
       {/* ── DARK HERO SECTIE ── */}
       <section style={{
-        background: "#14352A",
+        background: "#0C355F",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -80,7 +80,7 @@ export default function LogoAnimatiePreview() {
               left: 0,
               width: 160,
               height: 160,
-              background: "#1F4A38",
+              background: "#10457A",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -106,7 +106,7 @@ export default function LogoAnimatiePreview() {
                 right: 0,
                 width: 48,
                 height: 48,
-                background: "#8FA663",
+                background: "#4FA3D8",
                 zIndex: 2,
               }}
             />
@@ -136,7 +136,7 @@ export default function LogoAnimatiePreview() {
               fontSize: 10,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: "#8FA663",
+              color: "#4FA3D8",
               fontWeight: 600,
               whiteSpace: "nowrap",
             }}>
@@ -156,7 +156,7 @@ export default function LogoAnimatiePreview() {
               margin: "0 0 20px",
             }}>
               Jij hebt het bedrijf.<br />
-              <span style={{ color: "#5A8C4A" }}>Wij zijn het ontbrekende stuk.</span>
+              <span style={{ color: "#007EBE" }}>Wij zijn het ontbrekende stuk.</span>
             </h2>
             <p style={{
               fontFamily: "var(--font-body)",
@@ -180,8 +180,8 @@ export default function LogoAnimatiePreview() {
           animation: "fadeSlideUp 0.6s ease 2.6s both",
         }}>
           {[
-            { kleur: "#1F4A38", label: "De klant", tekst: "Heeft een productiebehoefte. Zoekt een partner die meedenkt." },
-            { kleur: "#5A8C4A", label: "ULTI GROUP", tekst: "Het ontbrekende stuk. Vult exact aan — geen minimumafnames, geen standaardmaten." },
+            { kleur: "#10457A", label: "De klant", tekst: "Heeft een productiebehoefte. Zoekt een partner die meedenkt." },
+            { kleur: "#007EBE", label: "ULTI GROUP", tekst: "Het ontbrekende stuk. Vult exact aan — geen minimumafnames, geen standaardmaten." },
           ].map((item) => (
             <div key={item.label} style={{
               border: "1px solid rgba(255,255,255,0.1)",

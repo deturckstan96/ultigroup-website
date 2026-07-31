@@ -8,14 +8,14 @@ This document is a complete brand specification for ULTI GROUP. Paste this into 
 
 ## ⚠️ Critical — This is a FULL rebrand
 
-**Every single blue accent in the current site must go.** Pine green replaces every previous blue. There is no blue anywhere in the new brand — not in titles, not in buttons, not in the dashboard sidebar logo, not in calendar markers, not in status pills.
+**Every single blue accent in the current site must go.** Navy blue is the brand color. The brand is built around navy + light blue — not in titles, not in buttons, not in the dashboard sidebar logo, not in calendar markers, not in status pills.
 
 The most commonly missed spots:
 
 - The small **"ug" sidebar logo inside the UltiApp dashboard mockup** — must become a miniature Monolith (square, pine, no rounding, with "UG" in Archivo Black)
 - The "**App**" in "Ulti**App**" page title — must be pine, not blue
 - The **active nav-link underline** — must be pine
-- All **eyebrow labels** with leading line — line + text must be **accent green** (`#5A8C4A`), not blue
+- All **eyebrow labels** with leading line — line + text must be **accent green** (`#1D7BB8`), not blue
 - **Status pills** ("Bevestigd", "Afroep ontvangen") — pine + paper, not blue
 - The "**geleverd op afroep**" line in the Home hero — pine, not blue
 - Calendar marked-day soft backgrounds — soft pine tint (`#E8F0E5`), not soft blue
@@ -28,7 +28,7 @@ See **section 9b** below for the complete find-and-replace audit.
 
 ## 1 · Logo — Monolith
 
-A dark pine-green square with `UG` in heavy Archivo letters, plus an accent-green corner notch at bottom-right. Subtly references a pallet block. Paired with an uppercase wordmark `ULTI` (bold) `GROUP` (regular).
+A dark navy-blue rounded mark with `UG` in heavy Archivo letters, plus an light-blue companion at bottom-right. Subtly references a pallet block. Paired with an uppercase wordmark `ULTI` (bold) `GROUP` (regular).
 
 ### Construction
 
@@ -57,28 +57,28 @@ A dark pine-green square with `UG` in heavy Archivo letters, plus an accent-gree
 - **Minimum size**: 24px digital · 8mm in print. Below that, use mark-only.
 - **Clear space**: Always reserve at least the height of the "U" as free space around the logo.
 - **Never**: rotate, skew, add shadow, gradient, or place inside another shape.
-- **Background**: Logo works on cream (#F4F1E8), white, or pine. Never on photos directly — use a clear panel.
+- **Background**: Logo works on cream (#EEF2F7), white, or pine. Never on photos directly — use a clear panel.
 
 ---
 
 ## 2 · Color Palette
 
-The palette is **deliberately limited**. Pine green is the brand. Cream is the home. Accent green is the signal.
+The palette is **deliberately limited**. Navy blue is the brand. Cream is the home. Accent green is the signal.
 
-### Primary — Pine
-
-| Token | Hex | Use |
-|---|---|---|
-| `--pine` | `#14352A` | **Primary**. Titles, logo, dark sections, primary buttons. |
-| `--pine-2` | `#1F4A38` | Hover state for pine buttons & links |
-| `--pine-3` | `#2D5C44` | Soft pine — used sparingly for tertiary surfaces |
-
-### Accent — Vivacity
+### Primary — Navy
 
 | Token | Hex | Use |
 |---|---|---|
-| `--accent` | `#5A8C4A` | **Accent**. Logo corner, eyebrow labels, hover, badges, signals. Use sparingly. |
-| `--moss` | `#8FA663` | Tertiary green for muted accents (e.g., dark-mode eyebrows) |
+| `--pine` (navy) | `#17335C` | **Primary** (navy). Titles, logo, dark sections, primary buttons. |
+| `--pine-2` | `#1E4A82` | Hover state for pine buttons & links |
+| `--pine-3` | `#2C5C99` | Soft pine — used sparingly for tertiary surfaces |
+
+### Accent — Light blue
+
+| Token | Hex | Use |
+|---|---|---|
+| `--accent` | `#1D7BB8` | **Accent**. Logo corner, eyebrow labels, hover, badges, signals. Use sparingly. |
+| `--moss` | `#5BA3D6` | Tertiary green for muted accents (e.g., dark-mode eyebrows) |
 
 ### Text
 
@@ -92,16 +92,16 @@ The palette is **deliberately limited**. Pine green is the brand. Cream is the h
 
 | Token | Hex | Use |
 |---|---|---|
-| `--cream` | `#F4F1E8` | **Page background**. Default body bg. Warm, slightly off-white. |
-| `--cream-2` | `#EDE8D8` | Alternating section background (warmer cream) |
+| `--cream` | `#EEF2F7` | **Page background**. Default body bg. Warm, slightly off-white. |
+| `--cream-2` | `#E1E8F1` | Alternating section background (warmer cream) |
 | `--paper` | `#FFFFFF` | Cards, modals, dashboard surfaces |
-| `--paper-2` | `#F7F8F4` | Subtle alt-bg inside cards |
+| `--paper-2` | `#F2F6FB` | Subtle alt-bg inside cards |
 
 ### Lines
 
 | Token | Hex | Use |
 |---|---|---|
-| `--line` | `#E1DDD0` | Default divider (warm, matches cream) |
+| `--line` | `#D3DBE7` | Default divider (warm, matches cream) |
 | `--line-2` | `#D1D5DB` | Stronger divider, form borders |
 
 ### Semantic — Status
@@ -168,7 +168,7 @@ Headings using Archivo should generally be **uppercase** for section titles, **m
 
 ### Button — Primary (on cream)
 
-- Background: `--pine`
+- Background: `--pine` (navy)
 - Text: `--paper`
 - Padding: `12px 22px`
 - Font: Inter 500, 14px
@@ -184,14 +184,14 @@ Headings using Archivo should generally be **uppercase** for section titles, **m
 ### Button — Outline
 
 - Background: transparent
-- Border: 1.5px solid `--pine`
-- Text: `--pine`
-- Hover: background `--pine`, text `--paper`
+- Border: 1.5px solid `--pine` (navy)
+- Text: `--pine` (navy)
+- Hover: background `--pine` (navy), text `--paper`
 
 ### Button — Light (on dark sections)
 
 - Background: `--paper`
-- Text: `--pine`
+- Text: `--pine` (navy)
 - Same shape rules
 
 ### Badge
@@ -225,20 +225,20 @@ Paste into the `:root` block of your global stylesheet:
 
 ```css
 :root {
-  /* Primair · Pine */
-  --pine:        #14352A;
-  --pine-2:      #1F4A38;
-  --pine-3:      #2D5C44;
+  /* Primair · Navy */
+  --pine:        #17335C;
+  --pine-2:      #1E4A82;
+  --pine-3:      #2C5C99;
 
-  /* Accent · Levendigheid */
-  --accent:      #5A8C4A;
-  --moss:        #8FA663;
+  /* Accent · Lichtblauw */
+  --accent:      #1D7BB8;
+  --moss:        #5BA3D6;
 
   /* Neutralen · Achtergronden */
-  --cream:       #F4F1E8;
-  --cream-2:     #EDE8D8;
+  --cream:       #EEF2F7;
+  --cream-2:     #E1E8F1;
   --paper:       #FFFFFF;
-  --paper-2:     #F7F8F4;
+  --paper-2:     #F2F6FB;
 
   /* Tekst */
   --ink:         #1F2328;
@@ -246,7 +246,7 @@ Paste into the `:root` block of your global stylesheet:
   --ink-3:       #6B7280;
 
   /* Lijnen */
-  --line:        #E1DDD0;
+  --line:        #D3DBE7;
   --line-2:      #D1D5DB;
 
   /* Semantisch */
@@ -277,13 +277,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        pine:    { DEFAULT: '#14352A', '2': '#1F4A38', '3': '#2D5C44' },
-        accent:  '#5A8C4A',
-        moss:    '#8FA663',
-        cream:   { DEFAULT: '#F4F1E8', '2': '#EDE8D8' },
-        paper:   { DEFAULT: '#FFFFFF', '2': '#F7F8F4' },
+        pine:    { DEFAULT: '#17335C', '2': '#1E4A82', '3': '#2C5C99' },
+        accent:  '#1D7BB8',
+        moss:    '#5BA3D6',
+        cream:   { DEFAULT: '#EEF2F7', '2': '#E1E8F1' },
+        paper:   { DEFAULT: '#FFFFFF', '2': '#F2F6FB' },
         ink:     { DEFAULT: '#1F2328', '2': '#3A3F46', '3': '#6B7280' },
-        line:    { DEFAULT: '#E1DDD0', '2': '#D1D5DB' },
+        line:    { DEFAULT: '#D3DBE7', '2': '#D1D5DB' },
         ok:      '#2D6A4F',
         warn:    '#C77A18',
         crit:    '#C0392B',
@@ -414,8 +414,8 @@ The previous design used `#1D4E89` blue throughout. Every single instance must b
 
 | Old value | New value | Where it appears |
 |---|---|---|
-| `#1D4E89` (blue) | `#14352A` (pine) | All primary buttons, accents, headings, hover states |
-| `#163d6c` (blue-2 hover) | `#1F4A38` (pine-2) | Hover backgrounds |
+| `#1D4E89` (blue) | `#17335C` (pine) | All primary buttons, accents, headings, hover states |
+| `#163d6c` (blue-2 hover) | `#1E4A82` (pine-2) | Hover backgrounds |
 | `#EEF3F9` (blue-50) | `cream-2` or `#E8F0E5` (pine tinted) | Soft badges, blue-tinted backgrounds |
 | `text-blue-*` Tailwind | `text-pine` / `text-accent` | Any blue text |
 | `border-blue-*` | `border-pine` | Borders |
@@ -424,19 +424,19 @@ The previous design used `#1D4E89` blue throughout. Every single instance must b
 
 These are commonly missed — verify each one explicitly:
 
-1. **Active nav link underline** (e.g. "Klantenportaal") — currently blue `#1D4E89`, must become **pine `#14352A`**.
+1. **Active nav link underline** (e.g. "Klantenportaal") — currently blue `#1D4E89`, must become **pine `#17335C`**.
 2. **"Klanten login" outline button** — text must be pine, not blue.
 3. **"Offerte aanvragen" primary button** — background must be pine, not blue.
-4. **UltiApp hero title** — "Ulti**App**" — the "App" portion that was blue must become **pine `#14352A`** (NOT accent green — pine, because it's part of the wordmark, not a signal).
+4. **UltiApp hero title** — "Ulti**App**" — the "App" portion that was blue must become **pine `#17335C`** (NOT accent green — pine, because it's part of the wordmark, not a signal).
 5. **"Klantenportaal" badge** with pulsing dot — background `#E8F0E5` (soft pine tint) or `cream-2`, text & dot in **pine**.
 6. **Dashboard mockup sidebar logo** — the small "ug" square in the dark sidebar at top-left of the dashboard frame:
    - Currently a blue rounded square `#1D4E89` with white "ug"
    - **Must become**: pine square (radius 0 or 2px) with white "UG" in Archivo 900 — a miniature Monolith. NOT a circle, NOT rounded-lg, NOT blue.
 7. **Scene label pill** ("01 · VOORRAAD", "02 · WAARSCHUWING", etc.) on top of dashboard:
    - Scene 1 label background: `--ink` (#1F2328) — keep
-   - Scene 3 label background: was blue, **must become pine `#14352A`**
+   - Scene 3 label background: was blue, **must become pine `#17335C`**
 8. **"AFR-2026-041 · Bevestigd" status pill** — blue dot and blue text → **pine dot and pine text**.
-9. **Stock progress bars** (the green bars in the dashboard list) — keep green but use **`--accent` (#5A8C4A)** for consistency, not the previous OK green.
+9. **Stock progress bars** (the green bars in the dashboard list) — keep green but use **`--accent` (#1D7BB8)** for consistency, not the previous OK green.
 10. **Warning toast border-left** — keep `--warn` orange (semantic).
 11. **Modal backdrop "Bevestig afroep" button** — was blue, **must become pine**.
 12. **Click ripple effect color** — was blue, **must become pine or accent**.
@@ -449,8 +449,8 @@ These are commonly missed — verify each one explicitly:
 ### Same audit for the Home & Over ons pages
 
 - **Hero title** "Palletten op maat, **geleverd op afroep.**" — the second line was blue, **must become pine**. (Accent green is OK if you want a slight pop but pine is safer for the wordmark-feel.)
-- **All eyebrow labels** — line + uppercase mono text — was blue, **must become accent `#5A8C4A`**.
-- **All `--blue` CSS vars** in your stylesheets — search and replace with `--pine`.
+- **All eyebrow labels** — line + uppercase mono text — was blue, **must become accent `#1D7BB8`**.
+- **All `--blue` CSS vars** in your stylesheets — search and replace with `--pine` (navy).
 - **All Tailwind `blue-*` classes** — search across the codebase, none should remain.
 
 ### Search command for your developer

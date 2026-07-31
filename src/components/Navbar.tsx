@@ -37,7 +37,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={`text-sm font-medium transition-colors ${
-                  active ? "text-[#1D4E89]" : "text-[#1F2328]/60 hover:text-[#1F2328]"
+                  active ? "text-[#0C355F]" : "text-[#1F2328]/60 hover:text-[#1F2328]"
                 }`}
               >
                 {link.label}
@@ -46,13 +46,13 @@ export default function Navbar() {
           })}
           <Link
             href="/offerte"
-            className="ml-2 px-5 py-2 bg-[#1D4E89] text-white text-sm font-semibold rounded hover:bg-[#163d6e] transition-colors"
+            className="ml-2 px-5 py-2 bg-[#0C355F] text-white text-sm font-semibold rounded hover:bg-[#10457A] transition-colors"
           >
             Offerte aanvragen
           </Link>
           <Link
             href="/portaal/login"
-            className="flex items-center gap-1.5 px-4 py-2 border border-[#1F2328]/20 text-[#1F2328]/60 text-sm font-semibold rounded hover:border-[#1D4E89] hover:text-[#1D4E89] transition-colors"
+            className="flex items-center gap-1.5 px-4 py-2 border border-[#1F2328]/20 text-[#1F2328]/60 text-sm font-semibold rounded hover:border-[#0C355F] hover:text-[#0C355F] transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
@@ -92,14 +92,14 @@ export default function Navbar() {
           <Link
             href="/offerte"
             onClick={() => setOpen(false)}
-            className="inline-block px-5 py-2 bg-[#1D4E89] text-white text-sm font-semibold rounded hover:bg-[#163d6e] transition-colors w-fit"
+            className="inline-block px-5 py-2 bg-[#0C355F] text-white text-sm font-semibold rounded hover:bg-[#10457A] transition-colors w-fit"
           >
             Offerte aanvragen
           </Link>
           <Link
             href="/portaal/login"
             onClick={() => setOpen(false)}
-            className="inline-flex items-center gap-1.5 px-4 py-2 border border-[#1F2328]/20 text-[#1F2328]/60 text-sm font-semibold rounded hover:border-[#1D4E89] hover:text-[#1D4E89] transition-colors w-fit"
+            className="inline-flex items-center gap-1.5 px-4 py-2 border border-[#1F2328]/20 text-[#1F2328]/60 text-sm font-semibold rounded hover:border-[#0C355F] hover:text-[#0C355F] transition-colors w-fit"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}

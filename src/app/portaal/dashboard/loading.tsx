@@ -1,5 +1,5 @@
 function Skeleton({ className }: { className?: string }) {
-  return <div className={`animate-pulse bg-[#E1DDD0] ${className ?? ""}`} />;
+  return <div className={`animate-pulse bg-[#D3DBE7] ${className ?? ""}`} />;
 }
 
 export default function DashboardLoading() {
@@ -15,7 +15,7 @@ export default function DashboardLoading() {
       {/* KPI kaarten */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="bg-white border border-[#E1DDD0] p-5">
+          <div key={i} className="bg-white border border-[#D3DBE7] p-5">
             <Skeleton className="h-2.5 w-24 mb-3" />
             <Skeleton className="h-8 w-16 mb-2" />
             <Skeleton className="h-2.5 w-32" />
@@ -25,7 +25,7 @@ export default function DashboardLoading() {
 
       {/* Twee kolommen */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white border border-[#E1DDD0] p-6">
+        <div className="bg-white border border-[#D3DBE7] p-6">
           <div className="flex justify-between mb-5">
             <Skeleton className="h-4 w-24" />
             <Skeleton className="h-3 w-20" />
@@ -42,14 +42,14 @@ export default function DashboardLoading() {
             ))}
           </div>
         </div>
-        <div className="bg-white border border-[#E1DDD0] p-6">
+        <div className="bg-white border border-[#D3DBE7] p-6">
           <div className="flex justify-between mb-5">
             <Skeleton className="h-4 w-32" />
             <Skeleton className="h-3 w-20" />
           </div>
           <div className="space-y-4">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="flex justify-between py-2 border-b border-[#E1DDD0] last:border-0">
+              <div key={i} className="flex justify-between py-2 border-b border-[#D3DBE7] last:border-0">
                 <div>
                   <Skeleton className="h-3 w-28 mb-1.5" />
                   <Skeleton className="h-2.5 w-20" />
@@ -62,7 +62,7 @@ export default function DashboardLoading() {
       </div>
 
       {/* Laatste levering */}
-      <div className="bg-white border border-[#E1DDD0] p-6 mt-6">
+      <div className="bg-white border border-[#D3DBE7] p-6 mt-6">
         <div className="flex justify-between mb-5">
           <Skeleton className="h-4 w-32" />
           <Skeleton className="h-3 w-24" />

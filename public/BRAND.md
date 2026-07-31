@@ -8,7 +8,7 @@ This document is a complete brand specification for ULTI GROUP. Paste this into 
 
 ## 1 · Logo — Monolith
 
-A dark pine-green square with `UG` in heavy Archivo letters, plus an accent-green corner notch at bottom-right. Subtly references a pallet block. Paired with an uppercase wordmark `ULTI` (bold) `GROUP` (regular).
+A dark navy-blue rounded mark with `UG` in heavy Archivo letters, plus an light-blue companion at bottom-right. Subtly references a pallet block. Paired with an uppercase wordmark `ULTI` (bold) `GROUP` (regular).
 
 ### Construction
 
@@ -37,28 +37,28 @@ A dark pine-green square with `UG` in heavy Archivo letters, plus an accent-gree
 - **Minimum size**: 24px digital · 8mm in print. Below that, use mark-only.
 - **Clear space**: Always reserve at least the height of the "U" as free space around the logo.
 - **Never**: rotate, skew, add shadow, gradient, or place inside another shape.
-- **Background**: Logo works on cream (#F4F1E8), white, or pine. Never on photos directly — use a clear panel.
+- **Background**: Logo works on cream (#EEF2F7), white, or pine. Never on photos directly — use a clear panel.
 
 ---
 
 ## 2 · Color Palette
 
-The palette is **deliberately limited**. Pine green is the brand. Cream is the home. Accent green is the signal.
+The palette is **deliberately limited**. Navy blue is the brand. Cream is the home. Accent green is the signal.
 
-### Primary — Pine
-
-| Token | Hex | Use |
-|---|---|---|
-| `--pine` | `#14352A` | **Primary**. Titles, logo, dark sections, primary buttons. |
-| `--pine-2` | `#1F4A38` | Hover state for pine buttons & links |
-| `--pine-3` | `#2D5C44` | Soft pine — used sparingly for tertiary surfaces |
-
-### Accent — Vivacity
+### Primary — Navy
 
 | Token | Hex | Use |
 |---|---|---|
-| `--accent` | `#5A8C4A` | **Accent**. Logo corner, eyebrow labels, hover, badges, signals. Use sparingly. |
-| `--moss` | `#8FA663` | Tertiary green for muted accents (e.g., dark-mode eyebrows) |
+| `--pine` (navy) | `#17335C` | **Primary** (navy). Titles, logo, dark sections, primary buttons. |
+| `--pine-2` | `#1E4A82` | Hover state for pine buttons & links |
+| `--pine-3` | `#2C5C99` | Soft pine — used sparingly for tertiary surfaces |
+
+### Accent — Light blue
+
+| Token | Hex | Use |
+|---|---|---|
+| `--accent` | `#1D7BB8` | **Accent**. Logo corner, eyebrow labels, hover, badges, signals. Use sparingly. |
+| `--moss` | `#5BA3D6` | Tertiary green for muted accents (e.g., dark-mode eyebrows) |
 
 ### Text
 
@@ -72,16 +72,16 @@ The palette is **deliberately limited**. Pine green is the brand. Cream is the h
 
 | Token | Hex | Use |
 |---|---|---|
-| `--cream` | `#F4F1E8` | **Page background**. Default body bg. Warm, slightly off-white. |
-| `--cream-2` | `#EDE8D8` | Alternating section background (warmer cream) |
+| `--cream` | `#EEF2F7` | **Page background**. Default body bg. Warm, slightly off-white. |
+| `--cream-2` | `#E1E8F1` | Alternating section background (warmer cream) |
 | `--paper` | `#FFFFFF` | Cards, modals, dashboard surfaces |
-| `--paper-2` | `#F7F8F4` | Subtle alt-bg inside cards |
+| `--paper-2` | `#F2F6FB` | Subtle alt-bg inside cards |
 
 ### Lines
 
 | Token | Hex | Use |
 |---|---|---|
-| `--line` | `#E1DDD0` | Default divider (warm, matches cream) |
+| `--line` | `#D3DBE7` | Default divider (warm, matches cream) |
 | `--line-2` | `#D1D5DB` | Stronger divider, form borders |
 
 ### Semantic — Status
@@ -148,7 +148,7 @@ Headings using Archivo should generally be **uppercase** for section titles, **m
 
 ### Button — Primary (on cream)
 
-- Background: `--pine`
+- Background: `--pine` (navy)
 - Text: `--paper`
 - Padding: `12px 22px`
 - Font: Inter 500, 14px
@@ -164,14 +164,14 @@ Headings using Archivo should generally be **uppercase** for section titles, **m
 ### Button — Outline
 
 - Background: transparent
-- Border: 1.5px solid `--pine`
-- Text: `--pine`
-- Hover: background `--pine`, text `--paper`
+- Border: 1.5px solid `--pine` (navy)
+- Text: `--pine` (navy)
+- Hover: background `--pine` (navy), text `--paper`
 
 ### Button — Light (on dark sections)
 
 - Background: `--paper`
-- Text: `--pine`
+- Text: `--pine` (navy)
 - Same shape rules
 
 ### Badge
@@ -205,20 +205,20 @@ Paste into the `:root` block of your global stylesheet:
 
 ```css
 :root {
-  /* Primair · Pine */
-  --pine:        #14352A;
-  --pine-2:      #1F4A38;
-  --pine-3:      #2D5C44;
+  /* Primair · Navy */
+  --pine:        #17335C;
+  --pine-2:      #1E4A82;
+  --pine-3:      #2C5C99;
 
-  /* Accent · Levendigheid */
-  --accent:      #5A8C4A;
-  --moss:        #8FA663;
+  /* Accent · Lichtblauw */
+  --accent:      #1D7BB8;
+  --moss:        #5BA3D6;
 
   /* Neutralen · Achtergronden */
-  --cream:       #F4F1E8;
-  --cream-2:     #EDE8D8;
+  --cream:       #EEF2F7;
+  --cream-2:     #E1E8F1;
   --paper:       #FFFFFF;
-  --paper-2:     #F7F8F4;
+  --paper-2:     #F2F6FB;
 
   /* Tekst */
   --ink:         #1F2328;
@@ -226,7 +226,7 @@ Paste into the `:root` block of your global stylesheet:
   --ink-3:       #6B7280;
 
   /* Lijnen */
-  --line:        #E1DDD0;
+  --line:        #D3DBE7;
   --line-2:      #D1D5DB;
 
   /* Semantisch */
@@ -257,13 +257,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        pine:    { DEFAULT: '#14352A', '2': '#1F4A38', '3': '#2D5C44' },
-        accent:  '#5A8C4A',
-        moss:    '#8FA663',
-        cream:   { DEFAULT: '#F4F1E8', '2': '#EDE8D8' },
-        paper:   { DEFAULT: '#FFFFFF', '2': '#F7F8F4' },
+        pine:    { DEFAULT: '#17335C', '2': '#1E4A82', '3': '#2C5C99' },
+        accent:  '#1D7BB8',
+        moss:    '#5BA3D6',
+        cream:   { DEFAULT: '#EEF2F7', '2': '#E1E8F1' },
+        paper:   { DEFAULT: '#FFFFFF', '2': '#F2F6FB' },
         ink:     { DEFAULT: '#1F2328', '2': '#3A3F46', '3': '#6B7280' },
-        line:    { DEFAULT: '#E1DDD0', '2': '#D1D5DB' },
+        line:    { DEFAULT: '#D3DBE7', '2': '#D1D5DB' },
         ok:      '#2D6A4F',
         warn:    '#C77A18',
         crit:    '#C0392B',

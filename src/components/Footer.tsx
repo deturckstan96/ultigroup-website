@@ -4,7 +4,7 @@ import Logo from "@/components/Logo";
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#14352A", color: "#fff", padding: "80px clamp(24px,5vw,80px) 32px" }}>
+    <footer style={{ background: "#0C355F", color: "#fff", padding: "80px clamp(24px,5vw,80px) 32px" }}>
       <div style={{ maxWidth: 1440, margin: "0 auto" }}>
         {/* Grid */}
         <div
@@ -31,7 +31,7 @@ export default function Footer() {
               {["Palletten op maat", "Voorraadbeheer", "UltiApp"].map((item) => (
                 <li key={item}>
                   <Link href="/offerte" className="text-sm transition-colors" style={{ color: "rgba(255,255,255,0.65)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "#5A8C4A")}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#007EBE")}
                     onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.65)")}
                   >
                     {item}
@@ -52,7 +52,7 @@ export default function Footer() {
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-sm transition-colors" style={{ color: "rgba(255,255,255,0.65)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "#5A8C4A")}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#007EBE")}
                     onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.65)")}
                   >
                     {item.label}

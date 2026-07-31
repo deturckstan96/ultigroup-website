@@ -89,10 +89,10 @@ export default function OverOnsPage() {
 
             {/* Logo — klein accent rechts */}
             <div style={{ position: "relative", width: 120, height: 120, flexShrink: 0 }}>
-              <div style={{ position: "absolute", inset: 0, background: "#1F4A38", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ position: "absolute", inset: 0, background: "#10457A", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <span className="ug-logo-text" style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 900, color: "#fff", letterSpacing: "-0.04em" }}>UG</span>
               </div>
-              <div className="ug-piece" style={{ position: "absolute", bottom: 0, right: 0, width: 36, height: 36, background: "#8FA663" }} />
+              <div className="ug-piece" style={{ position: "absolute", bottom: 0, right: 0, width: 36, height: 36, background: "#4FA3D8" }} />
             </div>
           </div>
 
@@ -104,7 +104,7 @@ export default function OverOnsPage() {
           ].map((item, i) => (
             <div key={i} className="reveal" style={{ display: "grid", gridTemplateColumns: "100px 1fr 1.4fr", gap: "clamp(24px,4vw,64px)", alignItems: "start", padding: "clamp(28px,4vw,48px) 0", borderBottom: "1px solid var(--color-line)" }}>
               <div>
-                <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(48px,5vw,72px)", fontWeight: 800, letterSpacing: "-0.05em", lineHeight: 1, color: "#8FA663", opacity: 0.35 }}>{item.num}</div>
+                <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(48px,5vw,72px)", fontWeight: 800, letterSpacing: "-0.05em", lineHeight: 1, color: "#4FA3D8", opacity: 0.35 }}>{item.num}</div>
                 <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 600, marginTop: 8 }}>{item.label}</div>
               </div>
               <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(20px,2vw,28px)", fontWeight: 700, letterSpacing: "-0.025em", color: "var(--color-ink)", lineHeight: 1.1, paddingTop: 8 }}>{item.title}</div>

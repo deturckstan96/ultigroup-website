@@ -1,5 +1,5 @@
 function Skeleton({ className }: { className?: string }) {
-  return <div className={`animate-pulse bg-[#E1DDD0] ${className ?? ""}`} />;
+  return <div className={`animate-pulse bg-[#D3DBE7] ${className ?? ""}`} />;
 }
 
 export default function LeveringenLoading() {
@@ -13,9 +13,9 @@ export default function LeveringenLoading() {
 
       <div className="space-y-4">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="bg-white border border-[#E1DDD0]">
+          <div key={i} className="bg-white border border-[#D3DBE7]">
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[#E1DDD0]">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-[#D3DBE7]">
               <div className="flex gap-8">
                 <div>
                   <Skeleton className="h-2.5 w-16 mb-1.5" />

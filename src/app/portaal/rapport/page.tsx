@@ -102,9 +102,9 @@ export default async function RapportPage() {
 
   return (
     <div>
-      <div className="px-8 py-6 border-b border-[#E1DDD0]" style={{ background: "#F4F1E8" }}>
-        <p className="text-xs font-semibold text-[#14352A]/40 uppercase tracking-widest mb-1" style={{ fontFamily: "var(--font-display)" }}>Analyse</p>
-        <h1 className="text-2xl font-bold text-[#14352A]" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>
+      <div className="px-8 py-6 border-b border-[#D3DBE7]" style={{ background: "#F4F1E8" }}>
+        <p className="text-xs font-semibold text-[#0C355F]/40 uppercase tracking-widest mb-1" style={{ fontFamily: "var(--font-display)" }}>Analyse</p>
+        <h1 className="text-2xl font-bold text-[#0C355F]" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>
           Rapport
         </h1>
         <p className="text-sm text-[#1F2328]/45 mt-0.5">Overzicht van de laatste 12 maanden</p>

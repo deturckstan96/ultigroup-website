@@ -158,12 +158,12 @@ export default function UltiAppPage() {
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <div style={{ position: "relative", width: 22, height: 22, flexShrink: 0 }}>
-                  <div style={{ position: "absolute", inset: 0, background: "#1F4A38", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ position: "absolute", inset: 0, background: "#10457A", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <span style={{ fontFamily: "var(--font-display)", fontSize: 7, fontWeight: 900, color: "#fff", letterSpacing: "-0.03em" }}>UG</span>
                   </div>
-                  <div style={{ position: "absolute", bottom: 0, right: 0, width: 7, height: 7, background: "#8FA663" }} />
+                  <div style={{ position: "absolute", bottom: 0, right: 0, width: 7, height: 7, background: "#4FA3D8" }} />
                 </div>
-                <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 800, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>Ulti<span style={{ color: "#8FA663" }}>App</span></span>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 800, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>Ulti<span style={{ color: "#4FA3D8" }}>App</span></span>
               </div>
             </div>
             <div style={{ padding: 24 }}>
@@ -203,8 +203,8 @@ export default function UltiAppPage() {
                 ];
                 return (
                   <div style={{ position: "relative" }}>
-                    <div style={{ position: "absolute", bottom: 20 + Math.round((900 / MAX_VAL) * CHART_H), left: 0, right: 0, borderTop: "1.5px dashed #8FA663", zIndex: 2, pointerEvents: "none" }}>
-                      <span style={{ position: "absolute", right: 0, top: -14, fontSize: 9, color: "#5A8C4A", fontWeight: 600, background: "var(--color-paper)", paddingLeft: 4 }}>∅ 900 st</span>
+                    <div style={{ position: "absolute", bottom: 20 + Math.round((900 / MAX_VAL) * CHART_H), left: 0, right: 0, borderTop: "1.5px dashed #4FA3D8", zIndex: 2, pointerEvents: "none" }}>
+                      <span style={{ position: "absolute", right: 0, top: -14, fontSize: 9, color: "#007EBE", fontWeight: 600, background: "var(--color-paper)", paddingLeft: 4 }}>∅ 900 st</span>
                     </div>
                     <div style={{ display: "flex", alignItems: "flex-end", gap: 10, height: CHART_H + 20, position: "relative" }}>
                       {bars.map((bar, i) => {
@@ -214,7 +214,7 @@ export default function UltiAppPage() {
                             <div style={{ fontSize: 8, fontWeight: 600, color: "var(--color-ink-2)", marginBottom: 3, whiteSpace: "nowrap" }}>
                               {bar.partial ? "" : `${bar.value} st`}
                             </div>
-                            <div style={{ width: "60%", height: barH, background: bar.partial ? "var(--color-line-2)" : "#1F4A38", borderRadius: "3px 3px 0 0", opacity: bar.partial ? 0.5 : 0.85, flexShrink: 0 }} />
+                            <div style={{ width: "60%", height: barH, background: bar.partial ? "var(--color-line-2)" : "#10457A", borderRadius: "3px 3px 0 0", opacity: bar.partial ? 0.5 : 0.85, flexShrink: 0 }} />
                             <div style={{ fontSize: 9, color: "var(--color-ink-3)", marginTop: 4 }}>{bar.month}</div>
                           </div>
                         );
@@ -225,7 +225,7 @@ export default function UltiAppPage() {
               })()}
               <div style={{ fontSize: 9, color: "var(--color-ink-3)", marginTop: 6 }}>Jun is lopende maand</div>
             </div>
-            <button style={{ width: "100%", background: "#1F4A38", color: "#fff", border: "none", padding: "11px 0", borderRadius: 8, fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+            <button style={{ width: "100%", background: "#10457A", color: "#fff", border: "none", padding: "11px 0", borderRadius: 8, fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
               Plan een afroep →
             </button>
             </div>
@@ -282,12 +282,12 @@ export default function UltiAppPage() {
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <div style={{ position: "relative", width: 22, height: 22, flexShrink: 0 }}>
-                  <div style={{ position: "absolute", inset: 0, background: "#1F4A38", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ position: "absolute", inset: 0, background: "#10457A", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <span style={{ fontFamily: "var(--font-display)", fontSize: 7, fontWeight: 900, color: "#fff", letterSpacing: "-0.03em" }}>UG</span>
                   </div>
-                  <div style={{ position: "absolute", bottom: 0, right: 0, width: 7, height: 7, background: "#8FA663" }} />
+                  <div style={{ position: "absolute", bottom: 0, right: 0, width: 7, height: 7, background: "#4FA3D8" }} />
                 </div>
-                <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 800, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>Ulti<span style={{ color: "#8FA663" }}>App</span></span>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 800, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>Ulti<span style={{ color: "#4FA3D8" }}>App</span></span>
               </div>
             </div>
             <div style={{ padding: 24 }}>
@@ -357,7 +357,7 @@ export default function UltiAppPage() {
               const caretStyle: React.CSSProperties = {
                 top: -7, bottom: "auto",
                 borderWidth: "0 7px 7px 7px",
-                borderColor: "transparent transparent #14352A transparent",
+                borderColor: "transparent transparent #0C355F transparent",
               };
               const caretShadowStyle: React.CSSProperties = {
                 top: -9, bottom: "auto",
@@ -372,8 +372,8 @@ export default function UltiAppPage() {
                   style={{
                     position: "relative",
                     zIndex: isHovered ? 20 : 1,
-                    background: isBlue ? "#14352A" : "var(--color-paper)",
-                    border: `1px ${isComing ? "dashed" : "solid"} ${isBlue ? "#14352A" : "var(--color-line)"}`,
+                    background: isBlue ? "#0C355F" : "var(--color-paper)",
+                    border: `1px ${isComing ? "dashed" : "solid"} ${isBlue ? "#0C355F" : "var(--color-line)"}`,
                     borderRadius: 10,
                     padding: "28px 24px",
                     display: "flex", flexDirection: "column", gap: 12,
@@ -385,15 +385,15 @@ export default function UltiAppPage() {
                   onMouseEnter={() => setHoveredCard(i)}
                   onMouseLeave={() => setHoveredCard(null)}
                 >
-                  <div style={{ width: 28, height: 28, color: isBlue ? "#5A8C4A" : isComing ? "var(--color-ink-3)" : "#14352A", transition: "color 0.18s" }}>{tile.icon}</div>
+                  <div style={{ width: 28, height: 28, color: isBlue ? "#007EBE" : isComing ? "var(--color-ink-3)" : "#0C355F", transition: "color 0.18s" }}>{tile.icon}</div>
                   <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 600, letterSpacing: "-0.015em", color: isBlue ? "var(--color-paper)" : isComing ? "var(--color-ink-3)" : "var(--color-ink)", marginTop: "auto", transition: "color 0.18s" }}>{tile.title}</div>
                   <div style={{ fontSize: 12, color: isBlue ? "rgba(255,255,255,0.7)" : "var(--color-ink-3)", lineHeight: 1.5, transition: "color 0.18s" }}>{tile.body}</div>
 
                   {/* Floating popover — only on desktop */}
-                  <div className="hidden lg:block" style={{ position: "absolute", ...popoverH, ...popoverV, width: 280, background: "#14352A", borderRadius: 10, boxShadow: "0 20px 48px -12px rgba(20,53,42,0.35)", padding: "18px 20px", zIndex: 50, pointerEvents: "none", opacity: isHovered ? 1 : 0, transform: isHovered ? "translateY(0)" : "translateY(6px)", transition: "opacity 0.18s ease, transform 0.18s ease" }}>
+                  <div className="hidden lg:block" style={{ position: "absolute", ...popoverH, ...popoverV, width: 280, background: "#0C355F", borderRadius: 10, boxShadow: "0 20px 48px -12px rgba(20,53,42,0.35)", padding: "18px 20px", zIndex: 50, pointerEvents: "none", opacity: isHovered ? 1 : 0, transform: isHovered ? "translateY(0)" : "translateY(6px)", transition: "opacity 0.18s ease, transform 0.18s ease" }}>
                     <div style={{ position: "absolute", ...(isRight ? { right: 24 } : { left: 24 }), width: 0, height: 0, borderStyle: "solid", ...caretShadowStyle }} />
                     <div style={{ position: "absolute", ...(isRight ? { right: 25 } : { left: 25 }), width: 0, height: 0, borderStyle: "solid", ...caretStyle }} />
-                    <div style={{ width: 32, height: 32, color: "#5A8C4A", marginBottom: 12 }}>{tile.icon}</div>
+                    <div style={{ width: 32, height: 32, color: "#007EBE", marginBottom: 12 }}>{tile.icon}</div>
                     <div style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700, color: "#ffffff", marginBottom: 8, letterSpacing: "-0.01em" }}>{tile.title}</div>
                     <div style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>{(tile as any).desc}</div>
                   </div>

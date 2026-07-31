@@ -18,7 +18,7 @@ function Node({ status }: { status: Milestone["status"] }) {
   if (status === "completed")
     return (
       <div
-        className={`${base} bg-[#1D4E89] group-hover:shadow-[0_0_18px_rgba(29,78,137,0.45)]`}
+        className={`${base} bg-[#0C355F] group-hover:shadow-[0_0_18px_rgba(12,53,95,0.45)]`}
       >
         <svg
           className="w-2.5 h-2.5 text-white"
@@ -39,7 +39,7 @@ function Node({ status }: { status: Milestone["status"] }) {
   if (status === "current")
     return (
       <div
-        className={`${base} bg-[#1D4E89] ring-[3px] ring-[#1D4E89]/25 ring-offset-2 group-hover:shadow-[0_0_22px_rgba(29,78,137,0.55)]`}
+        className={`${base} bg-[#0C355F] ring-[3px] ring-[#0C355F]/25 ring-offset-2 group-hover:shadow-[0_0_22px_rgba(12,53,95,0.55)]`}
       >
         <div className="w-2 h-2 rounded-full bg-white" />
       </div>
@@ -47,7 +47,7 @@ function Node({ status }: { status: Milestone["status"] }) {
 
   return (
     <div
-      className={`${base} border-2 border-[#1F2328]/20 bg-white group-hover:border-[#1D4E89]/40`}
+      className={`${base} border-2 border-[#1F2328]/20 bg-white group-hover:border-[#0C355F]/40`}
     />
   );
 }
@@ -59,7 +59,7 @@ export default function GrowthRoadmap({ milestones }: Props) {
       <div className="hidden md:block relative">
         {/* Verbindingslijn — loopt van center eerste node tot center laatste node */}
         <div
-          className="absolute h-px bg-gradient-to-r from-[#1D4E89]/30 via-[#1D4E89]/20 to-[#1D4E89]/30 pointer-events-none"
+          className="absolute h-px bg-gradient-to-r from-[#0C355F]/30 via-[#0C355F]/20 to-[#0C355F]/30 pointer-events-none"
           style={{ top: "46px", left: "10%", right: "10%" }}
         />
 
@@ -71,7 +71,7 @@ export default function GrowthRoadmap({ milestones }: Props) {
             >
               {/* Jaar */}
               <p
-                className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#1D4E89] mb-4"
+                className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#0C355F] mb-4"
                 style={{ height: "20px", lineHeight: "20px" }}
               >
                 {m.jaar}
@@ -102,7 +102,7 @@ export default function GrowthRoadmap({ milestones }: Props) {
       {/* ── MOBILE: verticaal ────────────────────────────────────── */}
       <div className="md:hidden relative">
         {/* Verticale lijn */}
-        <div className="absolute left-[9px] top-2 bottom-2 w-px bg-[#1D4E89]/15" />
+        <div className="absolute left-[9px] top-2 bottom-2 w-px bg-[#0C355F]/15" />
 
         <div className="space-y-10 pl-10">
           {milestones.map((m) => (
@@ -114,7 +114,7 @@ export default function GrowthRoadmap({ milestones }: Props) {
 
               {/* Content */}
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#1D4E89] mb-1">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0C355F] mb-1">
                   {m.jaar}
                 </p>
                 <h3

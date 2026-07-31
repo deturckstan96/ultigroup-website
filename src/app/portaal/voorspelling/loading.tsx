@@ -1,5 +1,5 @@
 function Skeleton({ className }: { className?: string }) {
-  return <div className={`animate-pulse bg-[#E1DDD0] ${className ?? ""}`} />;
+  return <div className={`animate-pulse bg-[#D3DBE7] ${className ?? ""}`} />;
 }
 
 export default function VoorspellingLoading() {
@@ -12,7 +12,7 @@ export default function VoorspellingLoading() {
       </div>
       <div className="space-y-4">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="bg-white border border-[#E1DDD0] p-6">
+          <div key={i} className="bg-white border border-[#D3DBE7] p-6">
             <div className="flex justify-between items-start mb-4">
               <div>
                 <Skeleton className="h-4 w-36 mb-2" />

@@ -21,10 +21,10 @@ export default function Nav() {
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
       style={{
         height: "76px",
-        background: "rgba(238,240,234,0.94)",
+        background: "rgba(238,242,247,0.94)",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
-        borderBottom: "1px solid #D4D8CE",
+        borderBottom: "1px solid #D3DBE7",
         padding: "0 clamp(24px, 5vw, 80px)",
       }}
     >
@@ -42,12 +42,12 @@ export default function Nav() {
                 key={link.href}
                 href={link.href}
                 className="relative text-sm font-medium transition-colors"
-                style={{ color: active ? "#14352A" : "#3A3F46" }}
+                style={{ color: active ? "#0C355F" : "#3A3F46" }}
               >
                 {link.label}
                 {active && (
                   <span
-                    className="absolute left-0 right-0 bg-[#14352A]"
+                    className="absolute left-0 right-0 bg-[#0C355F]"
                     style={{ height: 2, bottom: -28 }}
                   />
                 )}
@@ -62,9 +62,9 @@ export default function Nav() {
         <Link
           href="/portaal/login"
           className="inline-flex items-center gap-2 text-sm font-medium transition-colors"
-          style={{ border: "1.5px solid #14352A", color: "#14352A", padding: "10px 20px", borderRadius: 0 }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = "#14352A"; e.currentTarget.style.color = "#fff"; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#14352A"; }}
+          style={{ border: "1.5px solid #0C355F", color: "#0C355F", padding: "10px 20px", borderRadius: 0 }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = "#0C355F"; e.currentTarget.style.color = "#fff"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#0C355F"; }}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
@@ -81,9 +81,9 @@ export default function Nav() {
         aria-label="Menu"
       >
         <div className="w-5 flex flex-col gap-1.5">
-          <span className={`block h-0.5 bg-[#14352A] transition-all ${open ? "rotate-45 translate-y-2" : ""}`} />
-          <span className={`block h-0.5 bg-[#14352A] transition-all ${open ? "opacity-0" : ""}`} />
-          <span className={`block h-0.5 bg-[#14352A] transition-all ${open ? "-rotate-45 -translate-y-2" : ""}`} />
+          <span className={`block h-0.5 bg-[#0C355F] transition-all ${open ? "rotate-45 translate-y-2" : ""}`} />
+          <span className={`block h-0.5 bg-[#0C355F] transition-all ${open ? "opacity-0" : ""}`} />
+          <span className={`block h-0.5 bg-[#0C355F] transition-all ${open ? "-rotate-45 -translate-y-2" : ""}`} />
         </div>
       </button>
 
@@ -91,7 +91,7 @@ export default function Nav() {
       {open && (
         <div
           className="absolute top-full left-0 right-0 border-t flex flex-col gap-4 md:hidden"
-          style={{ background: "var(--cream)", borderColor: "#E1DDD0", padding: "20px clamp(24px,5vw,80px)" }}
+          style={{ background: "var(--cream)", borderColor: "#D3DBE7", padding: "20px clamp(24px,5vw,80px)" }}
         >
           {links.map((link) => (
             <Link
@@ -108,7 +108,7 @@ export default function Nav() {
             href="/portaal/login"
             onClick={() => setOpen(false)}
             className="inline-flex items-center gap-2 text-sm font-medium w-fit"
-            style={{ border: "1.5px solid #14352A", color: "#14352A", padding: "10px 20px", borderRadius: 0 }}
+            style={{ border: "1.5px solid #0C355F", color: "#0C355F", padding: "10px 20px", borderRadius: 0 }}
           >
             Klanten login
           </Link>

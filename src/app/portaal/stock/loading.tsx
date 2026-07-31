@@ -1,5 +1,5 @@
 function Skeleton({ className }: { className?: string }) {
-  return <div className={`animate-pulse bg-[#E1DDD0] ${className ?? ""}`} />;
+  return <div className={`animate-pulse bg-[#D3DBE7] ${className ?? ""}`} />;
 }
 
 export default function StockLoading() {
@@ -17,7 +17,7 @@ export default function StockLoading() {
       {/* KPI */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="bg-white border border-[#E1DDD0] p-5">
+          <div key={i} className="bg-white border border-[#D3DBE7] p-5">
             <Skeleton className="h-2.5 w-24 mb-3" />
             <Skeleton className="h-7 w-20" />
           </div>
@@ -25,8 +25,8 @@ export default function StockLoading() {
       </div>
 
       {/* Tabel */}
-      <div className="bg-white border border-[#E1DDD0]">
-        <div className="border-b border-[#E1DDD0] px-6 py-3 flex gap-8">
+      <div className="bg-white border border-[#D3DBE7]">
+        <div className="border-b border-[#D3DBE7] px-6 py-3 flex gap-8">
           <Skeleton className="h-2.5 w-20" />
           <Skeleton className="h-2.5 w-28" />
           <Skeleton className="h-2.5 w-16" />
@@ -34,7 +34,7 @@ export default function StockLoading() {
           <Skeleton className="h-2.5 w-16" />
         </div>
         {[...Array(6)].map((_, i) => (
-          <div key={i} className="px-6 py-4 border-b border-[#E1DDD0] last:border-0 flex gap-8 items-center">
+          <div key={i} className="px-6 py-4 border-b border-[#D3DBE7] last:border-0 flex gap-8 items-center">
             <Skeleton className="h-3 w-20" />
             <Skeleton className="h-3 w-28" />
             <Skeleton className="h-3 w-16" />

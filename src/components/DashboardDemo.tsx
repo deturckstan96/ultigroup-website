@@ -240,7 +240,7 @@ export default function DashboardDemo() {
       const newPill = document.createElement("div");
       newPill.className = "dash-pill new";
       newPill.setAttribute("data-pill", "3");
-      newPill.innerHTML = `<div class="dash-pill-ref">AFR-2026-042</div><div class="dash-pill-status" style="color:var(--color-ok)"><span class="d" style="background:var(--color-ok)"></span> Net geplaatst</div>`;
+      newPill.innerHTML = `<div class="dash-pill-ref">AFR-2026-042</div><div class="dash-pill-status" style="color:var(--pine)"><span class="d" style="background:var(--pine)"></span> Net geplaatst</div>`;
       const pill2 = recents.querySelector<HTMLElement>("[data-pill='2']");
       const pill1 = recents.querySelector<HTMLElement>("[data-pill='1']");
       if (pill1) pill1.style.display = "none";
@@ -337,7 +337,7 @@ export default function DashboardDemo() {
           <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#62C554", display: "block" }} />
         </div>
         <div style={{ flex: 1, background: "var(--color-paper)", padding: "6px 14px", borderRadius: 6, fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--color-ink-3)", border: "1px solid var(--color-line)" }}>
-          <span style={{ color: "var(--color-ok)", marginRight: 6 }}>●</span>portaal.ultigroup.be/dashboard
+          <span style={{ color: "var(--pine)", marginRight: 6 }}>●</span>portaal.ultigroup.be/dashboard
         </div>
       </div>
 
@@ -347,10 +347,10 @@ export default function DashboardDemo() {
         {/* Sidebar */}
         <div style={{ background: "var(--color-ink)", padding: "16px 12px", display: "flex", flexDirection: "column", gap: 4 }}>
           <div style={{ position: "relative", width: 32, height: 32, marginBottom: 18, flexShrink: 0 }}>
-              <div style={{ position: "absolute", inset: 0, background: "#1F4A38", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ position: "absolute", inset: 0, background: "#10457A", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 10, color: "#fff", letterSpacing: "-0.03em" }}>UG</span>
               </div>
-              <div style={{ position: "absolute", bottom: 0, right: 0, width: 10, height: 10, background: "#8FA663" }} />
+              <div style={{ position: "absolute", bottom: 0, right: 0, width: 10, height: 10, background: "#4FA3D8" }} />
             </div>
           {[
             <><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></>,
@@ -370,7 +370,7 @@ export default function DashboardDemo() {
           {/* === DASHBOARD VIEW === */}
           <div className="dash-main-view" style={{ padding: "22px 24px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-              <span style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 800, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>Ulti<span style={{ color: "#8FA663" }}>App</span></span>
+              <span style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 800, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>Ulti<span style={{ color: "#4FA3D8" }}>App</span></span>
               <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "var(--color-ink-3)" }}>
                 <span>UG BV</span>
                 <div style={{ width: 24, height: 24, borderRadius: "50%", background: "var(--color-ink)", color: "var(--color-paper)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontSize: 10, fontWeight: 700 }}>U</div>
@@ -410,7 +410,7 @@ export default function DashboardDemo() {
                     <span className="dash-row-stock" data-stock-val data-target={row.target} data-suffix=" st">0 st</span>
                   </div>
                   <div style={{ marginTop: 6, height: 4, background: "var(--color-paper-3)", borderRadius: 999, overflow: "hidden" }}>
-                    <div data-bar-fill data-target={row.bar} style={{ height: "100%", background: "var(--color-ok)", width: "0%", transition: "width 0.9s cubic-bezier(0.2,0.8,0.2,1)" }} />
+                    <div data-bar-fill data-target={row.bar} style={{ height: "100%", background: "var(--pine)", width: "0%", transition: "width 0.9s cubic-bezier(0.2,0.8,0.2,1)" }} />
                   </div>
                 </div>
               ))}
@@ -426,8 +426,8 @@ export default function DashboardDemo() {
               </div>
               <div className="dash-pill" data-pill="2" style={{ background: "var(--color-paper)", border: "1px solid var(--color-line)", borderRadius: 8, padding: "10px 12px", display: "flex", flexDirection: "column", gap: 2, transform: "translateY(8px)", opacity: 0, transition: "opacity 0.4s, transform 0.4s" }}>
                 <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--color-ink-3)" }}>AFR-2026-038</div>
-                <div style={{ fontSize: 11, fontWeight: 600, color: "var(--color-ok)", display: "flex", alignItems: "center", gap: 6 }}>
-                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--color-ok)", display: "block" }} />Geleverd
+                <div style={{ fontSize: 11, fontWeight: 600, color: "var(--moss)", display: "flex", alignItems: "center", gap: 6 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--moss)", display: "block" }} />Geleverd
                 </div>
               </div>
             </div>
@@ -472,13 +472,13 @@ export default function DashboardDemo() {
             {/* Leveringslijst */}
             <div style={{ marginTop: 12, borderTop: "1px solid var(--color-line)", paddingTop: 10 }}>
               <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-ink-3)", marginBottom: 8 }}>Geplande levering</div>
-              <div className="cal-delivery-row" style={{ display: "none", alignItems: "center", gap: 10, padding: "10px 12px", background: "#E0F4E9", borderRadius: 6, border: "1px solid var(--color-ok)" }}>
-                <span style={{ width: 8, height: 28, background: "var(--color-ok)", borderRadius: 2, flexShrink: 0, display: "block" }} />
+              <div className="cal-delivery-row" style={{ display: "none", alignItems: "center", gap: 10, padding: "10px 12px", background: "#E8F0F8", borderRadius: 6, border: "1px solid var(--pine)" }}>
+                <span style={{ width: 8, height: 28, background: "var(--pine)", borderRadius: 2, flexShrink: 0, display: "block" }} />
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontFamily: "var(--font-display)", fontSize: 12, fontWeight: 700, color: "var(--color-ok)" }}>160 × UGA348 · 1500×3000</div>
+                  <div style={{ fontFamily: "var(--font-display)", fontSize: 12, fontWeight: 700, color: "var(--pine)" }}>160 × UGA348 · 1500×3000</div>
                   <div style={{ fontSize: 10, color: "var(--color-ink-3)", marginTop: 2 }}>Industrielaan · Kortrijk · Ingepland</div>
                 </div>
-                <span style={{ fontSize: 9, fontWeight: 700, color: "var(--color-ok)", background: "#fff", padding: "2px 7px", borderRadius: 999, border: "1px solid var(--color-ok)", whiteSpace: "nowrap" }}>✓ Bevestigd</span>
+                <span style={{ fontSize: 9, fontWeight: 700, color: "var(--pine)", background: "#fff", padding: "2px 7px", borderRadius: 999, border: "1px solid var(--pine)", whiteSpace: "nowrap" }}>✓ Bevestigd</span>
               </div>
             </div>
           </div>
@@ -526,7 +526,7 @@ export default function DashboardDemo() {
               <span style={{ color: "var(--color-ink-3)" }}>Adres</span>
               <span style={{ fontFamily: "var(--font-mono)", fontSize: 10, fontWeight: 500 }}>Industrielaan · Kortrijk</span>
             </div>
-            <button className="demo-modal-cta-1" style={{ width: "100%", background: "var(--color-ok)", color: "#fff", border: "none", padding: "11px 0", borderRadius: 6, fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+            <button className="demo-modal-cta-1" style={{ width: "100%", background: "var(--pine)", color: "#fff", border: "none", padding: "11px 0", borderRadius: 6, fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
               Kies datum
             </button>
@@ -570,7 +570,7 @@ export default function DashboardDemo() {
                 </div>
               ))}
             </div>
-            <button className="demo-modal-cta-2" style={{ width: "100%", background: "var(--color-ok)", color: "#fff", border: "none", padding: "9px 0", borderRadius: 6, fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+            <button className="demo-modal-cta-2" style={{ width: "100%", background: "var(--pine)", color: "#fff", border: "none", padding: "9px 0", borderRadius: 6, fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
               Bevestig afroep
             </button>
           </div>
@@ -602,15 +602,15 @@ export default function DashboardDemo() {
         #demo-dash[data-scene="2"]::before { content: '02 · Bestel'; background: var(--color-blue); }
         #demo-dash[data-scene="3"]::before { content: '03 · Afroep plaatsen'; background: var(--color-blue); }
         #demo-dash[data-scene="4"]::before { content: '04 · Kies datum'; background: var(--color-ink-3); }
-        #demo-dash[data-scene="5"]::before { content: '05 · Bevestigd'; background: var(--color-ok); }
+        #demo-dash[data-scene="5"]::before { content: '05 · Bevestigd'; background: var(--pine); }
         #demo-dash[data-scene="6"]::before { content: '06 · Kalender'; background: var(--color-ink); }
 
         #demo-dash .demo-scene-dot.active { background: var(--color-blue) !important; }
         #demo-dash .demo-scene-dot.past   { background: rgba(31,35,40,0.35) !important; }
 
         #demo-dash .demo-toast.shown { transform: translateX(0) !important; opacity: 1 !important; }
-        #demo-dash .demo-toast.ok { border-left-color: var(--color-ok) !important; }
-        #demo-dash .demo-toast.ok svg { color: var(--color-ok) !important; }
+        #demo-dash .demo-toast.ok { border-left-color: var(--pine) !important; }
+        #demo-dash .demo-toast.ok svg { color: var(--pine) !important; }
 
         #demo-dash .demo-modal-backdrop.shown { opacity: 1 !important; pointer-events: auto !important; }
         #demo-dash .demo-modal.shown { transform: none !important; opacity: 1 !important; }
@@ -620,17 +620,17 @@ export default function DashboardDemo() {
         #demo-dash .click-ripple.go { animation: dash-ripple 0.6s ease-out forwards; }
 
         #demo-dash .dash-pill.shown { transform: none !important; opacity: 1 !important; }
-        #demo-dash .dash-pill.new   { box-shadow: 0 0 0 2px var(--color-ok); }
+        #demo-dash .dash-pill.new   { box-shadow: 0 0 0 2px var(--pine); }
 
         #demo-dash .mini-cal-day.selected {
-          background: var(--color-ok) !important;
+          background: var(--pine) !important;
           color: #fff !important;
-          border-color: var(--color-ok) !important;
+          border-color: var(--pine) !important;
           font-weight: 700;
         }
 
         #demo-dash .cal-day-target.event {
-          background: var(--color-ok) !important;
+          background: var(--pine) !important;
           color: #fff !important;
           font-weight: 700 !important;
           border-radius: 6px !important;

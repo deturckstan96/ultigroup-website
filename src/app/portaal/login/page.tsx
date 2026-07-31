@@ -14,9 +14,9 @@ export default function LoginPage() {
         </div>
 
         {/* Card */}
-        <div className="bg-white border border-[#E1DDD0] p-8" style={{ borderRadius: 0 }}>
+        <div className="bg-white border border-[#D3DBE7] p-8" style={{ borderRadius: 0 }}>
           <h2
-            className="text-lg font-bold text-[#14352A] mb-1"
+            className="text-lg font-bold text-[#0C355F] mb-1"
             style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}
           >
             Inloggen
@@ -30,7 +30,7 @@ export default function LoginPage() {
             <a
               href="mailto:info@ultigroup.be"
               className="hover:underline"
-              style={{ color: "#5A8C4A" }}
+              style={{ color: "#007EBE" }}
             >
               Contacteer ULTI GROUP
             </a>

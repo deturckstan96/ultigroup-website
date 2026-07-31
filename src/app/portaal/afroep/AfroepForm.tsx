@@ -72,7 +72,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
   if (artikelen.length === 0) {
     return (
       <div className="p-8 max-w-2xl">
-        <div className="bg-white border border-[#E1DDD0] p-12 text-center">
+        <div className="bg-white border border-[#D3DBE7] p-12 text-center">
           <p className="text-[#1F2328]/40 text-sm">Geen palletartikelen gevonden voor uw account.</p>
         </div>
       </div>
@@ -84,7 +84,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
     const gekozenIo = ioNummers.find((io) => io.id === ioId);
     return (
       <div className="p-8 max-w-2xl">
-        <div className="bg-white border border-[#E1DDD0] rounded-2xl p-10 text-center">
+        <div className="bg-white border border-[#D3DBE7] rounded-2xl p-10 text-center">
           <div className="w-14 h-14 bg-[#2E7D32]/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg className="w-7 h-7 text-[#2E7D32]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -101,7 +101,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
             <div className="flex justify-between">
               <span className="text-[#1F2328]/40">Artikel</span>
               <span className="font-semibold text-[#1F2328]">
-                <span className="text-[#14352A] mr-2">{geselecteerd.nr}</span>{geselecteerd.naam}
+                <span className="text-[#0C355F] mr-2">{geselecteerd.nr}</span>{geselecteerd.naam}
               </span>
             </div>
             <div className="flex justify-between">
@@ -123,7 +123,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
             {gekozenIo && (
               <div className="flex justify-between">
                 <span className="text-[#1F2328]/40">IO-nummer</span>
-                <span className="font-semibold text-[#14352A] font-mono">{gekozenIo.io_nummer}</span>
+                <span className="font-semibold text-[#0C355F] font-mono">{gekozenIo.io_nummer}</span>
               </div>
             )}
             {klantRef && (
@@ -136,13 +136,13 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
           <div className="flex gap-3">
             <button
               onClick={() => router.push("/portaal/afroepen")}
-              className="flex-1 py-2.5 bg-[#14352A] text-white text-sm font-semibold rounded-lg hover:bg-[#1F4A38] transition-colors"
+              className="flex-1 py-2.5 bg-[#0C355F] text-white text-sm font-semibold rounded-lg hover:bg-[#10457A] transition-colors"
             >
               Mijn afroepen
             </button>
             <button
               onClick={() => { setIngediend(false); setStuks(""); setDatum(""); setKlantRef(""); setOpmerking(""); setIoId(null); }}
-              className="flex-1 py-2.5 border border-[#1F2328]/20 text-[#1F2328] text-sm font-semibold rounded-lg hover:border-[#E1DDD0/60]0 transition-colors"
+              className="flex-1 py-2.5 border border-[#1F2328]/20 text-[#1F2328] text-sm font-semibold rounded-lg hover:border-[#D3DBE7/60]0 transition-colors"
             >
               Nieuwe afroep
             </button>
@@ -167,7 +167,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
       <form onSubmit={handleSubmit} className="space-y-5">
 
         {/* Artikel selectie */}
-        <div className="bg-white border border-[#E1DDD0] p-6">
+        <div className="bg-white border border-[#D3DBE7] p-6">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/40 mb-4">
             Welk artikel?
           </h2>
@@ -179,8 +179,8 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
                   key={art.nr}
                   className={`flex items-center justify-between p-3.5 rounded-lg border cursor-pointer transition-colors ${
                     selected
-                      ? "border-[#14352A] bg-[#14352A]/6"
-                      : "border-[#E1DDD0] hover:border-[#1F2328]/25 bg-white"
+                      ? "border-[#0C355F] bg-[#0C355F]/6"
+                      : "border-[#D3DBE7] hover:border-[#1F2328]/25 bg-white"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -190,12 +190,12 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
                       value={art.nr}
                       checked={selected}
                       onChange={() => { setArtikelNr(art.nr); setStuks(""); setIoId(null); }}
-                      className="accent-[#14352A]"
+                      className="accent-[#0C355F]"
                     />
                     <div>
                       {/* UGA nummer prominent */}
                       <div className="flex items-center gap-2 mb-0.5">
-                        <span className="text-xs font-bold text-[#14352A]">{art.nr}</span>
+                        <span className="text-xs font-bold text-[#0C355F]">{art.nr}</span>
                         <span className="text-sm font-medium text-[#1F2328]">{art.naam}</span>
                       </div>
                       <p className="text-xs text-[#1F2328]/35">
@@ -231,7 +231,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
               <button
                 type="button"
                 onClick={() => setStuks(String(geselecteerd.vorige_stuks))}
-                className="text-xs text-[#14352A] font-semibold hover:underline shrink-0 ml-3"
+                className="text-xs text-[#0C355F] font-semibold hover:underline shrink-0 ml-3"
               >
                 Herhaal →
               </button>
@@ -240,7 +240,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
         </div>
 
         {/* Hoeveelheid & datum */}
-        <div className="bg-white border border-[#E1DDD0] p-6">
+        <div className="bg-white border border-[#D3DBE7] p-6">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/40 mb-4">
             Hoeveel &amp; wanneer?
           </h2>
@@ -259,7 +259,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
                 placeholder={geselecteerd?.totaal_stock
                   ? `max. ${geselecteerd.totaal_stock.toLocaleString("nl-BE")}`
                   : "Aantal"}
-                className="w-full border border-[#1F2328]/15 rounded-lg px-3.5 py-2.5 text-sm text-[#1F2328] placeholder-[#1F2328]/25 focus:outline-none focus:border-[#14352A] transition-colors"
+                className="w-full border border-[#1F2328]/15 rounded-lg px-3.5 py-2.5 text-sm text-[#1F2328] placeholder-[#1F2328]/25 focus:outline-none focus:border-[#0C355F] transition-colors"
               />
               {geselecteerd && (
                 <p className="text-xs text-[#1F2328]/35 mt-1">
@@ -277,14 +277,14 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
                 value={datum}
                 onChange={(e) => setDatum(e.target.value)}
                 min={new Date(Date.now() + 2 * 86400000).toISOString().split("T")[0]}
-                className="w-full border border-[#1F2328]/15 rounded-lg px-3.5 py-2.5 text-sm text-[#1F2328] focus:outline-none focus:border-[#14352A] transition-colors"
+                className="w-full border border-[#1F2328]/15 rounded-lg px-3.5 py-2.5 text-sm text-[#1F2328] focus:outline-none focus:border-[#0C355F] transition-colors"
               />
             </div>
           </div>
         </div>
 
         {/* Leveradres */}
-        <div className="bg-white border border-[#E1DDD0] p-6">
+        <div className="bg-white border border-[#D3DBE7] p-6">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/40 mb-4">
             Leveradres
           </h2>
@@ -297,8 +297,8 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
                   key={adr.id}
                   className={`flex items-center gap-3 p-3.5 rounded-lg border cursor-pointer transition-colors ${
                     adresId === adr.id
-                      ? "border-[#14352A] bg-[#14352A]/6"
-                      : "border-[#E1DDD0] hover:border-[#1F2328]/25 bg-white"
+                      ? "border-[#0C355F] bg-[#0C355F]/6"
+                      : "border-[#D3DBE7] hover:border-[#1F2328]/25 bg-white"
                   }`}
                 >
                   <input
@@ -307,7 +307,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
                     value={adr.id}
                     checked={adresId === adr.id}
                     onChange={() => setAdresId(adr.id)}
-                    className="accent-[#14352A]"
+                    className="accent-[#0C355F]"
                   />
                   <div>
                     {adr.bedrijfsnaam && (
@@ -317,7 +317,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
                     <p className="text-xs text-[#1F2328]/40">{adr.postcode} {adr.stad}{adr.land ? `, ${adr.land}` : ""}</p>
                   </div>
                   {adr.is_standaard && (
-                    <span className="ml-auto text-xs text-[#14352A] font-medium bg-[#14352A]/8 border border-[#14352A]/20 rounded px-2 py-0.5 shrink-0">
+                    <span className="ml-auto text-xs text-[#0C355F] font-medium bg-[#0C355F]/8 border border-[#0C355F]/20 rounded px-2 py-0.5 shrink-0">
                       Standaard
                     </span>
                   )}
@@ -329,7 +329,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
 
         {/* IO-nummer keuze (enkel als er IOs zijn voor dit artikel) */}
         {heeftIos && (
-          <div className="bg-white border border-[#E1DDD0] p-6">
+          <div className="bg-white border border-[#D3DBE7] p-6">
             <h2 className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/40 mb-1">
               IO-nummer
             </h2>
@@ -347,8 +347,8 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
                     key={io.id}
                     className={`flex items-start justify-between p-3.5 rounded-lg border cursor-pointer transition-colors ${
                       geselecteerdIo
-                        ? "border-[#14352A] bg-[#14352A]/6"
-                        : "border-[#E1DDD0] hover:border-[#1F2328]/25 bg-white"
+                        ? "border-[#0C355F] bg-[#0C355F]/6"
+                        : "border-[#D3DBE7] hover:border-[#1F2328]/25 bg-white"
                     }`}
                   >
                     <div className="flex items-start gap-3">
@@ -358,10 +358,10 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
                         value={io.id}
                         checked={geselecteerdIo}
                         onChange={() => setIoId(io.id)}
-                        className="accent-[#14352A] mt-0.5"
+                        className="accent-[#0C355F] mt-0.5"
                       />
                       <div>
-                        <p className="text-sm font-bold text-[#14352A] font-mono">{io.io_nummer}</p>
+                        <p className="text-sm font-bold text-[#0C355F] font-mono">{io.io_nummer}</p>
                         <p className="text-xs text-[#1F2328]/50 mt-0.5">
                           {io.item_name ?? io.item_id}
                         </p>
@@ -377,7 +377,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
                       <p className="text-xs text-[#1F2328]/35">beschikbaar</p>
                       <div className="w-20 h-1.5 bg-[#1F2328]/10 rounded-full mt-1.5 overflow-hidden">
                         <div
-                          className={`h-full rounded-full ${laag ? "bg-amber-500" : "bg-[#14352A]"}`}
+                          className={`h-full rounded-full ${laag ? "bg-amber-500" : "bg-[#0C355F]"}`}
                           style={{ width: `${Math.max(0, Math.min(100, pct))}%` }}
                         />
                       </div>
@@ -404,7 +404,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
         )}
 
         {/* Referentie & opmerking */}
-        <div className="bg-white border border-[#E1DDD0] p-6">
+        <div className="bg-white border border-[#D3DBE7] p-6">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-[#1F2328]/40 mb-4">
             Extra info (optioneel)
           </h2>
@@ -418,7 +418,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
                 value={klantRef}
                 onChange={(e) => setKlantRef(e.target.value)}
                 placeholder="bv. IO/27694"
-                className="w-full border border-[#1F2328]/15 rounded-lg px-3.5 py-2.5 text-sm text-[#1F2328] placeholder-[#1F2328]/25 focus:outline-none focus:border-[#14352A] transition-colors"
+                className="w-full border border-[#1F2328]/15 rounded-lg px-3.5 py-2.5 text-sm text-[#1F2328] placeholder-[#1F2328]/25 focus:outline-none focus:border-[#0C355F] transition-colors"
               />
             </div>
             <div>
@@ -430,7 +430,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
                 value={opmerking}
                 onChange={(e) => setOpmerking(e.target.value)}
                 placeholder="Bijzondere instructies, voorkeur voor levering, ..."
-                className="w-full border border-[#1F2328]/15 rounded-lg px-3.5 py-2.5 text-sm text-[#1F2328] placeholder-[#1F2328]/25 focus:outline-none focus:border-[#14352A] transition-colors resize-none"
+                className="w-full border border-[#1F2328]/15 rounded-lg px-3.5 py-2.5 text-sm text-[#1F2328] placeholder-[#1F2328]/25 focus:outline-none focus:border-[#0C355F] transition-colors resize-none"
               />
             </div>
           </div>
@@ -444,7 +444,7 @@ export default function AfroepForm({ artikelen, klantNaam, leveradressen, ioNumm
         <button
           type="submit"
           disabled={bezig}
-          className="w-full py-3.5 bg-[#14352A] text-white font-bold text-sm rounded-xl hover:bg-[#1F4A38] transition-colors disabled:opacity-60 disabled:cursor-wait"
+          className="w-full py-3.5 bg-[#0C355F] text-white font-bold text-sm rounded-xl hover:bg-[#10457A] transition-colors disabled:opacity-60 disabled:cursor-wait"
         >
           {bezig ? "Bezig met indienen…" : "Afroep indienen"}
         </button>

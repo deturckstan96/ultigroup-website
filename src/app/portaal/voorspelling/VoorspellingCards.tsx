@@ -14,7 +14,7 @@ import {
 import type { ArtikelVoorspelling, DagPunt } from "./page";
 
 const trendLabel = {
-  stijgend: { text: "↑ Stijgend", color: "text-blue-600" },
+  stijgend: { text: "↑ Stijgend", color: "text-[#007EBE]" },
   dalend: { text: "↓ Dalend", color: "text-amber-600" },
   stabiel: { text: "→ Stabiel", color: "text-[#1F2328]/50" },
 };
@@ -137,7 +137,7 @@ function VoorspellingChart({
 
         <Line
           dataKey="historisch"
-          stroke="#14352A"
+          stroke="#0C355F"
           strokeWidth={2}
           dot={false}
           connectNulls={false}
@@ -145,7 +145,7 @@ function VoorspellingChart({
         />
         <Line
           dataKey="forecast"
-          stroke="#14352A"
+          stroke="#0C355F"
           strokeWidth={2}
           strokeDasharray="5 4"
           dot={false}
@@ -172,7 +172,7 @@ export default function VoorspellingCards({ voorspellingen }: { voorspellingen: 
             <div className="flex items-center justify-between px-6 py-3 border-b border-[#1F2328]/6">
               <div className="flex items-center gap-3">
                 <div className={`w-2 h-2 rounded-full ${s.dot}`} />
-                <span className="text-xs font-bold text-[#14352A] bg-[#14352A]/8 border border-[#14352A]/15 rounded px-2 py-0.5">
+                <span className="text-xs font-bold text-[#0C355F] bg-[#0C355F]/8 border border-[#0C355F]/15 rounded px-2 py-0.5">
                   {v.nr}
                 </span>
                 <span className="text-sm font-semibold text-[#1F2328]">{v.naam}</span>
@@ -182,7 +182,7 @@ export default function VoorspellingCards({ voorspellingen }: { voorspellingen: 
               </div>
               <Link
                 href={`/portaal/afroep?artikel=${v.nr}`}
-                className="text-xs text-[#14352A] font-semibold hover:underline shrink-0"
+                className="text-xs text-[#0C355F] font-semibold hover:underline shrink-0"
               >
                 Afroep plaatsen →
               </Link>
@@ -297,11 +297,11 @@ export default function VoorspellingCards({ voorspellingen }: { voorspellingen: 
                   <>
                     <div className="flex items-center gap-4 mb-3">
                       <div className="flex items-center gap-1.5">
-                        <div className="w-6 h-0.5 bg-[#14352A] rounded" />
+                        <div className="w-6 h-0.5 bg-[#0C355F] rounded" />
                         <span className="text-[10px] text-[#1F2328]/40">Historisch</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <div className="w-6 h-0.5 bg-[#14352A] rounded border-dashed" style={{ borderTop: "2px dashed #14352A", height: 0 }} />
+                        <div className="w-6 h-0.5 bg-[#0C355F] rounded border-dashed" style={{ borderTop: "2px dashed #0C355F", height: 0 }} />
                         <span className="text-[10px] text-[#1F2328]/40">Verwacht</span>
                       </div>
                     </div>

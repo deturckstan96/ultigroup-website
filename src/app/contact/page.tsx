@@ -160,9 +160,9 @@ export default function ContactPage() {
               )}
 
               <button type="submit" disabled={status === "sending" || status === "ok"}
-                style={{ background: "#14352A", color: "#fff", border: "none", padding: "16px 24px", fontFamily: "var(--font-sans)", fontSize: 14, fontWeight: 600, cursor: status === "ok" ? "default" : "pointer", letterSpacing: "0.01em", opacity: status === "sending" ? 0.7 : 1 }}
-                onMouseEnter={e => { if (status !== "ok") (e.currentTarget as HTMLButtonElement).style.background = "#1F4A38"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "#14352A"; }}>
+                style={{ background: "#0C355F", color: "#fff", border: "none", padding: "16px 24px", fontFamily: "var(--font-sans)", fontSize: 14, fontWeight: 600, cursor: status === "ok" ? "default" : "pointer", letterSpacing: "0.01em", opacity: status === "sending" ? 0.7 : 1 }}
+                onMouseEnter={e => { if (status !== "ok") (e.currentTarget as HTMLButtonElement).style.background = "#10457A"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "#0C355F"; }}>
                 {status === "sending" ? "Versturen…" : status === "ok" ? "Verzonden ✓" : "Verstuur bericht →"}
               </button>
             </form>

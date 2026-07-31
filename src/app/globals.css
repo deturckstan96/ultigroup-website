@@ -1,34 +1,38 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Pine — primair */
-  --color-pine:    #14352A;
-  --color-pine-2:  #1F4A38;
-  --color-pine-3:  #2D5C44;
+  /* Navy — primair (uit logo: "ulti" + vlek) */
+  --color-pine:    #0C355F;
+  --color-pine-2:  #10457A;
+  --color-pine-3:  #1C5A93;
 
-  /* Accent */
-  --color-accent:  #5A8C4A;
-  --color-moss:    #8FA663;
+  /* Accent — helderblauw (uit logo: "group") */
+  --color-accent:  #007EBE;
+  --color-moss:    #4FA3D8;
 
   /* Tekst */
   --color-ink:     #1F2328;
   --color-ink-2:   #3A3F46;
   --color-ink-3:   #6B7280;
 
-  /* Achtergronden */
-  --color-cream:   #EEF0EA;
-  --color-cream-2: #E4E8E0;
+  /* Achtergronden — koel licht (past bij navy) */
+  --color-cream:   #EEF2F7;
+  --color-cream-2: #E1E8F1;
   --color-paper:   #FFFFFF;
-  --color-paper-2: #F4F6F1;
+  --color-paper-2: #F2F6FB;
 
   /* Lijnen */
-  --color-line:    #D8DDD4;
+  --color-line:    #D3DBE7;
   --color-line-2:  #D1D5DB;
 
   /* Semantisch */
   --color-ok:      #2D6A4F;
   --color-warn:    #C77A18;
   --color-crit:    #C0392B;
+
+  /* Merk-blauw aliassen (legacy var(--color-blue) referenties) */
+  --color-blue:    #0C355F;
+  --color-blue-50: #E1E8F1;
 
   /* Fonts */
   --font-sans:    var(--font-body);
@@ -37,19 +41,19 @@
 }
 
 :root {
-  --pine:    #14352A;
-  --pine-2:  #1F4A38;
-  --pine-3:  #2D5C44;
-  --accent:  #5A8C4A;
-  --moss:    #8FA663;
-  --cream:   #EEF0EA;
-  --cream-2: #E4E8E0;
+  --pine:    #0C355F;
+  --pine-2:  #10457A;
+  --pine-3:  #1C5A93;
+  --accent:  #007EBE;
+  --moss:    #4FA3D8;
+  --cream:   #EEF2F7;
+  --cream-2: #E1E8F1;
   --paper:   #FFFFFF;
-  --paper-2: #F4F6F1;
+  --paper-2: #F2F6FB;
   --ink:     #1F2328;
   --ink-2:   #3A3F46;
   --ink-3:   #6B7280;
-  --line:    #D8DDD4;
+  --line:    #D3DBE7;
   --line-2:  #D1D5DB;
   --ok:      #2D6A4F;
   --warn:    #C77A18;
